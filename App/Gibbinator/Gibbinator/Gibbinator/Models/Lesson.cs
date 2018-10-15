@@ -14,6 +14,6 @@ namespace Gibbinator.Models
         public String Description { get; set; }
         public String Course { get; set; }
         public Room RoomId { get; set; }
-        public List<Task> Tasks{ get; set; }
+        public List<Assignment> Tasks{ get; set; }
     }
 }

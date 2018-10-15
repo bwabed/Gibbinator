@@ -4,9 +4,11 @@ using System.Text;
 
 namespace Gibbinator.Models
 {
-    class TaskType
+    class Assignment
     {
-        public int TaskTypeId { get; set; }
+        public int TaskId { get; set; }
+        public string Title { get; set; }
         public string Description { get; set; }
+        public AssignmentType TaskType { get; set; }
     }
 }
