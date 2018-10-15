@@ -1,5 +1,7 @@
 <?php
 require_once 'lib/Validator.php';
+require_once 'view/View.php';
+require_once 'lib/session.php';
 
 
 /**
@@ -16,9 +18,17 @@ require_once 'lib/Validator.php';
  */
 
 class Dispatcher{
-	
+
+    private function setSessionVarsToView($view) {
+        $session = new SessionManager();
+        $session->sessionLoad();
+        $view->isLogdin = $session->getIsLogdin();
+        $view->userName = $session->username;
+    }
+
 	/**
 	 * Standart Aufruf ohne Request Parameter
+     * Test
 	 */
 	function loadDefault() {
         $contentView = new View("view/main_content.php");

@@ -1,6 +1,6 @@
 <!-- Die Zeile mit dem Login falls der Benutzer nicht eingelogt ist sonst der Abmelde Button -->
 <div id="header">
-	<h1 id="title">Pics are love</h1>
+	<h1 id="title">Gibbinator</h1>
 <?php if($isLogdin == false){ ?>
  <div id="login">
  	<form action="index.php" method="post"  onsubmit="return validateLogin();">
