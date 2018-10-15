@@ -18,6 +18,7 @@ namespace Gibbinator.Views
             MasterBehavior = MasterBehavior.Popover;
 
             MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
+            MenuPages.Add((int)MenuItemType.Schedule, new NavigationPage(new SchedulePage()));
         }
 
         public async Task NavigateFromMenu(int id)
@@ -31,6 +32,9 @@ namespace Gibbinator.Views
                         break;
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
+                        break;
+                    case (int)MenuItemType.Schedule:
+                        MenuPages.Add(id, new NavigationPage(new SchedulePage()));
                         break;
                 }
             }

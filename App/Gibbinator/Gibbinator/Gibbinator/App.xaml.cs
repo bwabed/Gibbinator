@@ -11,6 +11,7 @@ namespace Gibbinator
 
         public App()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzQ0MDhAMzEzNjJlMzMyZTMwWkRxZWVET1E0K1lhM3c5bHh4MzRwM2ZkbVl3VTFiT0UxbTdEdER2MFlBOD0=");
             InitializeComponent();
 
 
