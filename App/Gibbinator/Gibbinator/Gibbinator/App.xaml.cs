@@ -11,12 +11,20 @@ namespace Gibbinator
     public partial class App : Application
     {
         static GibbinatorDatabase database;
+        public static bool IsUserLoggedIn { get; set; }
 
         public App()
         {
             InitializeComponent();
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("MzQ0MDhAMzEzNjJlMzMyZTMwWkRxZWVET1E0K1lhM3c5bHh4MzRwM2ZkbVl3VTFiT0UxbTdEdER2MFlBOD0=");
-            MainPage = new MainPage();
+            if (!IsUserLoggedIn)
+            {
+                MainPage = new NavigationPage(new LoginPage());
+            }
+            else
+            {
+                MainPage = new NavigationPage(new MainPage());
+            }
         }
 
         public static GibbinatorDatabase Database

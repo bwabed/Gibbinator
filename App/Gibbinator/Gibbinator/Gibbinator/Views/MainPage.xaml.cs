@@ -16,8 +16,7 @@ namespace Gibbinator.Views
             InitializeComponent();
 
             MasterBehavior = MasterBehavior.Popover;
-
-            MenuPages.Add((int)MenuItemType.Schedule, new NavigationPage(new SchedulePage()));
+            
             MenuPages.Add((int)MenuItemType.Upcoming, new NavigationPage(new UpcomingPage()));
             MenuPages.Add((int)MenuItemType.Messages, new NavigationPage(new MessagesPage()));
             MenuPages.Add((int)MenuItemType.Teachers, new NavigationPage(new TeacherPage()));
