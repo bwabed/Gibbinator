@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Gibbinator.Models
 {
-    class Building
+    public class Building
     {
         public int BuildingId { get; set; }
         public string Description { get; set; }
