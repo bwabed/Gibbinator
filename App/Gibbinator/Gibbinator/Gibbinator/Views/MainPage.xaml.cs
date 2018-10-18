@@ -17,8 +17,11 @@ namespace Gibbinator.Views
 
             MasterBehavior = MasterBehavior.Popover;
 
-            MenuPages.Add((int)MenuItemType.Browse, (NavigationPage)Detail);
             MenuPages.Add((int)MenuItemType.Schedule, new NavigationPage(new SchedulePage()));
+            MenuPages.Add((int)MenuItemType.Upcoming, new NavigationPage(new UpcomingPage()));
+            MenuPages.Add((int)MenuItemType.Messages, new NavigationPage(new MessagesPage()));
+            MenuPages.Add((int)MenuItemType.Teachers, new NavigationPage(new TeacherPage()));
+            MenuPages.Add((int)MenuItemType.Calculator, new NavigationPage(new CalculatorPage()));
         }
 
         public async Task NavigateFromMenu(int id)
@@ -27,15 +30,25 @@ namespace Gibbinator.Views
             {
                 switch (id)
                 {
-                    case (int)MenuItemType.Browse:
-                        MenuPages.Add(id, new NavigationPage(new ItemsPage()));
+                    case (int)MenuItemType.Schedule:
+                        MenuPages.Add(id, new NavigationPage(new SchedulePage()));
+                        break;
+                    case (int)MenuItemType.Upcoming:
+                        MenuPages.Add(id, new NavigationPage(new UpcomingPage()));
+                        break;
+                    case (int)MenuItemType.Messages:
+                        MenuPages.Add(id, new NavigationPage(new MessagesPage()));
+                        break;
+                    case (int)MenuItemType.Teachers:
+                        MenuPages.Add(id, new NavigationPage(new TeacherPage()));
+                        break;
+                    case (int)MenuItemType.Calculator:
+                        MenuPages.Add(id, new NavigationPage(new CalculatorPage()));
                         break;
                     case (int)MenuItemType.About:
                         MenuPages.Add(id, new NavigationPage(new AboutPage()));
                         break;
-                    case (int)MenuItemType.Schedule:
-                        MenuPages.Add(id, new NavigationPage(new SchedulePage()));
-                        break;
+
                 }
             }
 

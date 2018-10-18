@@ -6,9 +6,12 @@ namespace Gibbinator.Models
 {
     public enum MenuItemType
     {
-        Browse,
-        About,
-        Schedule
+        Schedule,
+        Upcoming,
+        Messages,
+        Teachers, 
+        Calculator,
+        About
     }
     public class HomeMenuItem
     {

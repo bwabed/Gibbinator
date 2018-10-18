@@ -18,9 +18,12 @@ namespace Gibbinator.Views
 
             menuItems = new List<HomeMenuItem>
             {
-                new HomeMenuItem {Id = MenuItemType.Browse, Title="Browse" },
-                new HomeMenuItem {Id = MenuItemType.About, Title="About" },
-                new HomeMenuItem {Id = MenuItemType.Schedule, Title="Schedule" }
+                new HomeMenuItem {Id = MenuItemType.Schedule, Title="Stundenplan" },
+                new HomeMenuItem {Id = MenuItemType.Upcoming, Title="Anstehendes" },
+                new HomeMenuItem {Id = MenuItemType.Messages, Title="Mitteilungen" },
+                new HomeMenuItem {Id = MenuItemType.Teachers, Title="Lehrerliste" },
+                new HomeMenuItem {Id = MenuItemType.Calculator, Title="Notenrechner" },
+                new HomeMenuItem {Id = MenuItemType.About, Title="Über uns" }
             };
 
             ListViewMenu.ItemsSource = menuItems;
