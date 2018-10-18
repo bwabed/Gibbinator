@@ -58,6 +58,9 @@
     <PackageReference Include="Xamarin.Android.Support.v4" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.CardView" Version="27.0.2.1" />
     <PackageReference Include="Xamarin.Android.Support.v7.MediaRouter" Version="27.0.2.1" />
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>0.11.0-preview</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -96,7 +99,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Gibbinator\Gibbinator.csproj">
-      <Project>{F3F5BC70-DED0-478C-B641-A2BBFFA788FF}</Project>
+      <Project>{50A2BA83-EBC6-412F-B73E-6CF447BAC865}</Project>
       <Name>Gibbinator</Name>
     </ProjectReference>
   </ItemGroup>

@@ -136,11 +136,14 @@
       <Version>1.5.231</Version>
     </PackageReference>
     <PackageReference Include="Xamarin.Forms" Version="3.1.0.697729" />
+    <PackageReference Include="Xamarin.Essentials">
+      <Version>0.11.0-preview</Version>
+    </PackageReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\Gibbinator\Gibbinator.csproj">
-      <Project>{F3F5BC70-DED0-478C-B641-A2BBFFA788FF}</Project>
+      <Project>{50A2BA83-EBC6-412F-B73E-6CF447BAC865}</Project>
       <Name>Gibbinator</Name>
     </ProjectReference>
   </ItemGroup>
