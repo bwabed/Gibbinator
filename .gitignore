@@ -284,3 +284,8 @@ UpgradeLog*.htm
 
 # Microsoft Fakes
 FakesAssemblies/
+Website/.idea/Website.iml
+Website/model/.idea/misc.xml
+Website/model/.idea/model.iml
+Website/model/.idea/modules.xml
+Website/model/.idea/workspace.xml
