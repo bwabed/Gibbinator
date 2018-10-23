@@ -1,18 +1,18 @@
 <?php
-session_start();
-?>
-<!DOCTYPE html>
-<html>
-	<?php
-		require_once 'view/header.php';
-	?>
-	<body> 
-	<?php
-		require_once 'control/Dispatcher.php';
-		$dispatcher = new Dispatcher();
-		$dispatcher->dispatch();
-	?>
-		<script type="text/javascript" src="scripts/validation.js"></script>
-	</body>
-</html>
-<!-- -->
+
+/*
+ * Die index.php Datei ist der Einstiegspunkt des MVC. Hier werden zuerst alle
+ * vom Framework benötigten Klassen geladen und danach wird die Anfrage dem
+ * Dispatcher weitergegeben.
+ *
+ * Wie in der .htaccess Datei beschrieben, werden alle Anfragen, welche nicht
+ * auf eine bestehende Datei zeigen hierhin umgeleitet.
+ */
+
+require_once 'lib/Dispatcher.php';
+require_once 'lib/View.php';
+require_once 'lib/Model.php';
+require_once 'lib/formbuilder/FormBuilder.php';
+
+$dispatcher = new Dispatcher();
+$dispatcher->dispatch();
