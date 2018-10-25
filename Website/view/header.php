@@ -9,13 +9,14 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>WATCHSTEAM - Movie Streaming</title>
+    <title>Gibbinator Webapp</title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="/view/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Material Design Lite Core CSS -->
+    <link href="/Website/view/css/material.min.css">
 
     <!-- Custom CSS -->
-    <link href="/view/css/business-casual.css" rel="stylesheet">
+    <link href="/Website/view/css/material.css">
+    <link href="/Website/view/css/style.css" rel="stylesheet">
 
     <!-- Fonts -->
     <link href="http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
