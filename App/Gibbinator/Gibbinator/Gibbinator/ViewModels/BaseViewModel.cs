@@ -12,7 +12,9 @@ namespace Gibbinator.ViewModels
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
-        public IDataStore<Teacher> DataStore => DependencyService.Get<IDataStore<Teacher>>() ?? new MockDataStore();
+        public IDataStore<Teacher> DataStoreTeacher => DependencyService.Get<IDataStore<Teacher>>() ?? new MockDataStore();
+        public IDataStore<Message> DataStoreMessage => DependencyService.Get<IDataStore<Message>>() ?? new MockDataStore();
+        public IDataStore<Lesson> DataStoreLesson => DependencyService.Get<IDataStore<Lesson>>() ?? new MockDataStore();
 
         bool isBusy = false;
         public bool IsBusy

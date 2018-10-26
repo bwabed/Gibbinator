@@ -9,20 +9,20 @@ using Xamarin.Forms;
 
 namespace Gibbinator.ViewModels
 {
-    public class TeachersViewModel : BaseViewModel
+    public class UpcomingViewModel : BaseViewModel
     {
-        public ObservableCollection<Teacher> Teachers { get; set; }
-        public Command LoadTeachersCommand { get; set; }
+        public ObservableCollection<Lesson> Lessons { get; set; }
+        public Command LoadLessonsCommand { get; set; }
 
-        public TeachersViewModel()
+        public UpcomingViewModel()
         {
             Title = "Lehrerliste";
-            Teachers = new ObservableCollection<Teacher>();
-            LoadTeachersCommand = new Command(async () => await ExecuteLoadTeachersCommand());
+            Lessons = new ObservableCollection<Lesson>();
+            LoadLessonsCommand = new Command(async () => await ExecuteLoadLessonsCommand());
 
         }
 
-        async Task ExecuteLoadTeachersCommand()
+        async Task ExecuteLoadLessonsCommand()
         {
             if (IsBusy)
                 return;
@@ -31,11 +31,11 @@ namespace Gibbinator.ViewModels
 
             try
             {
-                Teachers.Clear();
-                var teachers = await DataStoreTeacher.GetTeachersAsync(true);
-                foreach (var teacher in teachers)
+                Lessons.Clear();
+                var lessons = await DataStoreLesson.GetTeachersAsync(true);
+                foreach (var lesson in lessons)
                 {
-                    Teachers.Add(teacher);
+                    Lessons.Add(lesson);
                 }
             }
             catch (Exception ex)
