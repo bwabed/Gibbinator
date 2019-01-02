@@ -1,0 +1,19 @@
+#
+# Die .htaccess Datei schreibt dem Apache Webserver vor, wie er mit Requests auf
+# die Webapplikation umgehen soll.
+#
+# Für das MVC wird mit Hilfe der RewriteEnging die URI des jeweiligen Requests
+# angeschaut und allenfalls auf eine andere Datei umgeleitet.
+
+# Schalte die RewriteEngine ein
+RewriteEngine On
+
+# Aktiviere das Rewriting nur, wenn die URI nicht auf eine bestehende Datei oder
+# ein bestehendes Verzeichnis zeigt. Dies ist wichtig, da ansonsten Dateien,
+# welche nicht über das MVC zur Verfügung gestellt werden (CSS, JavaScript,
+# Bilder) nicht mehr abgerufen werden können.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# Leite alle anderen Anfragen auf die Datei index.php um.
+RewriteRule ^.*$ index.php [PT,L]
