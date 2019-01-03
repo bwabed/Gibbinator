@@ -30,38 +30,47 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.cyan-light_blue.min.css">
 
-    <!-- Template CSS -->
-    <link rel="stylesheet" href="css/styles.css">
-
-
-    <!-- Custom styles for this template -->
-    <link href="css/style.css" rel="stylesheet">
 
     <!-- FullCalendar Framework -->
-    <link href="css/fullcalendar.css" rel="stylesheet"/>
-    <script src="js/jquery-3.3.1.min.js"></script>
-    <script src="js/moment.js"></script>
-    <script src="js/fullcalendar.js"></script>
+    <script src="/view/js/moment.min.js"></script>
+    <script src="/view/js/jquery.min.js"></script>
+    <script src="/view/js/jquery-ui.min.js"></script>
+    <script src="/view/js/fullcalendar.js"></script>
+    <script src="/view/js/de-ch.js"></script>
+    <link href="/view/css/fullcalendar.css" rel="stylesheet"/>
 
+    <!-- Custom styles for this template -->
+    <link href="/view/css/style.css" rel="stylesheet">
+    <link href="/view/css/material.min.css" rel="stylesheet">
+    <script src="/view/js/material.min.js"></script>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style>
-        #view-source {
-            position: fixed;
-            display: block;
-            right: 0;
-            bottom: 0;
-            margin-right: 40px;
-            margin-bottom: 40px;
-            z-index: 900;
-        }
-    </style>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+                $('#calendar').fullCalendar({
+                    selectable: true,
+                    locale: 'de',
+                    header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'month,agendaWeek,agendaDay'
+                    },
+                    dayClick: function(date) {
+                        $('#calendar').fullCalendar('changeView', 'agendaDay', date.format());
+                    }
+                })
+
+            }
+        );
+    </script>
+
 </head>
-<body>
 <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="demo-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
@@ -79,7 +88,7 @@
     </header>
     <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
         <header class="demo-drawer-header">
-            <img src="images/user.jpg" alt="Das Bild konnte nicht gefunden werden" class="demo-avatar"/>
+            <img src="/view/images/user.jpg" alt="Das Bild konnte nicht gefunden werden" class="demo-avatar"/>
             <div class="demo-avatar-dropdown">
                 <span>hello@example.com</span>
                 <div class="mdl-layout-spacer"></div>
@@ -110,3 +119,4 @@
                                                        role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
     </div>
+    <body>
