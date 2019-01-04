@@ -5,7 +5,7 @@
  * selbe Verbindung auf die Datenbank zur Verfügung zu stellen.
  *
  * Bevor die Verbindung verwendet werden kann, muss die Datei config.php
- * entsprechend der Beschrebing in der Datei config.example.php erstellt werden.
+ * entsprechend der Beschrebing in der Datei config.php erstellt werden.
  * Danach kann die Verbindung in den repositories folgendermassen aufgerufen
  * werden.
  *
@@ -48,7 +48,7 @@ class ConnectionHandler
         if (self::$connection === null) {
 
             // Konfigurationsdatei auslesen
-            $config = require '../config.php';
+            $config = require 'config.php';
             $host = $config['database']['host'];
             $username = $config['database']['username'];
             $password = $config['database']['password'];
@@ -61,7 +61,7 @@ class ConnectionHandler
                 throw new Exception("Verbindungsfehler: $error");
             }
 
-            self::$connection->set_charset('utf8');
+            self::$connection->set_charset('latin1_general_cs');
         }
 
         // Verbindung zurückgeben

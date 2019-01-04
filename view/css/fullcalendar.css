@@ -40,13 +40,21 @@ body .fc {
   box-sizing: border-box;
   /* dimensions */
   margin: 0;
-  height: 2.1em;
+  height: 1.7em;
   padding: 0 .6em;
   /* text & cursor */
-  font-size: 1em;
+  font-size: 1.3em;
   /* normalize */
   white-space: nowrap;
   cursor: pointer; }
+
+@media screen and (max-width : 513px)
+{
+  .fc button
+  {
+    font-size: 0.9em;
+  }
+}
 
 /* Firefox has an annoying inner border */
 .fc button::-moz-focus-inner {

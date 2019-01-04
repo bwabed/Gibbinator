@@ -73,7 +73,7 @@ require_once 'ConnectionHandler.php';
  *     throw new Exception("Ein Fehler ist aufgetreten: $result->error");
  *   }
  */
-class Repository
+class Model
 {
     /**
      * Damit die generischen Querys wisse, um welche Tabelle es sich handelt,

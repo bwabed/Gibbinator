@@ -14,10 +14,28 @@
     z-index: 900;
 }
 
-.mdl-separator {
-
+.mdl-drawer-header {
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 16px;
+    height: 151px;
 }
 
+.mdl-layout__drawer {
+    border-right: 0;
+}
+
+.container {
+    min-height: 90vh;
+}
 /**
  * Copyright 2015 Google Inc. All Rights Reserved.
  *

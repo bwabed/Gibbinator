@@ -1,66 +1,24 @@
-<main class="mdl-layout__content mdl-color--grey-100">
-    <div class="mdl-grid mdl-layout__content">
-        <div class="mdl-card mdl-cell mdl-cell--10-col mdl-shadow--2dp mdl-color--white">
-            <div class="mdl-card__title mdl-color--grey-500">
-                <h1>Kalender</h1>
-            </div>
-            <div id="calendar"></div>
-        </div>
-        <div class="demo-cards mdl-cell mdl-cell--2-col mdl-cell--4-col-tablet mdl-grid mdl-grid--no-spacing">
-            <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--4-col-tablet mdl-cell--12-col-desktop">
-                <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                    <h2 class="mdl-card__title-text">Updates</h2>
-                </div>
-                <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                    Non dolore elit adipisicing ea reprehenderit consectetur culpa.
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
-                </div>
-            </div>
-            <div class="mdl-separator mdl-cell--2-col"></div>
-            <div class="demo-options mdl-card mdl-color--deep-purple-500 mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--3-col-tablet mdl-cell--12-col-desktop">
-                <div class="mdl-card__supporting-text mdl-color-text--blue-grey-50">
-                    <h3>View options</h3>
-                    <ul>
-                        <li>
-                            <label for="chkbox1" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                <input type="checkbox" id="chkbox1" class="mdl-checkbox__input">
-                                <span class="mdl-checkbox__label">Click per object</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label for="chkbox2" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                <input type="checkbox" id="chkbox2" class="mdl-checkbox__input">
-                                <span class="mdl-checkbox__label">Views per object</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label for="chkbox3" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                <input type="checkbox" id="chkbox3" class="mdl-checkbox__input">
-                                <span class="mdl-checkbox__label">Objects selected</span>
-                            </label>
-                        </li>
-                        <li>
-                            <label for="chkbox4" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                                <input type="checkbox" id="chkbox4" class="mdl-checkbox__input">
-                                <span class="mdl-checkbox__label">Objects viewed</span>
-                            </label>
-                        </li>
-                    </ul>
-                </div>
-                <div class="mdl-card__actions mdl-card--border">
-                    <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-color-text--blue-grey-50">Change
-                        location</a>
-                    <div class="mdl-layout-spacer"></div>
-                    <i class="material-icons">location_on</i>
-                </div>
-            </div>
-        </div>
+<div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--4-offset-desktop mdl-card-form mdl-shadow--2dp" id="loginCard">
+    <div class="mdl-card__title">
+        <h1 class="mdl-card__title-text">Login</h1>
     </div>
+    <div class="mdl-card__supporting-text mdl-grid">
+        <form action="/user/check_login" method="post">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
+                <input class="mdl-textfield__input" type="text" id="login_username" name="username">
+                <label class="mdl-textfield__label" for="login_username">Username</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
+                <input class="mdl-textfield__input" type="password" id="login_password" name="password">
+                <label class="mdl-textfield__label" for="login_password">Password</label>
+            </div>
+            <div class="mdl-card__actions send-button">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button" id="send">
+                    Login
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
 </main>
 </div>
-<a href="https://github.com/google/material-design-lite/blob/mdl-1.x/templates/dashboard/" target="_blank"
-   id="view-source"
-   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--colored mdl-color-text--white">View
-    Source</a>
