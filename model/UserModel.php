@@ -12,6 +12,7 @@ class UserModel extends Model
     /**
      * Diese Variable wird von der Klasse Model verwendet, um generische
      * Funktionen zur Verfügung zu stellen.
+    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
      */
     protected $tableName = 'user';
 
@@ -44,23 +45,21 @@ class UserModel extends Model
         return $statement->insert_id;
     }
 
-    public function log_in($username, $password) {
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        $query = "SELECT ID, email, password FROM $this->tableName WHERE email = ? AND password = ?";
+    public function log_in($username) {
+        $query = "SELECT * FROM $this->tableName WHERE email = ?";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ss', $username, $hashed_password);
+        $statement->bind_param('s', $username);
         $statement->execute();
         $result = $statement->get_result();
         return $result;
     }
 
-    public function change_password($old_password,$new_password,$username) {
-        $old_password_hash = password_hash($old_password, PASSWORD_DEFAULT);
+    public function change_password($new_password,$userID) {
         $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-        $query = "UPDATE $this->tableName SET passwort = ? where benutzername = ? AND passwort = ?";
+        $query = "UPDATE $this->tableName SET password = ? where ID = ?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);
-        $statement->bind_param('sss', $new_password_hash, $username, $old_password_hash);
+        $statement->bind_param('si', $new_password_hash, $userID);
         $statement->execute();
         return $connection->affected_rows;
     }

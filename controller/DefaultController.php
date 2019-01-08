@@ -31,6 +31,15 @@ class DefaultController
      * welcher Controller und welche Methode aufgerufen wird, ist im Dispatcher
      * beschrieben.
      */
+
+    private $message;
+
+    public function __construct()
+    {
+        $view = new View('header', array('title' => 'Startseite', 'heading' => 'Startseite'));
+        $view->display();
+    }
+
     public function index()
     {
         // In diesem Fall möchten wir dem Benutzer die View mit dem Namen
@@ -50,6 +59,13 @@ class DefaultController
     public function redirectWhenLoggedIn()
     {
         $view = new View('user_index');
+        $view->display();
+    }
+
+    public function __destruct()
+    {
+        $view = new View('footer');
+        $view->message = $this->message;
         $view->display();
     }
 }

@@ -55,13 +55,17 @@
  */
 class View
 {
-    private $viewfile;
-
+    private $viewfile 	= null;
     private $properties = array();
 
-    public function __construct($viewfile)
+    public function __construct($viewfile, $properties = array())
     {
-        $this->viewfile = "view/$viewfile.php";
+        $this->properties = $properties;
+
+        $viewfile = "./view/$viewfile.php";
+        if (file_exists($viewfile)) {
+            $this->viewfile = $viewfile;
+        }
     }
 
     public function __set($key, $value)
@@ -81,9 +85,6 @@ class View
     public function display()
     {
         extract($this->properties);
-
-        require 'view/header.php';
-        require $this->viewfile;
-        require 'view/footer.php';
+        require_once($this->viewfile);
     }
 }

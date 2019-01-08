@@ -1,3 +1,29 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+            $('#calendar').fullCalendar({
+                eventClick: function(eventObj) {
+                    $.post("/")
+                },
+                events: [
+
+                ],
+                selectable: true,
+                locale: 'de',
+                header: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'month,agendaWeek,agendaDay'
+                },
+                dayClick: function (date) {
+                    $('#calendar').fullCalendar('changeView', 'agendaDay', date.format());
+                }
+
+            })
+
+        }
+    );
+</script>
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--9-col mdl-shadow--2dp mdl-color--white">
         <div class="mdl-card__title mdl-color--grey-500">

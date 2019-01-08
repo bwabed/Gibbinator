@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -50,74 +50,81 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-
-                $('#calendar').fullCalendar({
-                    selectable: true,
-                    locale: 'de',
-                    header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'month,agendaWeek,agendaDay'
-                    },
-                    dayClick: function (date) {
-                        $('#calendar').fullCalendar('changeView', 'agendaDay', date.format());
-                    }
-                })
-
-            }
-        );
-    </script>
-
 </head>
+<body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
     <header class="mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
         <div class="mdl-layout__header-row">
-            <span class="mdl-layout-title">Home</span>
+            <span class="mdl-layout-title">Gibbinator</span>
             <div class="mdl-layout-spacer"></div>
             <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
                 <i class="material-icons">more_vert</i>
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-                <li class="mdl-menu__item">About</li>
-                <li class="mdl-menu__item">Contact</li>
-                <li class="mdl-menu__item">Legal information</li>
+                <li class="mdl-menu__item">Über uns</li>
+                <li class="mdl-menu__item">Kontakt</li>
             </ul>
         </div>
     </header>
-    <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <header class="">
-            <img src="/view/images/user.jpg" alt="Das Bild konnte nicht gefunden werden" class="demo-avatar"/>
-            <div class="demo-avatar-dropdown">
-                <span>hello@example.com</span>
+        <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+            <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
+                <header class="mdl-drawer-header" id="loggedin">
+                    <img src="../view/images/user.jpg" alt="Profile Image couldn't load..."
+                         class="gibbinator-avatar">
+                    <div class="gibbinator-avatar-dropdown">
+                        <span>Willkommen <?php echo $_SESSION ['user']['name'] ?>!</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                            <i class="material-icons" role="presentation">arrow_drop_down</i>
+                            <span class="visuallyhidden">Accounts</span>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                            <li class="mdl-menu__item"><a class="mdl-navigation__link" href="/user/edit_profile">Angaben
+                                    bearbeiten</a></li>
+                            <li class="mdl-menu__item"><a class="mdl-navigation__link"
+                                                          href="/user/logout">Logout</a></li>
+                            <li class="mdl-menu__item"><a class="mdl-navigation__link" href="/user/register"><i
+                                            class="material-icons">add</i>Add another account...</a></li>
+                        </ul>
+                    </div>
+                </header>
+            <?php } else { ?>
+                <header class="demo-drawer-header" id="loggedout">
+                    <img src="view/images/user.jpg" alt="Bild konnte nicht geladen werden.."/>
+                </header>
+            <?php } ?>
+            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
+                    <a class="mdl-navigation__link" href="/user/index"><i
+                                class="mdl-color-text--blue-grey-400 material-icons"
+                                role="presentation">home</i>Home</a>
+                <?php } else { ?>
+                    <a class="mdl-navigation__link" href="/"><i
+                                class="mdl-color-text--blue-grey-400 material-icons"
+                                role="presentation">home</i>Home</a>
+                <?php } ?>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">inbox</i>Nachrichten</a>
+                <a class="mdl-navigation__link" href="/user/lessions"><i
+                            class="mdl-color-text--blue-grey-400 material-icons"
+                            role="presentation">delete</i>Lektionen Liste</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">report</i>Klassen</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">forum</i>Lehrer Liste</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">flag</i>Updates</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">local_offer</i>Promos</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">shopping_cart</i>Purchases</a>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">people</i>Social</a>
                 <div class="mdl-layout-spacer"></div>
+                <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                           role="presentation">help_outline</i><span
+                            class="visuallyhidden">Help</span></a>
+            </nav>
+        </div>
 
-            </div>
-        </header>
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="/"><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                        role="presentation">home</i>Home</a>
-            <a class="mdl-navigation__link" href="/user"><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                            role="presentation">inbox</i>Nachrichten</a>
-            <a class="mdl-navigation__link" href="/user/create"><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                                   role="presentation">delete</i>Trash</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">report</i>Spam</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">forum</i>Forums</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">flag</i>Updates</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">local_offer</i>Promos</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">shopping_cart</i>Purchases</a>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">people</i>Social</a>
-            <div class="mdl-layout-spacer"></div>
-            <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
-                                                       role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
-        </nav>
-    </div>
-    <body>
     <main class="mdl-layout__content mdl-color--grey-200">

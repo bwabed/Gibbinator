@@ -28,37 +28,23 @@ class Dispatcher
      */
     public static function dispatch()
     {
-        // Die URI wird aus dem $_SERVER Array ausgelesen und in ihre
-        //   Einzelteile zerlegt.
-        // /user/index/foo --> ['user', 'index', 'foo']
-        $uri = $_SERVER['REQUEST_URI'];
-        $uri = strtok($uri, '?'); // Erstes ? und alles danach abschneiden
-        $uri = trim($uri, '/'); // Alle / am anfang und am Ende der URI abschneiden
-        $uriFragments = explode('/', $uri); // In einzelteile zerlegen
+        $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 
-        // Den Namen des gewünschten Controllers ermitteln
-        $controllerName = 'DefaultController';
-        if (!empty($uriFragments[0])) {
-            $controllerName = $uriFragments[0];
-            $controllerName = ucfirst($controllerName); // Erstes Zeichen grossschreiben
-            $controllerName .= 'Controller'; // "Controller" anhängen
-        }
+        $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'DefaultController';
+        $method         = !empty($url[1]) ? $url[1] : 'index';
+        $args           = array_slice($url, 2);
 
-        // Den Namen der auszuführenden Methode ermitteln
-        $method = 'index';
-        if (!empty($uriFragments[1])) {
-            $method = $uriFragments[1];
-        }
+        require_once ("controller/$controllerName.php");
 
-        $args = array_slice($uriFragments, 2);
+        ob_start();
 
-        // Den gewünschten Controller laden
-        //   Achtung! Hier stützt PHP ab, sollte der Controller nicht existieren
-        require_once "controller/$controllerName.php";
-
-        // Eine neue Instanz des Controllers wird erstellt und die gewünschte
-        //   Methode darauf aufgerufen.
         $controller = new $controllerName();
-        $controller->$method();
+        call_user_func_array(array($controller, $method), $args);
+        unset($controller);
+
+        $page = ob_get_contents();
+        ob_end_clean();
+        echo $page;
+
     }
 }
