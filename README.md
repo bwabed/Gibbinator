@@ -1,2 +1,2 @@
 # Gibbinator
-IDPA-Projekt - Gibbinator by Dimitri and David
+IDPA-Projekt - Gibbinator by Dimitri, Petar und David
