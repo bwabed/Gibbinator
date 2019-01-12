@@ -29,7 +29,7 @@ class UserController
 
     public function login()
     {
-        $view = new View('default_index');
+        $view = new View('user_login');
         $view->display();
     }
 
@@ -49,13 +49,31 @@ class UserController
                 $row = $result->fetch_object();
                 $verifyPassword = password_verify($password, $row->password);
                 if ($verifyPassword) {
-
-
+                    $userType = $row->user_type;
                     $_SESSION ['user'] ['name'] = $row->email;
-                    $_SESSION ['user'] ['id'] = $row->ID;
+                    $_SESSION ['user'] ['id'] = $row->id;
                     $_SESSION ['loggedin'] = true;
-                    $_SESSION ['userType'] = $row->user_type;
-                    $this->index();
+                    $_SESSION ['userType'] ['id'] = $row->user_type;
+                    $result = $model->getUsertypeById($userType);
+                    if ($result->num_rows > 0) {
+                        $row = $result->fetch_object();
+                        $_SESSION ['userType'] ['name'] = $row->bezeichnung;
+                    } else {
+                        $_SESSION ['userType'] ['name'] = "Unbekannt";
+                    }
+
+
+                    switch ($row->user_type) {
+                        case 1:
+                            header("Location: /admin/index");
+                            break;
+                        case 2:
+                            header("Location: /prof/index");
+                            break;
+                        case 3:
+                            $this->index();
+                            break;
+                    }
 
                 } else {
                     $message[] = 'Falsches Passwort!';
@@ -75,8 +93,6 @@ class UserController
     public function logout() {
         session_destroy();
         header('Location: /');
-        $view = new View('default_index');
-        $view->display();
     }
 
     public function edit_profile() {
@@ -102,7 +118,7 @@ class UserController
                 if ($affectedRows == 1) {
                     $message[] = 'Passwort geändert!';
                     $this->message = $message;
-                    header("Location: /user/index");
+                    $this->index();
                 }
                 else {
                     $message[] = 'Passwort ändern fehlgeschlagen!';
@@ -127,22 +143,6 @@ class UserController
         $view->title = 'Benutzer erstellen';
         $view->heading = 'Benutzer erstellen';
         $view->display();
-    }
-
-    public function doCreate()
-    {
-        if ($_POST['send']) {
-            $firstName = $_POST['firstName'];
-            $lastName = $_POST['lastName'];
-            $email = $_POST['email'];
-            $password = $_POST['password'];
-
-            $userRepository = new UserModel();
-            $userRepository->create($firstName, $lastName, $email, $password);
-        }
-
-        // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /user');
     }
 
     public function delete()

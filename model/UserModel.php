@@ -15,6 +15,7 @@ class UserModel extends Model
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
      */
     protected $tableName = 'user';
+    protected $userTypeTable = 'usertype';
 
     /**
      * Erstellt einen neuen benutzer mit den gegebenen Werten.
@@ -29,14 +30,14 @@ class UserModel extends Model
      *
      * @throws Exception falls das Ausführen des Statements fehlschlägt
      */
-    public function create($firstName, $lastName, $email, $password)
+    public function create($firstName, $lastName, $email, $password, $userType)
     {
         $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-        $query = "INSERT INTO $this->tableName (firstName, lastName, email, password) VALUES (?, ?, ?, ?)";
+        $query = "INSERT INTO $this->tableName (vorname, nachname, email, password, user_type) VALUES (?, ?, ?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ssss', $firstName, $lastName, $email, $password_hash);
+        $statement->bind_param('ssssi', $firstName, $lastName, $email, $password_hash, $userType);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
@@ -56,7 +57,7 @@ class UserModel extends Model
 
     public function change_password($new_password,$userID) {
         $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-        $query = "UPDATE $this->tableName SET password = ? where ID = ?";
+        $query = "UPDATE $this->tableName SET password = ? where id=?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);
         $statement->bind_param('si', $new_password_hash, $userID);
@@ -71,5 +72,24 @@ class UserModel extends Model
         $statement->bind_param('sss', $new_email, $username, $old_email);
         $statement->execute();
         return $connection->affected_rows;
+    }
+
+    public function check_if_email_exists($email) {
+        $query = "SELECT email FROM $this->tableName WHERE email = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('s', $email);
+        $statement->execute();
+        $result = $statement->get_result();
+
+        return $result;
+    }
+
+    public function getUsertypeById($id) {
+        $query = "SELECT * FROM $this->tableName WHERE user_type = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $id);
+        $statement->execute();
+        $result = $statement->get_result();
+        return $result;
     }
 }

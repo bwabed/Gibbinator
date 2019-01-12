@@ -66,17 +66,48 @@
             </ul>
         </div>
     </header>
-    <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-
-        <header class="mdl-drawer-header" id="loggedout">
-            <img src="/view/images/user.jpg" alt="Bild konnte nicht geladen werden.."/>
-        </header>
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="/"><i
-                        class="mdl-color-text--blue-grey-400 material-icons"
-                        role="presentation">perm_identity</i>Login</a>
-
-        </nav>
-    </div>
+        <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+            <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
+                <header class="mdl-drawer-header" id="loggedin">
+                    <img src="/view/images/user.jpg" alt="Profile Image couldn't load..."
+                         class="gibbinator-avatar">
+                    <div class="gibbinator-avatar-dropdown">
+                        <span>Willkommen <?php echo $_SESSION ['user']['name'] ?>!</span>
+                        <div class="mdl-layout-spacer"></div>
+                        <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                            <i class="material-icons" role="presentation">arrow_drop_down</i>
+                            <span class="visuallyhidden">Accounts</span>
+                        </button>
+                        <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                            <li class="mdl-menu__item"><a class="mdl-navigation__link" href="/user/edit_profile">Angaben
+                                    bearbeiten</a></li>
+                            <li class="mdl-menu__item"><a class="mdl-navigation__link"
+                                                          href="/user/logout">Logout</a></li>
+                        </ul>
+                    </div>
+                </header>
+            <?php } else { ?>
+                <header class="demo-drawer-header" id="loggedout">
+                    <img src="/view/images/user.jpg" alt="Bild konnte nicht geladen werden.."/>
+                </header>
+            <?php } ?>
+            <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
+                    <a class="mdl-navigation__link" href="/admin/index"><i
+                                class="mdl-color-text--blue-grey-400 material-icons"
+                                role="presentation">group</i>Benutzer bearbeiten</a>
+                    <a class="mdl-navigation__link" href="/admin/infra"><i class="mdl-color-text--blue-grey-400 material-icons"
+                                                               role="presentation">inbox</i>Infrastruktur</a>
+                    <a class="mdl-navigation__link" href="/admin/classes"><i
+                                class="mdl-color-text--blue-grey-400 material-icons"
+                                role="presentation">delete</i>Klassen bearbeiten</a>
+                <?php } else { ?>
+                    <a class="mdl-navigation__link" href="/user/login"><i
+                                class="mdl-color-text--blue-grey-400 material-icons"
+                                role="presentation">home</i>Home</a>
+                <?php } ?>
+                <div class="mdl-layout-spacer"></div>
+            </nav>
+        </div>
 
     <main class="mdl-layout__content mdl-color--grey-200">

@@ -8,8 +8,8 @@
  * Anfrage an die gewünschte Funktion im entsprechenden Controller weiter. Die
  * URI wird wie im folgenden Beispiel verarbeitet:
  *
- *   /user/delete?id=7&foo=bar
- *    |    |      └────┴─ GET Parameter stehen im Array $_GET zur Verfügung
+ *   /user/delete
+ *    |    |
  *    |    |
  *    |    └─ Der Wert nach dem zweiten Slash heisst so wie die Funktion, welche
  *    |         auf dem Contoller aufgeruft werden soll.
@@ -30,8 +30,8 @@ class Dispatcher
     {
         $url = explode('/', trim($_SERVER['REQUEST_URI'], '/'));
 
-        $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'DefaultController';
-        $method         = !empty($url[1]) ? $url[1] : 'index';
+        $controllerName = !empty($url[0]) ? ucfirst($url[0]) . 'Controller' : 'UserController';
+        $method         = !empty($url[1]) ? $url[1] : 'login';
         $args           = array_slice($url, 2);
 
         require_once ("controller/$controllerName.php");

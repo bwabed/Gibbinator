@@ -129,7 +129,7 @@ class Model
      *
      * @throws Exception falls das Ausführen des Statements fehlschlägt
      *
-     * @return Ein array mit den gefundenen Datensätzen.
+     * @return array Ein array mit den gefundenen Datensätzen.
      */
     public function readAll($max = 100)
     {

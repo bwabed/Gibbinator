@@ -18,7 +18,7 @@
     <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) {?>
         <div class="mdl-mini-footer__right-section">
             <ul class="mdl-mini-footer__link-list">
-                <li>Eingeloggt als: <a href="/user/edit_profile"><?php echo $_SESSION ['user']['name'] ?></a></li>
+                <li>Eingeloggt als: <?php echo $_SESSION ['userType'] ['name'] ?></li>
             </ul>
         </div>
     <?php }?>
