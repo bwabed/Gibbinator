@@ -12,7 +12,6 @@ class UserModel extends Model
     /**
      * Diese Variable wird von der Klasse Model verwendet, um generische
      * Funktionen zur Verfügung zu stellen.
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
      */
     protected $tableName = 'user';
     protected $userTypeTable = 'usertype';
