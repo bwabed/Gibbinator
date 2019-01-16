@@ -33,9 +33,10 @@ class UserController
         $view->display();
     }
 
-    public function lessions()
+    public function lesions()
     {
-
+        $view = new View('user_lesions');
+        $view->display();
     }
 
     public function check_login() {
@@ -49,12 +50,11 @@ class UserController
                 $row = $result->fetch_object();
                 $verifyPassword = password_verify($password, $row->password);
                 if ($verifyPassword) {
-                    $userType = $row->user_type;
                     $_SESSION ['user'] ['name'] = $row->email;
                     $_SESSION ['user'] ['id'] = $row->id;
                     $_SESSION ['loggedin'] = true;
                     $_SESSION ['userType'] ['id'] = $row->user_type;
-                    $result = $model->getUsertypeById($userType);
+                    $result = $model->getUsertypeById($row->user_type);
                     if ($result->num_rows > 0) {
                         $row = $result->fetch_object();
                         $_SESSION ['userType'] ['name'] = $row->bezeichnung;

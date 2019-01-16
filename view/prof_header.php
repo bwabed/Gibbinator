@@ -96,12 +96,12 @@
                     <a class="mdl-navigation__link" href="/user/index"><i
                                 class="mdl-color-text--blue-grey-400 material-icons"
                                 role="presentation">home</i>Home</a>
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                    <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--blue-grey-400 material-icons"
                                                                role="presentation">inbox</i>Nachrichten</a>
-                    <a class="mdl-navigation__link" href="/user/lessions"><i
+                    <a class="mdl-navigation__link" href="/user/lesions"><i
                                 class="mdl-color-text--blue-grey-400 material-icons"
                                 role="presentation">calendar_today</i>Lektionen Liste</a>
-                    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons"
+                    <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--blue-grey-400 material-icons"
                                                                role="presentation">school</i>Klassen</a>
                 <?php } else { ?>
                     <a class="mdl-navigation__link" href="/"><i

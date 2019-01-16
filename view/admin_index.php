@@ -1,5 +1,13 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-shadow--2dp" id="user_results">
+        <div class="mdl-card__supporting-text">
+            <?php
+            echo 'Benutzertypen: ';
+            foreach ($usertypes as $usertype) {
+                echo $usertype->id . ' = ' . $usertype->bezeichnung . '; ';
+            }
+            ?>
+        </div>
         <table class="mdl-data-table mdl-js-data-table  mdl-data-table--selectable mdl-shadow--2dp" id="users_table">
             <thead>
             <tr>
