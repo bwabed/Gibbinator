@@ -21,6 +21,10 @@
                     <input class="mdl-textfield__input" type="text" id="new_nachname" name="new_nachname" value="<?= isset($_POST['new_nachname']) ? htmlspecialchars(strip_tags($_POST['new_nachname'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="new_nachname">Nachname*</label>
                 </div>
+                <label class="mdl-checkbox mdl-checkbox__ripple-container" for="pw_checkbox">
+                    <input value="1" type="checkbox" id="pw_checkbox" class="mdl-checkbox__input" checked>
+                    <span class="mdl-checkbox__label">Initialpasswort</span>
+                </label>
                 <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone usertype_select" name="usertype_select"
                         id="usertype_select">
                     <?php

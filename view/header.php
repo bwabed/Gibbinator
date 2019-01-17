@@ -69,7 +69,7 @@
     <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
 
         <header class="mdl-drawer-header" id="loggedout">
-            <img src="/view/images/user.jpg" alt="Bild konnte nicht geladen werden.."/>
+            <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
         </header>
         <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
             <a class="mdl-navigation__link" href="/"><i

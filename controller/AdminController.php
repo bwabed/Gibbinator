@@ -20,30 +20,8 @@ class AdminController
         $view->display();
     }
 
-    public function index()
+    public function add_building()
     {
-
-        $userModel = new UserModel();
-        try {
-            $result = $userModel->readAll();
-        } catch (Exception $e) {
-            $result = null;
-        }
-        $usertypeModel = new UsertypeModel();
-        try {
-            $usertypes = $usertypeModel->readAll();
-        } catch (Exception $e) {
-            $usertypes = null;
-        }
-
-        $view = new View('admin_index');
-        $view->users = $result;
-        $view->usertypes = $usertypes;
-        $view->display();
-
-    }
-
-    public function add_building() {
         if (!empty($_POST['build_name']) && !empty($_POST['build_street']) && !empty($_POST['build_number']) && !empty($_POST['build_plz']) && !empty($_POST['build_ort'])) {
             $buildModel = new GebaeudeModel();
             try {
@@ -53,39 +31,6 @@ class AdminController
                 $this->infra();
             } catch (Exception $e) {
                 $message[] = 'Konnte nicht eingefügt werden!';
-                $this->message = $message;
-                $this->infra();
-            }
-        } else {
-            $message[] = 'Bitte alle Felder ausfüllen!';
-            $this->message = $message;
-            $this->infra();
-        }
-    }
-
-    public function add_room() {
-        if (!empty($_POST['room_name']) && !empty($_POST['room_gebaeude_select'])) {
-
-        } else {
-            $message[] = 'Bitte alle Felder ausfüllen!';
-            $this->message = $message;
-            $this->infra();
-        }
-    }
-
-    public function room() {
-        $view = new View('admin_room');
-        $view->display();
-    }
-
-    public function add_floor() {
-        if (!empty($_POST['floor_name']) && !empty($_POST['gebaeude_select']) && !empty($_POST['floor_number'])) {
-            $buildModel = new GebaeudeModel();
-
-            try {
-                $buildModel->addStockwerk($_POST['floor_name'], $_POST['gebaeude_select'], $_POST['floor_number']);
-            } catch (Exception $e) {
-                $message[] = 'Konnte nicht erstellt werden!';
                 $this->message = $message;
                 $this->infra();
             }
@@ -111,14 +56,55 @@ class AdminController
         $view->display();
     }
 
+    public function add_room()
+    {
+        if (!empty($_POST['room_name']) && !empty($_POST['room_gebaeude_select'])) {
+
+        } else {
+            $message[] = 'Bitte alle Felder ausfüllen!';
+            $this->message = $message;
+            $this->infra();
+        }
+    }
+
+    public function room()
+    {
+        $view = new View('admin_room');
+        $view->display();
+    }
+
+    public function add_floor()
+    {
+        if (!empty($_POST['floor_name']) && !empty($_POST['gebaeude_select']) && !empty($_POST['floor_number'])) {
+            $buildModel = new GebaeudeModel();
+
+            try {
+                $buildModel->addStockwerk($_POST['floor_name'], $_POST['gebaeude_select'], $_POST['floor_number']);
+            } catch (Exception $e) {
+                $message[] = 'Konnte nicht erstellt werden!';
+                $this->message = $message;
+                $this->infra();
+            }
+        } else {
+            $message[] = 'Bitte alle Felder ausfüllen!';
+            $this->message = $message;
+            $this->infra();
+        }
+    }
+
     public function edit_user()
     {
-        $view = new View('admin_edit');
 
-        $userModel = new UserModel();
+        if (!empty($_POST['user_id'])) {
+            $view = new View('admin_edit');
 
-        $view->userData = $userModel->readById($_POST['user_id']);
-        $view->display();
+            $userModel = new UserModel();
+            $view->userData = $userModel->readById($_POST['user_id']);
+
+            $view->display();
+        } else {
+            $this->new_user();
+        }
     }
 
     public function delete_selected()
@@ -134,14 +120,27 @@ class AdminController
         }
     }
 
-    public function new_user()
+    public function index()
     {
-        $view = new View('admin_new');
 
+        $userModel = new UserModel();
+        try {
+            $result = $userModel->readAll();
+        } catch (Exception $e) {
+            $result = null;
+        }
         $usertypeModel = new UsertypeModel();
+        try {
+            $usertypes = $usertypeModel->readAll();
+        } catch (Exception $e) {
+            $usertypes = null;
+        }
 
-        $view->usertypes = $usertypeModel->readAll();
+        $view = new View('admin_index');
+        $view->users = $result;
+        $view->usertypes = $usertypes;
         $view->display();
+
     }
 
     public function create_user()
@@ -150,7 +149,11 @@ class AdminController
             $userModel = new UserModel();
             $checkEmail = $userModel->check_if_email_exists($_POST['new_username']);
             if ($checkEmail->num_rows == 0) {
-                $userModel->create($_POST['new_vorname'], $_POST['new_nachname'], $_POST['new_username'], $_POST['new_password'], $_POST['usertype_select']);
+                if (!empty($_POST['pw_checkbox'])) {
+                    $userModel->create_without_hash($_POST['new_vorname'], $_POST['new_nachname'], $_POST['new_username'], $_POST['new_password'], $_POST['usertype_select'], 1);
+                } else {
+                    $userModel->create_with_hash($_POST['new_vorname'], $_POST['new_nachname'], $_POST['new_username'], $_POST['new_password'], $_POST['usertype_select'], 0);
+                }
                 $message[] = 'Benutzer wurde erstellt.';
                 $this->message = $message;
                 $this->index();
@@ -164,6 +167,16 @@ class AdminController
             $this->message = $message;
             $this->new_user();
         }
+    }
+
+    public function new_user()
+    {
+        $view = new View('admin_new');
+
+        $usertypeModel = new UsertypeModel();
+
+        $view->usertypes = $usertypeModel->readAll();
+        $view->display();
     }
 
     public function __destruct()

@@ -1,7 +1,7 @@
 </main>
 
 <!-- Dieser DIV ist der Snackbar, dank dieser können wir die Meldungen einfach und Elegant ausgeben. -->
-<div id="snackbar" class="mdl-js-snackbar mdl-snackbar">
+<div id="snackbar" class="mdl-snackbar">
     <div class="mdl-snackbar__text"></div>
     <button class="mdl-snackbar__action" type="button"></button>
 </div>
@@ -11,7 +11,6 @@
     <div class="mdl-mini-footer__left-section">
         <div class="mdl-logo">Gibbinator WebApp</div>
         <ul class="mdl-mini-footer__link-list">
-            <li><a href="/default/about">About Us</a></li>
             <li><a href="http://www.getmdl.io/index.html" target="_blank">Material Design Lite</a></li>
         </ul>
     </div>

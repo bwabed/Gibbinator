@@ -48,38 +48,42 @@ class UserController
             $result = $model->log_in($username);
             if ($result->num_rows == 1) {
                 $row = $result->fetch_object();
-                $verifyPassword = password_verify($password, $row->password);
-                if ($verifyPassword) {
-                    $_SESSION ['user'] ['name'] = $row->email;
-                    $_SESSION ['user'] ['id'] = $row->id;
-                    $_SESSION ['loggedin'] = true;
-                    $_SESSION ['userType'] ['id'] = $row->user_type;
-                    $result = $model->getUsertypeById($row->user_type);
-                    if ($result->num_rows > 0) {
-                        $row = $result->fetch_object();
-                        $_SESSION ['userType'] ['name'] = $row->bezeichnung;
+                if ($row->initial_pw == 0) {
+                    $verifyPassword = password_verify($password, $row->password);
+                    if ($verifyPassword) {
+                        $_SESSION ['user'] ['name'] = $row->email;
+                        $_SESSION ['user'] ['id'] = $row->id;
+                        $_SESSION ['loggedin'] = true;
+                        $_SESSION ['userType'] ['id'] = $row->user_type;
+                        $result = $model->getUsertypeById($row->user_type);
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_object();
+                            $_SESSION ['userType'] ['name'] = $row->bezeichnung;
+                        } else {
+                            $_SESSION ['userType'] ['name'] = "Unbekannt";
+                        }
+
+
+                        switch ($row->user_type) {
+                            case 1:
+                                header("Location: /admin/index");
+                                break;
+                            case 2:
+                                header("Location: /prof/index");
+                                break;
+                            case 3:
+                                $this->index();
+                                break;
+                        }
                     } else {
-                        $_SESSION ['userType'] ['name'] = "Unbekannt";
+                        $message[] = 'Falsches Passwort!';
+                        $this->message = $message;
+                        $this->login();
                     }
-
-
-                    switch ($row->user_type) {
-                        case 1:
-                            header("Location: /admin/index");
-                            break;
-                        case 2:
-                            header("Location: /prof/index");
-                            break;
-                        case 3:
-                            $this->index();
-                            break;
-                    }
-
                 } else {
-                    $message[] = 'Falsches Passwort!';
-                    $this->message = $message;
-                    $this->login();
+
                 }
+
             } else {
                 $message[] = 'Login Fehlgeschlagen!';
                 $this->message = $message;

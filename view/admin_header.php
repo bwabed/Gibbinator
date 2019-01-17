@@ -69,7 +69,7 @@
         <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
             <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
                 <header class="mdl-drawer-header" id="loggedin">
-                    <img src="/view/images/user.jpg" alt="Profile Image couldn't load..."
+                    <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn't load..."
                          class="gibbinator-avatar">
                     <div class="gibbinator-avatar-dropdown">
                         <span>Willkommen <?php echo $_SESSION ['user']['name'] ?>!</span>
@@ -87,8 +87,8 @@
                     </div>
                 </header>
             <?php } else { ?>
-                <header class="demo-drawer-header" id="loggedout">
-                    <img src="/view/images/user.jpg" alt="Bild konnte nicht geladen werden.."/>
+                <header class="mdl-drawer-header" id="loggedout">
+                    <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
                 </header>
             <?php } ?>
             <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
