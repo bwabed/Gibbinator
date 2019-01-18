@@ -19,10 +19,18 @@ class UserController
     public function index()
     {
         if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            $view = new View('user_index');
-            $view->display();
-        }
-        else {
+            switch ($_SESSION['userType']['id']) {
+                case 1:
+                    header("Location: /admin/index");
+                    break;
+                case 2:
+                    header("Location: /prof/index");
+                    break;
+                case 3:
+                    $this->index();
+                    break;
+            }
+        } else {
             $this->login();
         }
     }
@@ -39,7 +47,8 @@ class UserController
         $view->display();
     }
 
-    public function check_login() {
+    public function check_login()
+    {
         $message = array();
         if (isset($_POST["username"]) && !empty($_POST["username"]) && isset($_POST["password"]) && !empty($_POST["password"])) {
             $username = htmlspecialchars($_POST["username"]);
@@ -63,8 +72,7 @@ class UserController
                             $_SESSION ['userType'] ['name'] = "Unbekannt";
                         }
 
-
-                        switch ($row->user_type) {
+                        switch ($row->id) {
                             case 1:
                                 header("Location: /admin/index");
                                 break;
@@ -81,7 +89,23 @@ class UserController
                         $this->login();
                     }
                 } else {
+                    if ($password == $row->password) {
+                        $_SESSION ['user'] ['name'] = $row->email;
+                        $_SESSION ['user'] ['id'] = $row->id;
+                        $_SESSION ['loggedin'] = true;
+                        $_SESSION ['userType'] ['id'] = $row->user_type;
+                        $result = $model->getUsertypeById($row->user_type);
+                        if ($result->num_rows > 0) {
+                            $row = $result->fetch_object();
+                            $_SESSION ['userType'] ['name'] = $row->bezeichnung;
+                        } else {
+                            $_SESSION ['userType'] ['name'] = "Unbekannt";
+                        }
 
+                        $message[] = 'Bitte Passwort ändern!';
+                        $this->message = $message;
+                        $this->edit_profile();
+                    }
                 }
 
             } else {
@@ -89,54 +113,53 @@ class UserController
                 $this->message = $message;
                 $this->login();
             }
-        }else {
+        } else {
             $this->login();
         }
     }
 
-    public function logout() {
+    public function logout()
+    {
         session_destroy();
         header('Location: /');
     }
 
-    public function edit_profile() {
+    public function edit_profile()
+    {
         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
             $view = new View('user_profile');
             $view->display();
-        }
-        else {
+        } else {
             $message[] = "Bitte zuerst einloggen!";
             $this->message = $message;
             $this->login();
         }
     }
 
-    public function check_changePassword() {
+    public function check_changePassword()
+    {
         if (isset($_POST["old_password"]) && !empty($_POST["old_password"]) && isset($_POST["new_password"]) && !empty($_POST["new_password"])) {
             $old_password = htmlspecialchars($_POST["old_password"]);
             $new_password = htmlspecialchars($_POST["new_password"]);
             $password_pattern = "#(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$#";
             if (preg_match($password_pattern, $new_password)) {
                 $model = new UserModel();
-                $affectedRows = $model->change_password($old_password,$new_password,$_SESSION['user']['id']);
+                $affectedRows = $model->change_password($old_password, $new_password, $_SESSION['user']['id']);
                 if ($affectedRows == 1) {
                     $message[] = 'Passwort geändert!';
                     $this->message = $message;
                     $this->index();
-                }
-                else {
+                } else {
                     $message[] = 'Passwort ändern fehlgeschlagen!';
                     $this->message = $message;
                     $this->edit_profile();
                 }
-            }
-            else {
-                $message[] = 'Passwort ändern fehlgeschlage!';
+            } else {
+                $message[] = 'Passwort entspricht nicht den Vorgaben!';
                 $this->message = $message;
                 $this->edit_profile();
             }
-        }
-        else {
+        } else {
             $this->edit_profile();
         }
     }
