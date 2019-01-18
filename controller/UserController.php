@@ -104,7 +104,7 @@ class UserController
 
                         $message[] = 'Bitte Passwort ändern!';
                         $this->message = $message;
-                        $this->edit_profile();
+                        $this->new_password();
                     }
                 }
 
@@ -116,6 +116,13 @@ class UserController
         } else {
             $this->login();
         }
+    }
+
+    public function new_password()
+    {
+        $view = new View('user_password');
+
+        $view->display();
     }
 
     public function logout()
@@ -144,7 +151,16 @@ class UserController
             $password_pattern = "#(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$#";
             if (preg_match($password_pattern, $new_password)) {
                 $model = new UserModel();
-                $affectedRows = $model->change_password($old_password, $new_password, $_SESSION['user']['id']);
+
+
+                $result = $model->readById($_SESSION['user']['id']);
+
+                if ($result->initial_pw == 0) {
+                    $affectedRows = $model->change_password($new_password, $_SESSION['user']['id']);
+                } else {
+                    $affectedRows = $model->update_password($new_password, $old_password, $_SESSION['user']['id']);
+                }
+
                 if ($affectedRows == 1) {
                     $message[] = 'Passwort geändert!';
                     $this->message = $message;

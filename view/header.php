@@ -67,16 +67,42 @@
         </div>
     </header>
     <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+        <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) { ?>
+            <header class="mdl-drawer-header" id="loggedin">
+                <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn't load..."
+                     class="gibbinator-avatar">
+                <div class="gibbinator-avatar-dropdown">
+                    <span>Willkommen <?php echo $_SESSION ['user']['name'] ?>!</span>
+                    <div class="mdl-layout-spacer"></div>
+                    <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
+                        <i class="material-icons" role="presentation">arrow_drop_down</i>
+                        <span class="visuallyhidden">Accounts</span>
+                    </button>
+                    <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
+                        <li class="mdl-menu__item"><a class="mdl-navigation__link" href="/user/edit_profile">Angaben
+                                bearbeiten</a></li>
+                        <li class="mdl-menu__item"><a class="mdl-navigation__link"
+                                                      href="/user/logout">Logout</a></li>
+                    </ul>
+                </div>
+            </header>
+            <nav class="mdl-navigation mdl-color--blue-grey-800">
+                <a class="mdl-navigation__link" href="/user/index"><i
+                            class="mdl-color-text--blue-grey-400 material-icons"
+                            role="presentation">home</i>Home</a>
 
-        <header class="mdl-drawer-header" id="loggedout">
-            <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
-        </header>
-        <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-            <a class="mdl-navigation__link" href="/"><i
-                        class="mdl-color-text--blue-grey-400 material-icons"
-                        role="presentation">perm_identity</i>Login</a>
+            </nav>
+        <?php } else { ?>
+            <header class="mdl-drawer-header" id="loggedout">
+                <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
+            </header>
+            <nav class="mdl-navigation mdl-color--blue-grey-800">
+                <a class="mdl-navigation__link" href="/"><i
+                            class="mdl-color-text--blue-grey-400 material-icons"
+                            role="presentation">perm_identity</i>Login</a>
 
-        </nav>
+            </nav>
+        <?php } ?>
     </div>
 
     <main class="mdl-layout__content mdl-color--grey-200">

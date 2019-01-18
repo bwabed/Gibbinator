@@ -77,6 +77,16 @@ class UserModel extends Model
         return $connection->affected_rows;
     }
 
+    public function update_password($new_password, $old_password, $userID) {
+        $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
+        $query = "UPDATE $this->tableName SET password = ? where id=? and password = ?";
+        $connection = ConnectionHandler::getConnection();
+        $statement = $connection->prepare($query);
+        $statement->bind_param('sis', $new_password_hash, $userID, $old_password);
+        $statement->execute();
+        return $connection->affected_rows;
+    }
+
     public function set_init_pw($new_password, $userID) {
         $query = "UPDATE $this->tableName SET password = ? where id=?";
         $connection = ConnectionHandler::getConnection();
@@ -86,7 +96,8 @@ class UserModel extends Model
         return $connection->affected_rows;
     }
 
-    public function change_email($old_email, $new_email, $userID) {
+    public function change_email($old_email, $new_email, $userID)
+    {
         $query = "UPDATE $this->tableName SET email = ? where id = ? AND email = ?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);

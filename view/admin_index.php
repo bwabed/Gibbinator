@@ -8,7 +8,7 @@
             }
             ?>
         </div>
-        <table class="mdl-data-table mdl-js-data-table  mdl-data-table--selectable mdl-shadow--2dp" id="users_table">
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="users_table">
             <thead>
             <tr>
                 <th class="user_table">Bearbeiten</th>
@@ -16,6 +16,7 @@
                 <th class="user_table">Nachname</th>
                 <th class="user_table">Email</th>
                 <th class="user_table">Benutzer Typ</th>
+                <th class="user_table">Initial Passwort</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
           <td>' . $row->nachname . '</td>
           <td>' . $row->email . '</td>
           <td>' . $row->user_type . '</td>
+          <td>' . $row->initial_pw . '</td>
           </tr>
           ';
             }

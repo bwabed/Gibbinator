@@ -79,7 +79,7 @@ class AdminController
             $buildModel = new GebaeudeModel();
 
             try {
-                $buildModel->addStockwerk($_POST['floor_name'], $_POST['gebaeude_select'], $_POST['floor_number']);
+                $buildModel->addStockwerk(htmlspecialchars($_POST['floor_name']), htmlspecialchars($_POST['gebaeude_select']), htmlspecialchars($_POST['floor_number']));
             } catch (Exception $e) {
                 $message[] = 'Konnte nicht erstellt werden!';
                 $this->message = $message;
@@ -99,11 +99,22 @@ class AdminController
             $view = new View('admin_edit');
 
             $userModel = new UserModel();
+            $userTypeModel = new UsertypeModel();
+
             $view->userData = $userModel->readById($_POST['user_id']);
+            $view->usertypes = $userTypeModel->readAll();
 
             $view->display();
         } else {
             $this->new_user();
+        }
+    }
+
+    public function check_edit_user() {
+        $userModel = new UserModel();
+
+        if (!empty($_POST['edit_username'])) {
+
         }
     }
 
