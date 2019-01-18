@@ -3,6 +3,8 @@
 require_once('model/UserModel.php');
 require_once('model/UsertypeModel.php');
 require_once('model/GebaeudeModel.php');
+require_once('model/KlassenModel.php');
+require_once('model/AbteilungsModel.php');
 
 /**
  * Created by PhpStorm.
@@ -118,7 +120,7 @@ class AdminController
         }
     }
 
-    public function delete_selected()
+    public function delete_selected_users()
     {
         if (!empty($_POST['users'])) {
             $userModel = new UserModel();
@@ -127,8 +129,34 @@ class AdminController
                 $userModel->deleteById($users);
             }
 
-            $this->index();
+            header('Location: /admin/index');
         }
+    }
+
+    public function delete_selected_klassen()
+    {
+        if (!empty($_POST['klassen'])) {
+            $klassenModel = new KlassenModel();
+
+            foreach ($_POST['klassen'] as $klasse) {
+                $klassenModel->deleteById($klasse);
+            }
+
+            header('Location: /admin/index');
+        }
+    }
+
+    public function classes() {
+        $view = new View('admin_classes');
+
+        $klassenModel = new KlassenModel();
+        $userModel = new UserModel();
+        $abteilungsModel = new AbteilungsModel();
+
+        $view->klassen = $klassenModel->readAll();
+        $view->lehrer = $userModel->readAllProfs();
+        $view->abteilungen = $abteilungsModel->readAll();
+        $view->display();
     }
 
     public function index()
@@ -160,7 +188,7 @@ class AdminController
             $userModel = new UserModel();
             $checkEmail = $userModel->check_if_email_exists($_POST['new_username']);
             if ($checkEmail->num_rows == 0) {
-                if (!empty($_POST['pw_checkbox'])) {
+                if (!empty($_POST['pw_checkbox']) && $_POST['pw_checkbox'] == 'on') {
                     $userModel->create_without_hash($_POST['new_vorname'], $_POST['new_nachname'], $_POST['new_username'], $_POST['new_password'], $_POST['usertype_select'], 1);
                 } else {
                     $userModel->create_with_hash($_POST['new_vorname'], $_POST['new_nachname'], $_POST['new_username'], $_POST['new_password'], $_POST['usertype_select'], 0);
@@ -182,12 +210,62 @@ class AdminController
 
     public function new_user()
     {
-        $view = new View('admin_new');
+        $view = new View('admin_new_user');
 
         $usertypeModel = new UsertypeModel();
 
         $view->usertypes = $usertypeModel->readAll();
         $view->display();
+    }
+
+    public function new_klasse()
+    {
+        $view = new View('admin_new_klasse');
+
+        $userModel = new UserModel();
+        $abteilungsModel = new AbteilungsModel();
+
+        $view->lehrer = $userModel->readAllProfs();
+        $view->abteilungen = $abteilungsModel->readAll();
+        $view->display();
+    }
+
+    public function create_klasse() {
+        if (!empty($_POST['new_klassenname']) && !empty($_POST['abteilungs_select']) && !empty($_POST['klassen_lp_select'])) {
+            $klassenModel = new KlassenModel();
+
+            try {
+                $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), htmlspecialchars($_POST['klassen_lp_select']), htmlspecialchars($_POST['abteilungs_select']));
+                $this->classes();
+            } catch (Exception $e) {
+                $message[] = "Die Klasse konnte nicht erstellt werden!";
+                $this->message = $message;
+                $this->new_klasse();
+            }
+        } else {
+            $message[] = "Bitte alle Felder ausfüllen!";
+            $this->message = $message;
+            $this->new_klasse();
+        }
+    }
+
+    public function update_klasse() {
+        if (!empty($_POST['edit_klassenname']) && !empty($_POST['edit_abteilungs_select']) && !empty($_POST['edit_klassen_lp_select'])) {
+            $klassenModel = new KlassenModel();
+
+            try {
+                $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), htmlspecialchars($_POST['klassen_lp_select']), htmlspecialchars($_POST['abteilungs_select']));
+                $this->classes();
+            } catch (Exception $e) {
+                $message[] = "Die Klasse konnte nicht erstellt werden!";
+                $this->message = $message;
+                $this->new_klasse();
+            }
+        } else {
+            $message[] = "Bitte alle Felder ausfüllen!";
+            $this->message = $message;
+            $this->new_klasse();
+        }
     }
 
     public function __destruct()

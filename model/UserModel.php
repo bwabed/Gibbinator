@@ -79,10 +79,11 @@ class UserModel extends Model
 
     public function update_password($new_password, $old_password, $userID) {
         $new_password_hash = password_hash($new_password, PASSWORD_DEFAULT);
-        $query = "UPDATE $this->tableName SET password = ? where id=? and password = ?";
+        $init_pw = 0;
+        $query = "UPDATE $this->tableName SET password = ?, initial_pw = ? where id=? and password = ?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);
-        $statement->bind_param('sis', $new_password_hash, $userID, $old_password);
+        $statement->bind_param('siis', $new_password_hash, $init_pw, $userID, $old_password);
         $statement->execute();
         return $connection->affected_rows;
     }
@@ -123,5 +124,25 @@ class UserModel extends Model
         $statement->execute();
         $result = $statement->get_result();
         return $result;
+    }
+
+    public function readAllProfs() {
+        $userTypeProf = 2;
+        $query = "SELECT * FROM $this->tableName WHERE user_type = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $userTypeProf);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 }

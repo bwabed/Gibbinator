@@ -1,52 +1,61 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: dimi
+ * Date: 2019-01-18
+ * Time: 13:07
+ */
+?>
+
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-shadow--2dp" id="user_results">
+    <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-shadow--2dp" id="klassen_results">
         <div class="mdl-card__title">
-            <h3>Benutzer</h3>
+            <h3>Klassen</h3>
         </div>
-        <div class="mdl-card__supporting-text">
-            <?php
-            echo 'Benutzertypen: ';
-            foreach ($usertypes as $usertype) {
-                echo $usertype->id . ' = ' . $usertype->bezeichnung . '; ';
-            }
-            ?>
-        </div>
-        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="users_table">
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="klassen_table">
             <thead>
             <tr>
-                <th class="user_table">Bearbeiten</th>
-                <th class="user_table">Vorname</th>
-                <th class="user_table">Nachname</th>
-                <th class="user_table">Email</th>
-                <th class="user_table">Benutzer Typ</th>
-                <th class="user_table">Initial Passwort</th>
+                <th class="klassen_table">Bearbeiten</th>
+                <th class="klassen_table">Name</th>
+                <th class="klassen_table">Klassen Lehrperson</th>
+                <th class="klassen_table">Abteilung</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            foreach ($users as $row) {
+            foreach ($klassen as $row) {
                 echo '
           <tr data-id="' . $row->id . '">
           <td>
-          <form id="form-select-user-' . $row->id . '" action="/admin/edit_user" method="post">
-          <a href="#" id="form-select-user-button-' . $row->id . '" class="mdl-navigation__link">
+          <form id="form-select-klasse-' . $row->id . '" action="/admin/edit_klasse" method="post">
+          <a href="#" id="form-select-klasse-button-' . $row->id . '" class="mdl-navigation__link">
           <i class="material-icons">edit</i>
           </a>
           <input type="hidden" name="user_id" value="' . $row->id . '">
           <script>
           $(document).ready(function() {
-            $("#form-select-user-button-' . $row->id . '").click(function(e) {
-              $("#form-select-user-' . $row->id . '").submit();
+            $("#form-select-klasse-button-' . $row->id . '").click(function(e) {
+              $("#form-select-klasse-' . $row->id . '").submit();
             });
           });
           </script>
           </form>
           </td>
-          <td>' . $row->vorname . '</td>
-          <td>' . $row->nachname . '</td>
-          <td>' . $row->email . '</td>
-          <td>' . $row->user_type . '</td>
-          <td>' . $row->initial_pw . '</td>
+          <td>' . $row->name . '</td>
+          <td>';
+                foreach ($lehrer as $lp) {
+                    if ($lp->id == $row->klassen_lp) {
+                        echo $lp->vorname . ' ' . $lp->nachname;
+                    }
+                }
+                echo '</td>
+          <td>';
+                foreach ($abteilungen as $abteilung) {
+                    if ($abteilung->id == $row->abteilungs_id) {
+                        echo $abteilung->bezeichnung;
+                    }
+                }
+                echo '</td>
           </tr>
           ';
             }
@@ -56,11 +65,11 @@
         <div class="mdl-card__actions mdl-card--border">
             <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
                     id="delete_button">
-                Benutzer Löschen
+                Klassen Löschen
             </button>
             <a class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button"
-               id="add_button" href="/admin/new_user">
-                Neuer Benutzer
+               id="add_button" href="/admin/new_klasse">
+                Neue Klasse
             </a>
 
             <script type="text/javascript">
@@ -72,23 +81,23 @@
 
                         var selectedUsers = [];
 
-                        $('table#users_table tbody tr td:first-child input').each(function (index, value) {
+                        $('table#klassen_table tbody tr td:first-child input').each(function (index, value) {
                             if (value.checked) {
                                 selectedUsers.push($(value).parent().parent().parent().data('id'));
                             }
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/delete_selected_user", {users: selectedUsers})
+                            $.post("/admin/delete_selected_klassen", {klassen: selectedUsers})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');
-                                    var data = {message: 'Benutzer erfolgreich gelöscht.'};
+                                    var data = {message: 'Klassen erfolgreich gelöscht.'};
                                     snackbarContainer.MaterialSnackbar.showSnackbar(data);
                                 });
                         } else {
                             var snackbarContainer = document.querySelector('#snackbar');
-                            var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
+                            var data = {message: 'Bitte mindestens eine Klasse wählen!'};
                             snackbarContainer.MaterialSnackbar.showSnackbar(data);
                         }
 

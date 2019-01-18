@@ -6,26 +6,31 @@
         <div class="mdl-card__supporting-text">
             <form action="/admin/create_user" method="post">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="email" id="new_username" name="new_username" value="<?= isset($_POST['new_username']) ? htmlspecialchars(strip_tags($_POST['new_username'])) : ''; ?>">
+                    <input class="mdl-textfield__input" type="email" id="new_username" name="new_username"
+                           value="<?= isset($_POST['new_username']) ? htmlspecialchars(strip_tags($_POST['new_username'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="new_username">Email*</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="password" id="new_password" name="new_password" value="<?= isset($_POST['new_password']) ? htmlspecialchars(strip_tags($_POST['new_password'])) : ''; ?>">
+                    <input class="mdl-textfield__input" type="password" id="new_password" name="new_password"
+                           value="<?= isset($_POST['new_password']) ? htmlspecialchars(strip_tags($_POST['new_password'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="new_password">Passwort*</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="new_vorname" name="new_vorname" value="<?= isset($_POST['new_vorname']) ? htmlspecialchars(strip_tags($_POST['new_vorname'])) : ''; ?>">
+                    <input class="mdl-textfield__input" type="text" id="new_vorname" name="new_vorname"
+                           value="<?= isset($_POST['new_vorname']) ? htmlspecialchars(strip_tags($_POST['new_vorname'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="new_vorname">Vorname*</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="new_nachname" name="new_nachname" value="<?= isset($_POST['new_nachname']) ? htmlspecialchars(strip_tags($_POST['new_nachname'])) : ''; ?>">
+                    <input class="mdl-textfield__input" type="text" id="new_nachname" name="new_nachname"
+                           value="<?= isset($_POST['new_nachname']) ? htmlspecialchars(strip_tags($_POST['new_nachname'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="new_nachname">Nachname*</label>
                 </div>
-                <label class="mdl-checkbox mdl-checkbox__ripple-container" for="pw_checkbox">
-                    <input value="1" type="checkbox" id="pw_checkbox" class="mdl-checkbox__input" checked>
-                    <span class="mdl-checkbox__label">Initialpasswort</span>
+                <label for="pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <input type="checkbox" id="pw_checkbox" name="pw_checkbox" class="mdl-checkbox__input">
+                    <span class="mdl-checkbox__label">Initial Passwort</span>
                 </label>
-                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone usertype_select" name="usertype_select"
+                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone usertype_select"
+                        name="usertype_select"
                         id="usertype_select">
                     <?php
                     echo '<option value="">Benutzertyp wählen..*</option>';
