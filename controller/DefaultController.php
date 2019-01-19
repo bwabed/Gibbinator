@@ -49,7 +49,7 @@ class DefaultController
             $this->redirectWhenLoggedIn();
         }
         else {
-            $view = new View('user_index');
+            $view = new View('default_index');
             $view->title = 'Startseite';
             $view->heading = 'Startseite';
             $view->display();
