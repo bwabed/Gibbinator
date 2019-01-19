@@ -9,7 +9,7 @@ class UserController
 {
 
     private $message;
-
+/** Start */
     public function __construct()
     {
         $view = new View('header', array('title' => 'Benutzer', 'heading' => 'Benutzer'));
@@ -34,17 +34,17 @@ class UserController
             $this->login();
         }
     }
-
+/** Login */
     public function login()
     {
         $view = new View('user_login');
         $view->display();
     }
 
-    public function lesions()
+    public function logout()
     {
-        $view = new View('user_lesions');
-        $view->display();
+        session_destroy();
+        header('Location: /');
     }
 
     public function check_login()
@@ -117,6 +117,12 @@ class UserController
             $this->login();
         }
     }
+/** Views */
+    public function lesions()
+    {
+        $view = new View('user_lesions');
+        $view->display();
+    }
 
     public function new_password()
     {
@@ -125,10 +131,12 @@ class UserController
         $view->display();
     }
 
-    public function logout()
+    public function create()
     {
-        session_destroy();
-        header('Location: /');
+        $view = new View('user_create');
+        $view->title = 'Benutzer erstellen';
+        $view->heading = 'Benutzer erstellen';
+        $view->display();
     }
 
     public function edit_profile()
@@ -143,6 +151,22 @@ class UserController
         }
     }
 
+    public function messages() {
+        $view = new View('user_messages');
+        $nachrichtenModel = new NachrichtenModel();
+        /** Lehrperson */
+        if ($_SESSION['usertype']['id'] == 2) {
+            $view->nachrichten = $nachrichtenModel->get_message_by_creator();
+        }
+        /** Lernende */
+        if ($_SESSION['usertype']['id'] == 3) {
+            $userModel = new UserModel();
+            $user = $userModel->readById($_SESSION['user']['id']);
+
+        }
+        $view->display();
+    }
+/** Functions */
     public function check_changePassword()
     {
         if (isset($_POST["old_password"]) && !empty($_POST["old_password"]) && isset($_POST["new_password"]) && !empty($_POST["new_password"])) {
@@ -180,14 +204,6 @@ class UserController
         }
     }
 
-    public function create()
-    {
-        $view = new View('user_create');
-        $view->title = 'Benutzer erstellen';
-        $view->heading = 'Benutzer erstellen';
-        $view->display();
-    }
-
     public function delete()
     {
         $userRepository = new UserModel();
@@ -196,7 +212,7 @@ class UserController
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
     }
-
+/** End */
     public function __destruct()
     {
         $view = new View('footer');

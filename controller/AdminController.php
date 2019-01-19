@@ -4,7 +4,6 @@ require_once('model/UserModel.php');
 require_once('model/UsertypeModel.php');
 require_once('model/GebaeudeModel.php');
 require_once('model/KlassenModel.php');
-require_once('model/AbteilungsModel.php');
 
 /**
  * Created by PhpStorm.
@@ -19,7 +18,7 @@ class AdminController
     /** Start */
     public function __construct()
     {
-        $view = new View('admin_header', array('title' => 'Startseite', 'heading' => 'Startseite'));
+        $view = new View('header', array('title' => 'Startseite', 'heading' => 'Startseite'));
         $view->display();
     }
 
@@ -104,7 +103,8 @@ class AdminController
         $view->display();
     }
 
-    public function edit_room() {
+    public function edit_room()
+    {
         if (!empty($_POST['floor_select']) && !empty($_POST['room_name']) && !empty($_POST['gebaeude_id'])) {
 
             if (!empty($_POST['room_opt'])) {
@@ -170,7 +170,8 @@ class AdminController
         }
     }
 
-    public function delete_selected_buildings() {
+    public function delete_selected_buildings()
+    {
         if (!empty($_POST['buildings'])) {
             $buildingModel = new GebaeudeModel();
 
@@ -188,7 +189,8 @@ class AdminController
         }
     }
 
-    public function delete_selected_rooms() {
+    public function delete_selected_rooms()
+    {
         if (!empty($_POST['rooms'])) {
             $gebaeudeModel = new GebaeudeModel();
 
@@ -199,7 +201,8 @@ class AdminController
         }
     }
 
-    public function delete_selected_floors() {
+    public function delete_selected_floors()
+    {
         if (!empty($_POST['floors'])) {
             $gebaeudeModel = new GebaeudeModel();
 
@@ -392,11 +395,52 @@ class AdminController
             $userModel = new UserModel();
 
             $klasse = $klassenModel->readById($_POST['klassen_id']);
+            $klassen_users = $klassenModel->get_user_ids_of_klasse($_POST['klassen_id']);
+
+            $rows = array();
+            foreach ($klassen_users as $klassen_user) {
+                $rows[] = $userModel->readById($klassen_user->user_id);
+            }
 
             $view->klassen_lp = $userModel->readById($klasse->klassen_lp);
             $view->lehrer = $userModel->readAllProfs();
             $view->klasse = $klasse;
+            $view->lernende = $rows;
             $view->display();
+        }
+    }
+
+    public function delete_user_klasse() {
+        if (!empty($_POST['users'])) {
+            $klassenModel = new KlassenModel();
+
+            foreach ($_POST['useres'] as $user) {
+                $klassenModel->delete_user_klasse_by_user($user);
+            }
+        }
+    }
+
+    public function user_klasse()
+    {
+        $view = new View('admin_user_class');
+        $userModel = new UserModel();
+
+        $lernende = $userModel->readAllStuds();
+        $view->lernende = $lernende;
+        $view->klassen_id = $_POST['klassen_id'];
+        $view->display();
+    }
+
+    public function add_user_class()
+    {
+        if (!empty($_POST['users']) && !empty($_POST['klassen_id'])) {
+            $klassenID = $_POST['klassen_id'];
+            $klassenModel = new KlassenModel();
+            foreach ($_POST['users'] as $user) {
+                $klassenModel->create_user_klasse($klassenID, $user);
+            }
+
+            header('Location: /admin/classes');
         }
     }
 

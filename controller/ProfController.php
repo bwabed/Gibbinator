@@ -15,7 +15,7 @@ class ProfController
 
     public function __construct()
     {
-        $view = new View('prof_header', array('title' => 'Benutzer', 'heading' => 'Benutzer'));
+        $view = new View('header', array('title' => 'Benutzer', 'heading' => 'Benutzer'));
         $view->display();
     }
 

@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Gebäude</h2>
+            <h2 class="mdl-card__title-text">Neues Gebäude</h2>
         </div>
 
         <form action="/admin/add_building" method="post">
@@ -37,7 +37,7 @@
     </div>
     <div class="mdl-card mdl-cell mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Stockwerk</h2>
+            <h2 class="mdl-card__title-text">Neues Stockwerk</h2>
         </div>
         <form action="/admin/add_floor" method="post">
             <div class="mdl-card__supporting-text">
@@ -73,7 +73,7 @@
     </div>
     <div class="mdl-cell mdl-card mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Zimmer</h2>
+            <h2 class="mdl-card__title-text">Neues Zimmer</h2>
         </div>
         <form action="/admin/add_room" method="post">
             <div class="mdl-card__supporting-text">

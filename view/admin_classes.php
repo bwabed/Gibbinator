@@ -8,7 +8,7 @@
 ?>
 
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-shadow--2dp" id="klassen_results">
+    <div class="mdl-card mdl-card-form mdl-grid mdl-grid--no-spacing  mdl-cell--12-col mdl-shadow--2dp" id="klassen_results">
         <div class="mdl-card__title">
             <h3>Klassen</h3>
         </div>
