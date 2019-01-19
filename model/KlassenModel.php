@@ -22,13 +22,13 @@ class KlassenModel extends Model
         return $result;
     }
 
-    public function createKlasse($klassenName, $klassenLp, $abteilungsId)
+    public function createKlasse($klassenName, $klassenLp)
     {
 
-        $query = "INSERT INTO $this->tableName (`name`, klassen_lp, abteilungs_id) VALUES (?, ?, ?)";
+        $query = "INSERT INTO $this->tableName (`name`, klassen_lp) VALUES (?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('sii', $klassenName, $klassenLp, $abteilungsId);
+        $statement->bind_param('si', $klassenName, $klassenLp);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
@@ -38,11 +38,11 @@ class KlassenModel extends Model
 
     }
 
-    public function updateKlasse($klassenID, $klassenName, $klassenLp, $abteilungs_id) {
-        $query = "UPDATE $this->tableName SET `name` = ?, klassen_lp = ?, abteilungs_id = ? where id = ?";
+    public function updateKlasse($klassenID, $klassenName, $klassenLp) {
+        $query = "UPDATE $this->tableName SET `name` = ?, klassen_lp = ? where id = ?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);
-        $statement->bind_param('siii', $new_email, $userID, $old_email);
+        $statement->bind_param('sii', $klassenName, $klassenLp, $klassenID);
         $statement->execute();
         return $connection->affected_rows;
     }

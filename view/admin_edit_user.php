@@ -10,6 +10,7 @@
                            value="<?= isset($_POST['edit_username']) ? htmlspecialchars(strip_tags($_POST['edit_username'])) : $userData->email; ?>">
                     <label class="mdl-textfield__label" for="edit_username">Email*</label>
                 </div>
+                <input type="hidden" id="edit_user_id" name="edit_user_id" value="<?= $userData->id?>">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="password" id="edit_password" name="edit_password"
                            value="<?= isset($_POST['edit_password']) ? htmlspecialchars(strip_tags($_POST['edit_password'])) : ''; ?>">
@@ -39,11 +40,11 @@
                     }
                     ?>
                 </select>
-                <label for="pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                <label for="edit_pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
                     <?php if ($userData->initial_pw == 0) { ?>
-                        <input type="checkbox" id="pw_checkbox" class="mdl-checkbox__input">
+                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input">
                     <?php } else { ?>
-                        <input type="checkbox" id="pw_checkbox" class="mdl-checkbox__input" checked>
+                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input" checked>
                     <?php } ?>
                     <span class="mdl-checkbox__label">Initial Passwort</span>
                 </label>
@@ -54,7 +55,7 @@
         <div class="mdl-card__actions mdl-card--border send-button">
             <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
                     id="create">
-                Benutzer erstellen
+                Änderungen Speichern
             </button>
         </div>
         </form>

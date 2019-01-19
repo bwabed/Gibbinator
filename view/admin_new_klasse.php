@@ -23,26 +23,12 @@
                         name="klassen_lp_select"
                         id="klassen_lp_select">
                     <?php
-                    echo '<option value="">Klassen Lehrperson wählen..*</option>';
+                    echo '<option value="">Klassenlehrperson wählen..*</option>';
                     foreach ($lehrer as $row) {
                         if (!empty($_POST['klassen_lp_select']) && rawurldecode($_POST['klassen_lp_select']) == $row->id) {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->vorname . ' ' . $row->nachname . '</option>';
                         } else {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->bezeichnung . ' ' . $row->nachname . '</option>';
-                        }
-                    }
-                    ?>
-                </select>
-                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone abteilungs_select"
-                        name="abteilungs_select"
-                        id="abteilungs_select">
-                    <?php
-                    echo '<option value="">Abteilung wählen..*</option>';
-                    foreach ($abteilungen as $row) {
-                        if (!empty($_POST['abteilungs_select']) && rawurldecode($_POST['abteilungs_select']) == $row->id) {
-                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->bezeichnung . '</option>';
-                        } else {
-                            echo '<option value="' . rawurlencode($row->id) . '">' . $row->bezeichnung . '</option>';
                         }
                     }
                     ?>

@@ -126,6 +126,27 @@ class UserModel extends Model
         return $result;
     }
 
+    public function update_with_pw($userId, $email, $password, $vorname, $nachname, $usertype, $initPW) {
+        if ($initPW == 0) {
+            $password = password_hash($password, PASSWORD_DEFAULT);
+        }
+        $query = "UPDATE $this->tableName SET vorname = ?, nachname = ?, email = ?, password = ?, user_type = ?, initial_pw = ? where id = ?";
+        $connection = ConnectionHandler::getConnection();
+        $statement = $connection->prepare($query);
+        $statement->bind_param('ssssiii', $vorname, $nachname, $email, $password, $usertype, $initPW, $userId);
+        $statement->execute();
+        return $connection->affected_rows;
+    }
+
+    public function update_without_pw($userId, $email, $vorname, $nachname, $usertype) {
+        $query = "UPDATE $this->tableName SET vorname = ?, nachname = ?, email = ?, user_type = ? where id = ?";
+        $connection = ConnectionHandler::getConnection();
+        $statement = $connection->prepare($query);
+        $statement->bind_param('sssii', $vorname, $nachname, $email, $usertype, $userId);
+        $statement->execute();
+        return $connection->affected_rows;
+    }
+
     public function readAllProfs() {
         $userTypeProf = 2;
         $query = "SELECT * FROM $this->tableName WHERE user_type = ?";

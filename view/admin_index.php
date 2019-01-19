@@ -3,15 +3,8 @@
         <div class="mdl-card__title">
             <h3>Benutzer</h3>
         </div>
-        <div class="mdl-card__supporting-text">
-            <?php
-            echo 'Benutzertypen: ';
-            foreach ($usertypes as $usertype) {
-                echo $usertype->id . ' = ' . $usertype->bezeichnung . '; ';
-            }
-            ?>
-        </div>
-        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="users_table">
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+               id="users_table">
             <thead>
             <tr>
                 <th class="user_table">Bearbeiten</th>
@@ -45,8 +38,20 @@
           <td>' . $row->vorname . '</td>
           <td>' . $row->nachname . '</td>
           <td>' . $row->email . '</td>
-          <td>' . $row->user_type . '</td>
-          <td>' . $row->initial_pw . '</td>
+          <td>';
+                foreach ($usertypes as $usertype) {
+                    if ($usertype->id == $row->user_type) {
+                        echo $usertype->bezeichnung;
+                    }
+                }
+                echo '</td>
+          <td>';
+                if ($row->initial_pw == 0) {
+                    echo 'Nein';
+                } else {
+                    echo 'Ja';
+                }
+                echo '</td>
           </tr>
           ';
             }

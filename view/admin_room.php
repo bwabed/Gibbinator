@@ -3,11 +3,13 @@
         <div class="mdl-card__title">
         </div>
         <div class="mdl-card__supporting-text">
-            <form action="/admin/room_detail" method="post">
+            <form action="/admin/edit_room" method="post">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="room_opt" name="room_opt">
                     <label class="mdl-textfield__label" for="room_opt">Zusätzliche Bez.</label>
                 </div>
+                <input type="hidden" id="room_name" name="room_name" value="<?= $roomData['name'] ?>">
+                <input type="hidden" id="gebaeude_id" name="gebaeude_id" value="<?= $roomData['gebaeude_id'] ?>">
                 <select class="floor_select" name="floor_select"
                         id="floor_select">
                     <?php
@@ -21,6 +23,12 @@
                     }
                     ?>
                 </select>
+                <div class="mdl-card__actions">
+                    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                            id="zimmer">
+                        Speichern
+                    </button>
+                </div>
             </form>
         </div>
     </div>

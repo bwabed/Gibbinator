@@ -1,5 +1,5 @@
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-cell--4-col mdl-shadow--2dp">
+    <div class="mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Gebäude</h2>
         </div>
@@ -35,7 +35,7 @@
             </div>
         </form>
     </div>
-    <div class="mdl-card mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
+    <div class="mdl-card mdl-cell mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Stockwerk</h2>
         </div>
@@ -71,7 +71,7 @@
             </div>
         </form>
     </div>
-    <div class="mdl-card mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
+    <div class="mdl-cell mdl-card mdl-cell--4-col mdl-shadow--2dp">
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Zimmer</h2>
         </div>
@@ -102,5 +102,240 @@
                 </button>
             </div>
         </form>
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Gebäude</h2>
+        </div>
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+               id="build_table">
+            <thead>
+            <tr>
+                <th class="build_table">Bezeichnung</th>
+                <th class="build_table">Strasse</th>
+                <th class="build_table">Nummer</th>
+                <th class="build_table">PLZ</th>
+                <th class="build_table">Ort</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($gebaeude as $row) {
+                echo '
+          <tr data-id="' . $row->id . '">
+          <td>' . $row->bezeichnung . '</td>
+          <td>' . $row->strasse . '</td>
+          <td>' . $row->nr . '</td>
+          <td>' . $row->plz . '</td>
+          <td>' . $row->ort . '</td>
+          </tr>
+          ';
+            }
+            ?>
+            </tbody>
+        </table>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+                    id="delete_build_button">
+                Gebäude Löschen
+            </button>
+
+            <script type="text/javascript">
+                // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
+                // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
+                // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
+                $(document).ready(function () {
+                    $('#delete_build_button').click(function (e) {
+
+                        var selectedBuilds = [];
+
+                        $('table#build_table tbody tr td:first-child input').each(function (index, value) {
+                            if (value.checked) {
+                                selectedBuilds.push($(value).parent().parent().parent().data('id'));
+                            }
+                        });
+
+                        if (selectedBuilds.length != 0) {
+                            $.post("/admin/delete_selected_buildings", {buildings: selectedBuilds})
+                                .done(function (data) {
+                                    'use strict';
+                                    var snackbarContainer = document.querySelector('#snackbar');
+                                    var data = {message: 'Gebäude erfolgreich gelöscht.'};
+                                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                                });
+                        } else {
+                            var snackbarContainer = document.querySelector('#snackbar');
+                            var data = {message: 'Bitte mindestens ein Gebäude wählen!'};
+                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                        }
+
+                        window.location.reload();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--7-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Zimmer</h2>
+        </div>
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+               id="room_table">
+            <thead>
+            <tr>
+                <th class="room_table">Bezeichnung</th>
+                <th class="room_table">Optionale Bezeichnung</th>
+                <th class="room_table">Stockwerk</th>
+                <th class="room_table">Gebäude</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($zimmer as $row) {
+                echo '
+          <tr data-id="' . $row->id . '">
+          <td>' . $row->bezeichnung . '</td>
+          <td>' . $row->optional_text . '</td>
+          <td>';
+                $buildID = 0;
+                foreach ($connections as $tmp) {
+                    if ($row->id == $tmp->zimmer_id) {
+                        foreach ($stockwerke as $stockwerk) {
+                            if ($stockwerk->id == $tmp->stockwerk_id) {
+                                $buildID = $stockwerk->gebaeude_id;
+                                echo $stockwerk->bezeichnung;
+                            }
+                        }
+                    }
+                }
+                echo '</td>
+          <td>';
+                foreach ($gebaeude as $build) {
+                    if ($build->id == $buildID) {
+                        echo $build->bezeichnung;
+                    }
+                }
+                echo '</td>
+          
+          </tr>
+          ';
+            }
+            ?>
+            </tbody>
+        </table>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+                    id="delete_room_button">
+                Zimmer Löschen
+            </button>
+
+            <script type="text/javascript">
+                // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
+                // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
+                // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
+                $(document).ready(function () {
+                    $('#delete_room_button').click(function (e) {
+
+                        var selectedRooms = [];
+
+                        $('table#room_table tbody tr td:first-child input').each(function (index, value) {
+                            if (value.checked) {
+                                selectedRooms.push($(value).parent().parent().parent().data('id'));
+                            }
+                        });
+
+                        if (selectedRooms.length != 0) {
+                            $.post("/admin/delete_selected_rooms", {rooms: selectedRooms})
+                                .done(function (data) {
+                                    'use strict';
+                                    var snackbarContainer = document.querySelector('#snackbar');
+                                    var data = {message: 'Zimmer erfolgreich gelöscht.'};
+                                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                                });
+                        } else {
+                            var snackbarContainer = document.querySelector('#snackbar');
+                            var data = {message: 'Bitte mindestens ein Zimmer wählen!'};
+                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                        }
+
+                        window.location.reload();
+                    });
+                });
+            </script>
+        </div>
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--5-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+        <div class="mdl-card__title">
+            <h2 class="mdl-card__title-text">Stockwerk</h2>
+        </div>
+        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+               id="floor_table">
+            <thead>
+            <tr>
+                <th class="floor_table">Bezeichnung</th>
+                <th class="floor_table">Ganzzahl</th>
+                <th class="floor_table">Gebäude</th>
+            </tr>
+            </thead>
+            <tbody>
+            <?php
+            foreach ($stockwerke as $row) {
+                echo '
+          <tr data-id="' . $row->id . '">
+          <td>' . $row->bezeichnung . '</td>
+          <td>' . $row->nummer . '</td>
+          <td>';
+                foreach ($gebaeude as $build) {
+                    if ($build->id == $row->gebaeude_id) {
+                        echo $build->bezeichnung;
+                    }
+                }
+                echo '</td>
+          </tr>
+          ';
+            }
+            ?>
+            </tbody>
+        </table>
+        <div class="mdl-card__actions mdl-card--border">
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+                    id="delete_floor_button">
+                Stockwerke Löschen
+            </button>
+
+            <script type="text/javascript">
+                // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
+                // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
+                // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
+                $(document).ready(function () {
+                    $('#delete_floor_button').click(function (e) {
+
+                        var selectedFloors = [];
+
+                        $('table#floor_table tbody tr td:first-child input').each(function (index, value) {
+                            if (value.checked) {
+                                selectedFloors.push($(value).parent().parent().parent().data('id'));
+                            }
+                        });
+
+                        if (selectedFloors.length != 0) {
+                            $.post("/admin/delete_selected_floors", {floors: selectedFloors})
+                                .done(function (data) {
+                                    'use strict';
+                                    var snackbarContainer = document.querySelector('#snackbar');
+                                    var data = {message: 'Stockwerke erfolgreich gelöscht.'};
+                                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                                });
+                        } else {
+                            var snackbarContainer = document.querySelector('#snackbar');
+                            var data = {message: 'Bitte mindestens ein Stockwerk wählen!'};
+                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                        }
+
+                        window.location.reload();
+                    });
+                });
+            </script>
+        </div>
     </div>
 </div>

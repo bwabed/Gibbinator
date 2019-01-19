@@ -17,8 +17,7 @@
             <tr>
                 <th class="klassen_table">Bearbeiten</th>
                 <th class="klassen_table">Name</th>
-                <th class="klassen_table">Klassen Lehrperson</th>
-                <th class="klassen_table">Abteilung</th>
+                <th class="klassen_table">Klassenlehrperson</th>
             </tr>
             </thead>
             <tbody>
@@ -31,7 +30,7 @@
           <a href="#" id="form-select-klasse-button-' . $row->id . '" class="mdl-navigation__link">
           <i class="material-icons">edit</i>
           </a>
-          <input type="hidden" name="user_id" value="' . $row->id . '">
+          <input type="hidden" name="klassen_id" value="' . $row->id . '">
           <script>
           $(document).ready(function() {
             $("#form-select-klasse-button-' . $row->id . '").click(function(e) {
@@ -46,13 +45,6 @@
                 foreach ($lehrer as $lp) {
                     if ($lp->id == $row->klassen_lp) {
                         echo $lp->vorname . ' ' . $lp->nachname;
-                    }
-                }
-                echo '</td>
-          <td>';
-                foreach ($abteilungen as $abteilung) {
-                    if ($abteilung->id == $row->abteilungs_id) {
-                        echo $abteilung->bezeichnung;
                     }
                 }
                 echo '</td>
