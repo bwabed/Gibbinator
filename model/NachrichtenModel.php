@@ -11,7 +11,7 @@ require_once('lib/model.php');
 
 class NachrichtenModel extends Model
 {
-    protected $tableName = 'nachrichten';
+    protected $tableName = 'nachricht';
 
     public function get_message_by_creator($creatorID) {
         $query = "SELECT * FROM $this->tableName WHERE erfasser_id = ?";

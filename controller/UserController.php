@@ -1,6 +1,7 @@
 <?php
 
 require_once('model/UserModel.php');
+require_once('model/NachrichtenModel.php');
 
 /**
  * Siehe Dokumentation im DefaultController.
@@ -155,13 +156,14 @@ class UserController
         $view = new View('user_messages');
         $nachrichtenModel = new NachrichtenModel();
         /** Lehrperson */
-        if ($_SESSION['usertype']['id'] == 2) {
-            $view->nachrichten = $nachrichtenModel->get_message_by_creator();
+        if ($_SESSION['userType']['id'] == 2) {
+            $view->nachrichten = $nachrichtenModel->get_message_by_creator($_SESSION['user']['id']);
         }
         /** Lernende */
-        if ($_SESSION['usertype']['id'] == 3) {
+        if ($_SESSION['userType']['id'] == 3) {
             $userModel = new UserModel();
             $user = $userModel->readById($_SESSION['user']['id']);
+
 
         }
         $view->display();

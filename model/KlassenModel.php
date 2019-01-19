@@ -84,7 +84,7 @@ class KlassenModel extends Model
     }
 
     public function delete_user_klasse_by_user($userID) {
-        $query = "DELETE FROM $this->userKlassenTable WHERE user_id=?";
+        $query = "DELETE FROM $this->userKlassenTable WHERE user_id = ?";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $userID);

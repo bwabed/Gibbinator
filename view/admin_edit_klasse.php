@@ -91,6 +91,7 @@
                 // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
                 $(document).ready(function () {
                     $('#delete_button').click(function (e) {
+                        e.preventDefault();
 
                         var selectedUsers = [];
 
@@ -101,7 +102,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/delete_user_klasse", {users: selectedUsers})
+                            $.post("/admin/edit_klasse", {delete_users: selectedUsers, klassen_id: <?= $klasse->id ?>})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');
@@ -113,7 +114,6 @@
                             var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
                             snackbarContainer.MaterialSnackbar.showSnackbar(data);
                         }
-
                         window.location.reload();
                     });
                 });

@@ -389,6 +389,22 @@ class AdminController
     {
         if (!empty($_POST['klassen_id'])) {
 
+            if (!empty($_POST['delete_users'])) {
+                $klassenModel = new KlassenModel();
+
+                foreach ($_POST['delete_users'] as $user) {
+                    $klassenModel->delete_user_klasse_by_user($user);
+                }
+            }
+
+            if (!empty($_POST['add_users'])) {
+                $klassenID = $_POST['klassen_id'];
+                $klassenModel = new KlassenModel();
+                foreach ($_POST['add_users'] as $user) {
+                    $klassenModel->create_user_klasse($klassenID, $user);
+                }
+            }
+
             $view = new View('admin_edit_klasse');
 
             $klassenModel = new KlassenModel();
@@ -396,6 +412,7 @@ class AdminController
 
             $klasse = $klassenModel->readById($_POST['klassen_id']);
             $klassen_users = $klassenModel->get_user_ids_of_klasse($_POST['klassen_id']);
+
 
             $rows = array();
             foreach ($klassen_users as $klassen_user) {
@@ -410,16 +427,6 @@ class AdminController
         }
     }
 
-    public function delete_user_klasse() {
-        if (!empty($_POST['users'])) {
-            $klassenModel = new KlassenModel();
-
-            foreach ($_POST['useres'] as $user) {
-                $klassenModel->delete_user_klasse_by_user($user);
-            }
-        }
-    }
-
     public function user_klasse()
     {
         $view = new View('admin_user_class');
@@ -429,19 +436,6 @@ class AdminController
         $view->lernende = $lernende;
         $view->klassen_id = $_POST['klassen_id'];
         $view->display();
-    }
-
-    public function add_user_class()
-    {
-        if (!empty($_POST['users']) && !empty($_POST['klassen_id'])) {
-            $klassenID = $_POST['klassen_id'];
-            $klassenModel = new KlassenModel();
-            foreach ($_POST['users'] as $user) {
-                $klassenModel->create_user_klasse($klassenID, $user);
-            }
-
-            header('Location: /admin/classes');
-        }
     }
 
     /** END */

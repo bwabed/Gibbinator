@@ -57,7 +57,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/add_user_class", {users: selectedUsers, klassen_id: <?= $klassen_id ?>})
+                            $.post("/admin/edit_klasse", {add_users: selectedUsers, klassen_id: <?= $klassen_id ?>})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');
@@ -69,7 +69,6 @@
                             var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
                             snackbarContainer.MaterialSnackbar.showSnackbar(data);
                         }
-
                     });
                 });
             </script>
