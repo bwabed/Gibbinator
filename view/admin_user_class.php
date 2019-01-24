@@ -69,6 +69,7 @@
                             var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
                             snackbarContainer.MaterialSnackbar.showSnackbar(data);
                         }
+                        window.location.reload();
                     });
                 });
             </script>

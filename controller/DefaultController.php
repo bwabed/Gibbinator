@@ -42,17 +42,20 @@ class DefaultController
 
     public function index()
     {
-        // In diesem Fall möchten wir dem Benutzer die View mit dem Namen
-        //   "default_index" rendern. Wie das genau funktioniert, ist in der
-        //   View Klasse beschrieben.
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-            $this->redirectWhenLoggedIn();
-        }
-        else {
-            $view = new View('default_index');
-            $view->title = 'Startseite';
-            $view->heading = 'Startseite';
-            $view->display();
+        if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            switch ($_SESSION['userType']['id']) {
+                case 1:
+                    header("Location: /admin/index");
+                    break;
+                case 2:
+                    header("Location: /prof/index");
+                    break;
+                case 3:
+                    header("Location: /user/index");
+                    break;
+            }
+        } else {
+            header("Location: /user/login");
         }
     }
 

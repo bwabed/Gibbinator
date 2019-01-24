@@ -1,29 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Webapplikation der Gibbinator App für Lehrpersonen">
+    <meta name="description" content="Gibbinator WebApp">
 
 
     <title>Gibbinator WebApp</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="images/gibb_logo.svg.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Gibbinator">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="images/gibb_logo.svg.png">
 
     <!-- Tile icon for Win8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <link rel="shortcut icon" href="images/favicon.png">
+    <link rel="shortcut icon" href="images/gibb_logo.svg.png">
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
@@ -57,13 +57,19 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Gibbinator</span>
             <div class="mdl-layout-spacer"></div>
-            <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-                <i class="material-icons">more_vert</i>
+            <?php
+            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+                if ($_SESSION['userType']['id'] == 2) {
+                    echo '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
+                <i class="material-icons">swap_vert</i>
             </button>
-            <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-                <li class="mdl-menu__item">Über uns</li>
-                <li class="mdl-menu__item">Kontakt</li>
-            </ul>
+            <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="hdrbtn">
+                <li class=""><a class="mdl-menu__item" href="/download/get_file?file=' . urlencode("Sem_plan_vorlage.xlsx") . '">Excelvorlage herunterladen</a></li>
+                <li class=""><a class="mdl-menu__item" href="/prof/upload_plan">Semesterplan hochladen (csv)</a></li>
+            </ul>';
+                };
+            };
+            ?>
         </div>
     </header>
     <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
@@ -86,7 +92,7 @@
                     </ul>
                 </div>
             </header>';
-            switch ($_SESSION['userType'] ['id']) {
+            switch ($_SESSION['userType']['id']) {
                 case 1:
                     echo '
                     <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">

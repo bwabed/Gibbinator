@@ -20,7 +20,17 @@ class KlassenModel extends Model
         $statement->bind_param('i', $lehrerID);
         $statement->execute();
         $result = $statement->get_result();
-        return $result;
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 
     public function createKlasse($klassenName, $klassenLp)
@@ -48,7 +58,7 @@ class KlassenModel extends Model
         return $connection->affected_rows;
     }
 
-    public function get_klasse_by_student($studID) {
+    public function get_klassenID_by_student($studID) {
         $query = "SELECT * FROM $this->userKlassenTable WHERE user_id = ?";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $studID);
@@ -62,6 +72,28 @@ class KlassenModel extends Model
         $rows = array();
         while ($row = $result->fetch_object()) {
             $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function get_multiple_klassen_by_id($klassenIDs) {
+        $rows = array();
+        foreach ($klassenIDs as $klassenID) {
+            $query = "SELECT * FROM $this->tableName WHERE id = ?";
+            $statement = ConnectionHandler::getConnection()->prepare($query);
+            $statement->bind_param('i', $klassenID);
+            $statement->execute();
+            $result = $statement->get_result();
+            if (!$result) {
+                throw new Exception($statement->error);
+            }
+
+            // Datensätze aus dem Resultat holen und in das Array $rows speichern
+
+            while ($row = $result->fetch_object()) {
+                $rows[] = $row;
+            }
         }
 
         return $rows;

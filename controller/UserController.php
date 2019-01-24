@@ -2,6 +2,8 @@
 
 require_once('model/UserModel.php');
 require_once('model/NachrichtenModel.php');
+require_once('model/KlassenModel.php');
+require_once('model/LektionenModel.php');
 
 /**
  * Siehe Dokumentation im DefaultController.
@@ -10,35 +12,11 @@ class UserController
 {
 
     private $message;
-/** Start */
+
+    /** Start */
     public function __construct()
     {
         $view = new View('header', array('title' => 'Benutzer', 'heading' => 'Benutzer'));
-        $view->display();
-    }
-
-    public function index()
-    {
-        if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            switch ($_SESSION['userType']['id']) {
-                case 1:
-                    header("Location: /admin/index");
-                    break;
-                case 2:
-                    header("Location: /prof/index");
-                    break;
-                case 3:
-                    $this->index();
-                    break;
-            }
-        } else {
-            $this->login();
-        }
-    }
-/** Login */
-    public function login()
-    {
-        $view = new View('user_login');
         $view->display();
     }
 
@@ -81,7 +59,7 @@ class UserController
                                 header("Location: /prof/index");
                                 break;
                             case 3:
-                                $this->index();
+                                header("Location: /user/index");
                                 break;
                         }
                     } else {
@@ -118,10 +96,17 @@ class UserController
             $this->login();
         }
     }
-/** Views */
-    public function lesions()
+
+    public function index()
     {
-        $view = new View('user_lesions');
+        $view = new View('user_index');
+        $view->display();
+    }
+
+    /** Login */
+    public function login()
+    {
+        $view = new View('user_login');
         $view->display();
     }
 
@@ -129,6 +114,13 @@ class UserController
     {
         $view = new View('user_password');
 
+        $view->display();
+    }
+
+    /** Views */
+    public function lesions()
+    {
+        $view = new View('user_lesions');
         $view->display();
     }
 
@@ -140,35 +132,119 @@ class UserController
         $view->display();
     }
 
-    public function edit_profile()
+    public function edit_message()
     {
-        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
-            $view = new View('user_profile');
+        if (!empty($_POST['nachrichten_id'])) {
+            $nachrichtenModel = new NachrichtenModel();
+            $klassenModel = new KlassenModel();
+            $lektionenModel = new LektionenModel();
+            $view = new View('user_edit_message');
+
+            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->lektionen = $lektionenModel->get_lektionen_by_lp($_SESSION['user']['id']);
+            $view->nachricht = $nachrichtenModel->readById($_POST['nachrichten_id']);
             $view->display();
         } else {
-            $message[] = "Bitte zuerst einloggen!";
-            $this->message = $message;
-            $this->login();
+            $this->new_message();
         }
     }
 
-    public function messages() {
+    public function new_message()
+    {
+        $view = new View('user_new_message');
+
+        $lektionModel = new LektionenModel();
+        $klassenModel = new KlassenModel();
+
+        $view->lektionen = $lektionModel->get_lektionen_by_lp($_SESSION['user']['id']);
+        $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+
+        $view->display();
+    }
+
+    public function create_message()
+    {
+        if (!empty($_POST['new_title']) && !empty($_POST['new_message_text'])) {
+            $nachrichtenModel = new NachrichtenModel();
+            $klasse = null;
+            $lektion = null;
+            $date = date('y-m-d');
+
+            if (isset($_POST['klassen_select']) && !empty($_POST['klassen_select'])) {
+                $klasse = $_POST['klassen_select'];
+            }
+            if (isset($_POST['lektion_select']) && !empty($_POST['lektion_select'])) {
+                $lektion = $_POST['lektion_select'];
+            }
+
+            $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion);
+
+            $this->messages();
+        }
+    }
+
+    public function messages()
+    {
         $view = new View('user_messages');
         $nachrichtenModel = new NachrichtenModel();
+        $klassenModel = new KlassenModel();
+        $lektionenModel = new LektionenModel();
+        $userModel = new UserModel();
         /** Lehrperson */
         if ($_SESSION['userType']['id'] == 2) {
-            $view->nachrichten = $nachrichtenModel->get_message_by_creator($_SESSION['user']['id']);
+            $view->nachrichten = $nachrichtenModel->get_message_by_creator_sorted($_SESSION['user']['id']);
+            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->lektionen = $lektionenModel->get_lektionen_by_lp($_SESSION['user']['id']);
         }
         /** Lernende */
         if ($_SESSION['userType']['id'] == 3) {
-            $userModel = new UserModel();
-            $user = $userModel->readById($_SESSION['user']['id']);
+            $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+            $klassenIds = array();
+            foreach ($user_klassen as $user_klasse) {
+                $klassenIds[] = $user_klasse->klassen_id;
+            }
+            $lektionen = array();
+            foreach ($klassenIds as $klassenID) {
+                $lektionen[] = $lektionenModel->get_lektionen_by_klasse($klassenID);
+            }
+            $lektionIds = array();
+            foreach ($lektionen as $lektion) {
+                foreach ($lektion as $row) {
+                    $lektionIds[] = $row->id;
+                }
+            }
 
 
+            $view->klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            $view->lektionen = $lektionen;
+            $view->nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $lektionIds);
+            $view->teachers = $userModel->readAllProfs();
         }
         $view->display();
     }
-/** Functions */
+
+    public function update_message()
+    {
+        if (!empty($_POST['edit_title']) && !empty($_POST['edit_message_text']) && !empty($_POST['edit_nachricht_id'])) {
+            $nachrichtenModel = new NachrichtenModel();
+            $klasse = null;
+            $lektion = null;
+
+            $date = date('y-m-d');
+
+            if (isset($_POST['edit_klassen_select']) && !empty($_POST['edit_klassen_select'])) {
+                $klasse = $_POST['edit_klassen_select'];
+            }
+            if (isset($_POST['edit_lektion_select']) && !empty($_POST['edit_lektion_select'])) {
+                $lektion = $_POST['edit_lektion_select'];
+            }
+            $nachrichtenModel->update($_POST['edit_nachricht_id'], htmlspecialchars($_POST['edit_title']), htmlspecialchars($_POST['edit_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion);
+
+            $this->messages();
+        }
+    }
+
+    /** Functions */
     public function check_changePassword()
     {
         if (isset($_POST["old_password"]) && !empty($_POST["old_password"]) && isset($_POST["new_password"]) && !empty($_POST["new_password"])) {
@@ -206,6 +282,18 @@ class UserController
         }
     }
 
+    public function edit_profile()
+    {
+        if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
+            $view = new View('user_profile');
+            $view->display();
+        } else {
+            $message[] = "Bitte zuerst einloggen!";
+            $this->message = $message;
+            $this->login();
+        }
+    }
+
     public function delete()
     {
         $userRepository = new UserModel();
@@ -214,7 +302,8 @@ class UserController
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
     }
-/** End */
+
+    /** End */
     public function __destruct()
     {
         $view = new View('footer');
