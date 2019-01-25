@@ -48,7 +48,7 @@ class DefaultController
                     header("Location: /admin/index");
                     break;
                 case 2:
-                    header("Location: /prof/index");
+                    header("Location: /user/index");
                     break;
                 case 3:
                     header("Location: /user/index");
@@ -57,12 +57,6 @@ class DefaultController
         } else {
             header("Location: /user/login");
         }
-    }
-
-    public function redirectWhenLoggedIn()
-    {
-        $view = new View('user_index');
-        $view->display();
     }
 
     public function __destruct()

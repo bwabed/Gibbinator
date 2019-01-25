@@ -6,7 +6,27 @@
                     $.post("/")
                 },
                 events: [
-
+                <?php
+                    $row = 0;
+                    foreach ($lektionen as $lektion) {
+                     foreach ($daten as $datum) {
+                         if ($datum->id == $lektion->date_id) {
+                             $allDay;
+                             if ($datum->all_day == 0) {
+                                 $allDay = 'false';
+                             } elseif ($datum->all_day == 1) {
+                                 $allDay = 'true';
+                             }
+                             if ($row==0) {
+                                 echo '{ id: "' . $lektion->id . '", title: "' . $lektion->titel . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay . '}';
+                             } elseif ($row>0) {
+                                 echo ',{ id: "' . $lektion->id . '", title: "' . $lektion->titel . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay .'}';
+                             }
+                             $row++;
+                         }
+                     }
+                    }
+                    ?>
                 ],
                 selectable: true,
                 locale: 'de',
@@ -19,7 +39,6 @@
                 dayClick: function (date) {
                     $('#calendar').fullCalendar('changeView', 'agendaDay', date.format());
                 }
-
             })
 
         }

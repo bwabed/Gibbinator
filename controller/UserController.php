@@ -4,6 +4,8 @@ require_once('model/UserModel.php');
 require_once('model/NachrichtenModel.php');
 require_once('model/KlassenModel.php');
 require_once('model/LektionenModel.php');
+require_once('model/DatesModel.php');
+require_once('model/GebaeudeModel.php');
 
 /**
  * Siehe Dokumentation im DefaultController.
@@ -56,7 +58,7 @@ class UserController
                                 header("Location: /admin/index");
                                 break;
                             case 2:
-                                header("Location: /prof/index");
+                                header("Location: /user/index");
                                 break;
                             case 3:
                                 header("Location: /user/index");
@@ -100,6 +102,33 @@ class UserController
     public function index()
     {
         $view = new View('user_index');
+
+        $lesionModel = new LektionenModel();
+        $klassenModel = new KlassenModel();
+        $dateIds = array();
+
+        switch ($_SESSION['userType']['id']) {
+            case 2:
+                $lesions = $lesionModel->get_lektionen_by_lp($_SESSION['user']['id']);
+                foreach ($lesions as $lesion) {
+                    $dateIds[] = $lesion->date_id;
+                }
+                $daten = $lesionModel->get_date_by_lektionen($dateIds);
+                break;
+            case 3:
+                $klassenIDs = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+                $lesions = $lesionModel->get_lektionen_by_klassen_ids($klassenIDs);
+                foreach ($lesions as $lesion) {
+                    $dateIds[] = $lesions->date_id;
+                }
+                $daten = $lesionModel->get_date_by_lektionen($dateIds);
+                break;
+            default:
+
+        }
+
+        $view->daten = $daten;
+        $view->lektionen = $lesions;
         $view->display();
     }
 
@@ -244,6 +273,25 @@ class UserController
         }
     }
 
+    public function upload_plan()
+    {
+        $view = new View('prof_upload');
+
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
+            $klassenModel = new KlassenModel();
+            $gebaeudeModel = new GebaeudeModel();
+
+            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->zimmerList = $gebaeudeModel->readAllRooms();
+            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
+            $view->stockwerke = $gebaeudeModel->readAllFloors();
+            $view->buildings = $gebaeudeModel->readAll();
+        } else {
+            header('Location: /user/login');
+        }
+
+        $view->display();
+    }
     /** Functions */
     public function check_changePassword()
     {
@@ -301,6 +349,40 @@ class UserController
 
         // Anfrage an die URI /user weiterleiten (HTTP 302)
         header('Location: /user');
+    }
+
+    public function check_upload()
+    {
+        if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['lesion_title'])) && $_POST['zimmer_select']) {
+            $uploadDir = 'data/uploads/';
+            $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
+            $lektionModel = new LektionenModel();
+
+            if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
+                $row = 0;
+                if (($handle = fopen($uploadFile, "r")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                        if ($row > 0) {
+                            $date = strtotime($data[1]);
+                            $date = date('Y-m-d', $date);
+                            $dateID = $lektionModel->create_new_date($date, $date, htmlspecialchars($_POST['start_time']), htmlspecialchars($_POST['end_time']), 0);
+                            if (!empty($dateID)) {
+                                $lektionModel->create_new_lesion($_POST['klassen_select'], $_SESSION['user']['id'], htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select']);
+                            }
+                        }
+                        $row++;
+                    }
+                    fclose($handle);
+                    $message[] = 'Der Plan wurde angenommen und verarbeitet.';
+                    $this->message = $message;
+                    $this->index();
+                }
+            } else {
+                $message[] = 'Der Plan konnte nicht hochgeladen werden.';
+                $this->message = $message;
+                $this->upload_plan();
+            }
+        }
     }
 
     /** End */
