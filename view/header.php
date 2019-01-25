@@ -65,7 +65,7 @@
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="hdrbtn">
                 <li class=""><a class="mdl-menu__item" href="/download/get_file?file=' . urlencode("Sem_plan_vorlage.xlsx") . '">Excelvorlage herunterladen</a></li>
-                <li class=""><a class="mdl-menu__item" href="/prof/upload_plan">Semesterplan hochladen (csv)</a></li>
+                <li class=""><a class="mdl-menu__item" href="/user/upload_plan">Semesterplan hochladen (csv)</a></li>
             </ul>';
                 };
             };
