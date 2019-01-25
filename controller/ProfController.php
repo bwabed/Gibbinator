@@ -50,19 +50,23 @@ class ProfController
     public function check_upload()
     {
         if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['lesion_title'])) && $_POST['zimmer_select']) {
-            $uploadDir = '/data/upload/';
+            $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
 
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
-                $row = 1;
+                $row = 0;
                 if (($handle = fopen($uploadFile, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
-                        $row++;
-                        $dateID = $lektionModel->create_new_date($data[1], $data[1], htmlspecialchars($_POST['start_time']), htmlspecialchars($_POST['end_time']), 0);
-                        if (!empty($dateID)) {
-                            $lektionModel->create_new_lesion($_POST['klassen_select'], $_SESSION['user']['id'], htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select']);
+                        if ($row > 0) {
+                            $date = strtotime($data[1]);
+                            $date = date('Y-m-d', $date);
+                            $dateID = $lektionModel->create_new_date($date, $date, htmlspecialchars($_POST['start_time']), htmlspecialchars($_POST['end_time']), 0);
+                            if (!empty($dateID)) {
+                                $lektionModel->create_new_lesion($_POST['klassen_select'], $_SESSION['user']['id'], htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select']);
+                            }
                         }
+                        $row++;
                     }
                     fclose($handle);
                 }
