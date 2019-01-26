@@ -1,5 +1,5 @@
 </main>
-<footer class="mdl-mini-footer mdl-color--grey-700 mdl-color-text--white" style="height: 20px">
+<footer class="mdl-mini-footer mdl-color--grey-800 mdl-color-text--white" style="height: 20px">
     <div class="mdl-mini-footer__left-section">
         <div class="mdl-logo mdl-color-text--white">Gibbinator WebApp</div>
         <ul class="mdl-mini-footer__link-list">
