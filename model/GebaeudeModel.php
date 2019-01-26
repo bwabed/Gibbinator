@@ -94,7 +94,6 @@ class GebaeudeModel extends Model
             throw new Exception($statement->error);
         }
 
-        // Datensätze aus dem Resultat holen und in das Array $rows speichern
         $rows = array();
         while ($row = $result->fetch_object()) {
             $rows[] = $row;
@@ -103,7 +102,7 @@ class GebaeudeModel extends Model
         return $rows;
     }
 
-    public function get_connections_by_room_id($roomID) {
+    public function get_connection_by_room_id($roomID) {
         $query = "SELECT * FROM $this->connectionTable WHERE zimmer_id = ?";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $roomID);
@@ -113,13 +112,45 @@ class GebaeudeModel extends Model
             throw new Exception($statement->error);
         }
 
-        // Datensätze aus dem Resultat holen und in das Array $rows speichern
-        $rows = array();
-        while ($row = $result->fetch_object()) {
-            $rows[] = $row;
+        $row = $result->fetch_object();
+
+        $result->close();
+
+        return $row;
+    }
+
+    public function get_floor_by_id($floorID) {
+        $query = "SELECT * FROM $this->floorTable WHERE id = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $floorID);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
         }
 
-        return $rows;
+        $row = $result->fetch_object();
+
+        $result->close();
+
+        return $row;
+    }
+
+    public function get_room_by_id($roomID) {
+        $query = "SELECT * FROM $this->roomTable WHERE id = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $roomID);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        $row = $result->fetch_object();
+
+        $result->close();
+
+        return $row;
     }
 
     public function addRoom($name, $optText) {
@@ -172,7 +203,6 @@ class GebaeudeModel extends Model
             throw new Exception($statement->error);
         }
 
-        // Datensätze aus dem Resultat holen und in das Array $rows speichern
         $rows = array();
         while ($row = $result->fetch_object()) {
             $rows[] = $row;

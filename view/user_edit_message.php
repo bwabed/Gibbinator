@@ -39,20 +39,43 @@
                     }
                     ?>
                 </select>
-                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone edit_lektion_select"
-                        name="edit_lektion_select"
-                        id="edit_lektion_select">
+                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone edit_fach_select"
+                        name="edit_fach_select"
+                        id="edit_fach_select">
                     <?php
-                    echo '<option value="">Lektion wählen..</option>';
-                    foreach ($lektionen as $lektion) {
-                        if ((!empty($_POST['edit_lektion_select']) && rawurldecode($_POST['edit_lektion_select']) == $lektion->id) or $nachricht->lektion_id == $lektion->id) {
-                            echo '<option class="mdl-menu__item" value="' . rawurlencode($lektion->id) . '" selected="selected">' . $lektion->titel . '</option>';
-                        } else {
-                            echo '<option value="' . rawurlencode($lektion->id) . '">' . $lektion->titel . '</option>';
+                    echo '<option value="">Fach wählen..</option>';
+                    if ($lektion != null) {
+                        foreach ($faecher as $fach) {
+                            if ($fach->id == $lektion->fach_id) {
+                                echo '<option class="mdl-menu__item" value="' . rawurlencode($fach->id) . '" selected="selected">' . $fach->titel . '</option>';
+                            } else {
+                                echo '<option value="' . rawurlencode($fach->id) . '">' . $fach->titel . '</option>';
+                            }
+                        }
+                    } elseif ($nachricht->fach_id != null) {
+                        foreach ($faecher as $fach) {
+                            if ($nachricht->fach_id == $fach->id) {
+                                echo '<option class="mdl-menu__item" value="' . rawurlencode($fach->id) . '" selected="selected">' . $fach->titel . '</option>';
+                            } else {
+                                echo '<option value="' . rawurlencode($fach->id) . '">' . $fach->titel . '</option>';
+                            }
+                        }
+                    } else {
+                        foreach ($faecher as $fach) {
+                            if (!empty($_POST['edit_fach_select']) && rawurldecode($_POST['edit_fach_select']) == $fach->id) {
+                                echo '<option class="mdl-menu__item" value="' . rawurlencode($fach->id) . '" selected="selected">' . $fach->titel . '</option>';
+                            } else {
+                                echo '<option value="' . rawurlencode($fach->id) . '">' . $fach->titel . '</option>';
+                            }
                         }
                     }
                     ?>
                 </select>
+                <?php
+                    if ($lektion != null) {
+                        echo '<input type="hidden" name="lektion_id" id="lektion_id" value="' . $lektion->id . '">';
+                    }
+                ?>
                 <div class="mdl-card__supporting-text" style="font-style: italic">
                     * Mussfelder
                 </div>

@@ -1,5 +1,5 @@
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-grid mdl-grid--no-spacing  mdl-shadow--2dp" id="user_results">
+    <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="user_results">
         <div class="mdl-card__title">
             <h3>Benutzer</h3>
         </div>
@@ -61,7 +61,7 @@
         <div class="mdl-card__actions mdl-card--border">
             <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
                     id="delete_button">
-                Benutzer Löschen
+                Benutzer löschen
             </button>
             <a class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button"
                id="add_button" href="/admin/new_user">
@@ -84,7 +84,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/delete_selected_user", {users: selectedUsers})
+                            $.post("/admin/delete_selected_user", {message: selectedUsers})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');

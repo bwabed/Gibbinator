@@ -2342,7 +2342,7 @@ MaterialSpinner.prototype.createLayer = function (index) {
 MaterialSpinner.prototype['createLayer'] = MaterialSpinner.prototype.createLayer;
 /**
    * Stops the spinner animation.
-   * Public method for users who need to stop the spinner for any reason.
+   * Public method for message who need to stop the spinner for any reason.
    *
    * @public
    */
@@ -2352,7 +2352,7 @@ MaterialSpinner.prototype.stop = function () {
 MaterialSpinner.prototype['stop'] = MaterialSpinner.prototype.stop;
 /**
    * Starts the spinner animation.
-   * Public method for users who need to manually start the spinner for any reason
+   * Public method for message who need to manually start the spinner for any reason
    * (instead of just adding the 'is-active' class to their markup).
    *
    * @public

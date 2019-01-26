@@ -262,11 +262,11 @@ class AdminController
 
     public function delete_selected_users()
     {
-        if (!empty($_POST['users'])) {
+        if (!empty($_POST['message'])) {
             $userModel = new UserModel();
 
-            foreach ($_POST['users'] as $users) {
-                $userModel->deleteById($users);
+            foreach ($_POST['message'] as $user) {
+                $userModel->deleteById($user);
             }
 
             header('Location: /admin/index');

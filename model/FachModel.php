@@ -1,66 +1,43 @@
 <?php
-
-require_once 'lib/Model.php';
+require_once('lib/Model.php');
 
 /**
  * Created by PhpStorm.
- * User: dimit
- * Date: 04.01.2019
- * Time: 18:36
+ * User: dimi
+ * Date: 2019-01-25
+ * Time: 15:34
  */
 
-class LektionenModel extends Model
+class FachModel extends Model
 {
-    protected $tableName = 'lektion';
-    protected $datesTable = 'dates';
+    protected $tableName = 'fach';
 
-    public function get_lektionen_by_klassen_ids($klassenIDs) {
+    public function get_faecher_by_lehrer_id($lehrerID) {
+        $query = "SELECT * FROM $this->tableName WHERE lehrer_id = ?";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $lehrerID);
+        $statement->execute();
+
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function get_faecher_by_klassen($klassenIDs) {
         $inKlassen = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $query = "SELECT * FROM $this->tableName WHERE klassen_id IN ($inKlassen)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $this->DynamicBindVariables($statement, $klassenIDs, null);
         $statement->execute();
-        $result = $statement->get_result();
-        if (!$result) {
-            throw new Exception($statement->error);
-        }
 
-        // Datensätze aus dem Resultat holen und in das Array $rows speichern
-        $rows = array();
-        while ($row = $result->fetch_object()) {
-            $rows[] = $row;
-        }
-
-        return $rows;
-    }
-
-    public function get_date_by_lektionen($lektionDateIDs) {
-        $inLektionen = rtrim(str_repeat('?,', count($lektionDateIDs)), ',');
-        $query = "SELECT * FROM $this->datesTable WHERE id IN ($inLektionen)";
-        $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $lektionDateIDs, null);
-        $statement->execute();
-        $result = $statement->get_result();
-        if (!$result) {
-            throw new Exception($statement->error);
-        }
-
-        // Datensätze aus dem Resultat holen und in das Array $rows speichern
-        $rows = array();
-        while ($row = $result->fetch_object()) {
-            $rows[] = $row;
-        }
-
-        return $rows;
-    }
-
-    public function get_lektionen_by_faecher($faecherIds)
-    {
-        $inFaecher = rtrim(str_repeat('?,', count($faecherIds)), ',');
-        $query = "SELECT * FROM $this->tableName WHERE fach_id IN ($inFaecher)";
-        $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $faecherIds, null);
-        $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
             throw new Exception($statement->error);
@@ -74,11 +51,11 @@ class LektionenModel extends Model
         return $rows;
     }
 
-    public function get_lektionen_by_fach_id($fachID)
-    {
-        $query = "SELECT * FROM $this->tableName WHERE fach_id = ?";
+    public function read_with_ids($ids) {
+        $inIds = rtrim(str_repeat('?,', count($ids)), ',');
+        $query = "SELECT * FROM $this->tableName WHERE id IN ($inIds)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('i', $fachID);
+        $this->DynamicBindVariables($statement, $ids, null);
         $statement->execute();
 
         $result = $statement->get_result();
@@ -86,40 +63,15 @@ class LektionenModel extends Model
             throw new Exception($statement->error);
         }
 
-        $row = $result->fetch_object();
-
-        $result->close();
-
-        return $row;
-    }
-
-    public function create_new_date($startDate, $endDate, $startTime, $endTime, $allDay) {
-        $query = "INSERT INTO $this->datesTable (start_date, end_date, start_time, end_time, all_day) VALUES (?, ?, ?, ?, ?)";
-
-        $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ssssi', $startDate, $endDate, $startTime, $endTime, $allDay);
-
-        if (!$statement->execute()) {
-            throw new Exception($statement->error);
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
         }
 
-        return $statement->insert_id;
+        return $rows;
     }
 
-    public function create_new_lesion($klassenID, $lehrerID, $titel, $progThem, $termAufg, $dateID, $zimmerID) {
-        $query = "INSERT INTO $this->tableName (klassen_id, lehrer_id, titel, programm_themen, termine_aufgaben, date_id, zimmer) VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('iisssii', $klassenID, $lehrerID, $titel, $progThem, $termAufg, $dateID, $zimmerID);
-
-        if (!$statement->execute()) {
-            throw new Exception($statement->error);
-        }
-
-        return $statement->insert_id;
-    }
-
-    function DynamicBindVariables($stmt, $params, $params2)
+    private function DynamicBindVariables($stmt, $params, $params2)
     {
         if ($params != null)
         {

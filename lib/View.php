@@ -48,7 +48,7 @@
  *
  *   <!-- Über ein Array iterieren und mit den Elementen eine Liste erstellen -->
  *   <ul>
- *     <?php foreach ($users as $user) { ?>
+ *     <?php foreach ($message as $user) { ?>
  *       <li><?= $user->name; ?></li>
  *     <?php } ?>
  *   </ul>

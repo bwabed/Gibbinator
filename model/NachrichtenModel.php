@@ -32,12 +32,12 @@ class NachrichtenModel extends Model
         return $rows;
     }
 
-    public function create($titel, $text, $erstelltAm, $erstellt_von, $klasse, $lektion)
+    public function create($titel, $text, $erstelltAm, $erstellt_von, $klasse, $lektion, $fach)
     {
-        $query = "INSERT INTO $this->tableName (titel, text, erstellt_am, erfasser_id, klassen_id, lektion_id) VALUES (?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO $this->tableName (titel, text, erstellt_am, erfasser_id, klassen_id, lektion_id, fach_id) VALUES (?, ?, ?, ?, ?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('sssiii', $titel, $text, $erstelltAm, $erstellt_von, $klasse, $lektion);
+        $statement->bind_param('sssiiii', $titel, $text, $erstelltAm, $erstellt_von, $klasse, $lektion, $fach);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
@@ -46,21 +46,22 @@ class NachrichtenModel extends Model
         return $statement->insert_id;
     }
 
-    public function update($nachrichtID, $title, $text, $erstellt_am, $erfasserId, $klasse, $lektion) {
-        $query = "UPDATE $this->tableName SET titel = ?, text = ?, erstellt_am = ?, erfasser_id = ?, klassen_id = ?, lektion_id = ? where id = ?";
+    public function update($nachrichtID, $title, $text, $erstellt_am, $erfasserId, $klasse, $lektion, $fach) {
+        $query = "UPDATE $this->tableName SET titel = ?, text = ?, erstellt_am = ?, erfasser_id = ?, klassen_id = ?, lektion_id = ?, fach_id = ? where id = ?";
         $connection = ConnectionHandler::getConnection();
         $statement = $connection->prepare($query);
-        $statement->bind_param('sssiiii', $title, $text, $erstellt_am, $erfasserId, $klasse, $lektion, $nachrichtID);
+        $statement->bind_param('sssiiiii', $title, $text, $erstellt_am, $erfasserId, $klasse, $lektion, $fach, $nachrichtID);
         $statement->execute();
         return $connection->affected_rows;
     }
 
-    public function get_message_for_student_sorted($klassenIDs, $lektionIDs) {
+    public function get_message_for_student_sorted($klassenIDs, $lektionIDs, $fachIds) {
         $inKlasse = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $inLektion = rtrim(str_repeat('?,', count($lektionIDs)), ',');
-        $query = "SELECT * FROM $this->tableName WHERE klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) ORDER BY DATE(erstellt_am) DESC";
+        $inFach = rtrim(str_repeat('?,', count($fachIds)), ',');
+        $query = "SELECT * FROM $this->tableName WHERE (klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) OR fach_id IN ($inFach)) OR (fach_id = null AND klassen_id = null AND lektion_id = null) ORDER BY DATE(erstellt_am) DESC";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs);
+        $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, $fachIds);
         $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
@@ -76,7 +77,48 @@ class NachrichtenModel extends Model
         return $rows;
     }
 
-    function DynamicBindVariables($stmt, $params, $params2)
+    public function get_message_for_prof_sorted($creatorID, $klassenIDs, $lektionIDs) {
+        $inKlasse = rtrim(str_repeat('?,', count($klassenIDs)), ',');
+        $inLektion = rtrim(str_repeat('?,', count($lektionIDs)), ',');
+        $query = "SELECT * FROM $this->tableName WHERE ersteller_id = ? OR klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) ORDER BY DATE(erstellt_am) DESC";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $creatorID);
+        $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, null);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function get_message_for_lesion_sorted($lesionID) {
+        $query = "SELECT * FROM $this->tableName WHERE lektion_id = ? ORDER BY DATE(erstellt_am) DESC";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $lesionID);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    private function DynamicBindVariables($stmt, $params, $params2, $params3)
     {
         if ($params != null)
         {
@@ -118,6 +160,25 @@ class NachrichtenModel extends Model
                 }
             }
 
+            if ($params3 != null) {
+                foreach($params3 as $param3)
+                {
+                    if(is_int($param3)) {
+                        // Integer
+                        $types .= 'i';
+                    } elseif (is_float($param3)) {
+                        // Double
+                        $types .= 'd';
+                    } elseif (is_string($param3)) {
+                        // String
+                        $types .= 's';
+                    } else {
+                        // Blob and Unknown
+                        $types .= 'b';
+                    }
+                }
+            }
+
             // Add the Type String as the first Parameter
             $bind_names[] = $types;
 
@@ -142,6 +203,19 @@ class NachrichtenModel extends Model
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
                     $$bind_name = $params[$j];
+                    // Associate the Variable as an Element in the Array
+                    $bind_names[] = &$$bind_name;
+                }
+            }
+
+            if ($params3 != null) {
+                for ($k=0; $k<count($params3);$k++)
+                {
+                    $number = $i + $j + $k;
+                    // Create a variable Name
+                    $bind_name = 'bind' . $number;
+                    // Add the Parameter to the variable Variable
+                    $$bind_name = $params[$k];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

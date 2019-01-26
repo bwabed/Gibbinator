@@ -12,25 +12,24 @@
         <div class="mdl-card__title">
             <h2 class="mdl-card__title-text">Nachrichten</h2>
         </div>
-        <div class="mdl-card__supporting-text">
-        </div>
         <?php
         if ($_SESSION['userType'] ['id'] == 2) { ?>
-            <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-shadow--2dp"
-                   id="users_table">
+            <table class="mdl-cell--12-col mdl-data-table mdl-data-table--selectable mdl-js-data-table mdl-shadow--2dp message_table"
+                   id="message_table">
                 <thead>
                 <tr>
-                    <th class="user_table">Bearbeiten</th>
-                    <th class="user_table">Titel</th>
-                    <th class="user_table">Nachricht</th>
-                    <th class="user_table">Erstellt am</th>
-                    <th class="user_table">Klasse</th>
-                    <th class="user_table">Lektion</th>
+                    <th class="message_table">Bearbeiten</th>
+                    <th class="message_table">Titel</th>
+                    <th class="message_table">Nachricht</th>
+                    <th class="message_table">Erstellt am</th>
+                    <th class="message_table">Klasse</th>
+                    <th class="message_table">Fach (Lektion)</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php
                 foreach ($nachrichten as $row) {
+                    $erstelltAm = strtotime($row->erstellt_am);
                     echo '
           <tr data-id="' . $row->id . '">
           <td>
@@ -50,7 +49,7 @@
           </td>
           <td>' . $row->titel . '</td>
           <td>' . $row->text . '</td>
-          <td>' . $row->erstellt_am . '</td>
+          <td>' . date('d.m.Y', $erstelltAm) . '</td>
           <td>';
                     foreach ($klassen as $klasse) {
                         if ($klasse->id == $row->klassen_id) {
@@ -59,9 +58,27 @@
                     }
                     echo '</td>
           <td>';
-                    foreach ($lektionen as $lektion) {
-                        if ($lektion->id == $row->lektion_id) {
-                            echo $lektion->titel;
+                    if ($row->lektion_id != null) {
+                        foreach ($lektionen as $lektion) {
+                            if ($lektion->id == $row->lektion_id) {
+                                foreach ($dates as $date) {
+                                    if ($lektion->date_id == $date->id) {
+                                        $dateString = strtotime($date->start_date);
+                                        $startDate = date('d.m.Y', $dateString);
+                                    }
+                                }
+                                foreach ($faecher as $fach) {
+                                    if ($fach->id == $lektion->fach_id) {
+                                        echo $fach->titel . ' ' . $startDate;
+                                    }
+                                }
+                            }
+                        }
+                    } elseif ($row->fach_id != null) {
+                        foreach ($faecher as $fach) {
+                            if ($fach->id == $row->fach_id) {
+                                echo $fach->titel;
+                            }
                         }
                     }
                     echo '</td>
@@ -75,33 +92,36 @@
             <ul class="mdl-list">
                 <?php
                 foreach ($nachrichten as $nachricht) {
-                    echo '<li class="mdl-list__item mdl-list__item--three-line">
+                    echo '<li class="mdl-list__item mdl-list__item--three-line" style="line-height: unset; height: auto">
                             <span class="mdl-list__item-primary-content">
                                 <span>';
-                                foreach ($teachers as $teacher) {
-                                    if ($teacher->id == $nachricht->erfasser_id) {
-                                        $creator = $teacher->email;
-                                    }
+                    foreach ($teachers as $teacher) {
+                        if ($teacher->id == $nachricht->erfasser_id) {
+                            $creator = $teacher->email;
+                        }
+                    }
+                    foreach ($lektionen as $lektion) {
+                        if ($nachricht->lektion_id == $lektion->id) {
+                            foreach ($faecher as $fach) {
+                                if ($fach->id == $lektion->fach_id) {
+                                    $fachName = $fach->titel;
                                 }
-                                if ($nachricht->klassen_id != null) {
-                                    foreach ($klassen as $klasse) {
-                                        if ($klasse->id == $nachricht->klassen_id) {
-                                            if ($nachricht->lektion_id != null) {
-                                                foreach ($lektionen as $lektion) {
-                                                    if ($lektion->id == $nachricht->lektion_id) {
-                                                        echo 'Von: ' . $creator . ' An: ' . $klasse->name . '/' . $lektion->titel;
-                                                    }
-                                                }
-                                            } else {
-                                                echo 'Von: ' . $creator . ' An: ' . $klasse->name;
-                                            }
-                                        }
-                                    }
-                                } else {
-                                    echo 'Von: ' . $creator;
-                                }
-
-                                echo '</span>
+                            }
+                        }
+                    }
+                    foreach ($klassen as $klasse) {
+                        if ($nachricht->klassen_id == $klasse->id) {
+                            $klassenName = $klasse->name;
+                        }
+                    }
+                    if (!empty($klassenName) && !empty($fachName)) {
+                        echo 'Von: ' . $creator . ' -> ' . $klassenName . '/' . $fachName;
+                    } elseif (!empty($klassenName) && empty($fachName)) {
+                        echo 'Von: ' . $creator . ' -> ' . $klassenName;
+                    } elseif (empty($klassenName) && empty($fachName)) {
+                        echo 'Von: ' . $creator . ' -> Alle';
+                    }
+                    echo '</span>
                                 <span class="mdl-list__item-text-body">' . $nachricht->text . '</span>
                             </span>
                           </li>';
@@ -109,20 +129,57 @@
                 ?>
             </ul>
         <?php } ?>
-        <div class="mdl-card__actions">
+        <div class="mdl-card__actions mdl-grid">
             <?php
             if ($_SESSION['userType']['id'] == 2) {
                 echo '
                 <form action="/user/new_message" method="post">
                     <input type="hidden" id="user_id" name="user_id" value="' . $_SESSION['user']['id'] . '">
                     <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
-                            id="add_button" href="/admin/new_message">
+                            id="add_button">
                         Neue Nachricht
                     </button>
-                </form>';
+                </form>';?>
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+                        id="delete_button" style="margin-left: 5px">
+                    Nachrichten löschen
+                </button>
+                <script type="text/javascript">
+                    // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
+                    // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
+                    // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
+                    $(document).ready(function () {
+                        $('#delete_button').click(function (e) {
+
+                            var selectedMessage = [];
+
+                            $('table#message_table tbody tr td:first-child input').each(function (index, value) {
+                                if (value.checked) {
+                                    selectedMessage.push($(value).parent().parent().parent().data('id'));
+                                }
+                            });
+
+                            if (selectedMessage.length != 0) {
+                                $.post("/user/delete_selected_message", {messages: selectedMessage})
+                                    .done(function (data) {
+                                        'use strict';
+                                        var snackbarContainer = document.querySelector('#snackbar');
+                                        var data = {message: 'Benutzer erfolgreich gelöscht.'};
+                                        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                                    });
+                            } else {
+                                var snackbarContainer = document.querySelector('#snackbar');
+                                var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
+                                snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                            }
+
+                            window.location.reload();
+                        });
+                    });
+                </script>
+            <?php
             }
             ?>
-
         </div>
     </div>
 </div>

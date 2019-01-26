@@ -6,6 +6,7 @@ require_once('model/KlassenModel.php');
 require_once('model/LektionenModel.php');
 require_once('model/DatesModel.php');
 require_once('model/GebaeudeModel.php');
+require_once('model/FachModel.php');
 
 /**
  * Siehe Dokumentation im DefaultController.
@@ -25,7 +26,7 @@ class UserController
     public function logout()
     {
         session_destroy();
-        header('Location: /');
+        $this->login();
     }
 
     public function check_login()
@@ -105,28 +106,57 @@ class UserController
 
         $lesionModel = new LektionenModel();
         $klassenModel = new KlassenModel();
+        $fachModel = new FachModel();
+        $messageModel = new NachrichtenModel();
+        $userModel = new UserModel();
         $dateIds = array();
+        $fachIds = array();
+        $klassenIds = array();
+        $lektionIds = array();
 
         switch ($_SESSION['userType']['id']) {
             case 2:
-                $lesions = $lesionModel->get_lektionen_by_lp($_SESSION['user']['id']);
+                $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
+                $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+                foreach ($faecher as $fach) {
+                    $fachIds[] = $fach->id;
+                }
+                $lesions = $lesionModel->get_lektionen_by_faecher($fachIds);
                 foreach ($lesions as $lesion) {
                     $dateIds[] = $lesion->date_id;
                 }
                 $daten = $lesionModel->get_date_by_lektionen($dateIds);
+                $nachrichten = $messageModel->get_message_by_creator_sorted($_SESSION['user']['id']);
                 break;
             case 3:
-                $klassenIDs = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
-                $lesions = $lesionModel->get_lektionen_by_klassen_ids($klassenIDs);
-                foreach ($lesions as $lesion) {
-                    $dateIds[] = $lesions->date_id;
+                $userKlassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+                foreach ($userKlassen as $userKlasse) {
+                    $klassenIds[] = $userKlasse->klassen_id;
                 }
+                $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+                foreach ($faecher as $fach) {
+                    $fachIds[] = $fach->id;
+                }
+                $lesions = $lesionModel->get_lektionen_by_faecher($fachIds);
+                foreach ($lesions as $lesion) {
+                    $dateIds[] = $lesion->date_id;
+                    $lektionIds[] = $lesion->id;
+                }
+                $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
                 $daten = $lesionModel->get_date_by_lektionen($dateIds);
+                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds);
                 break;
             default:
-
+                $nachrichten = null;
+                $faecher = null;
+                $daten = null;
+                $lesions = null;
         }
 
+        $view->klassen = $klassen;
+        $view->profs = $userModel->readAllProfs();
+        $view->nachrichten = $nachrichten;
+        $view->faecher = $faecher;
         $view->daten = $daten;
         $view->lektionen = $lesions;
         $view->display();
@@ -163,15 +193,28 @@ class UserController
 
     public function edit_message()
     {
+        $nachrichtenModel = new NachrichtenModel();
+        $klassenModel = new KlassenModel();
+        $lektionenModel = new LektionenModel();
+        $fachModel = new FachModel();
         if (!empty($_POST['nachrichten_id'])) {
-            $nachrichtenModel = new NachrichtenModel();
-            $klassenModel = new KlassenModel();
-            $lektionenModel = new LektionenModel();
+            $lektion = null;
             $view = new View('user_edit_message');
 
+            $nachricht =  $nachrichtenModel->readById($_POST['nachrichten_id']);
+            $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
+            $fachIds = array();
+            foreach ($faecher as $fach) {
+                $fachIds[] = $fach->id;
+            }
+            if ($nachricht->lektion_id != null) {
+                $lektion = $lektionenModel->readById($nachricht->lektion_id);
+            }
             $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
-            $view->lektionen = $lektionenModel->get_lektionen_by_lp($_SESSION['user']['id']);
-            $view->nachricht = $nachrichtenModel->readById($_POST['nachrichten_id']);
+            $view->faecher = $faecher;
+            $view->lektion = $lektion;
+            $view->nachricht = $nachricht;
+
             $view->display();
         } else {
             $this->new_message();
@@ -184,8 +227,22 @@ class UserController
 
         $lektionModel = new LektionenModel();
         $klassenModel = new KlassenModel();
+        $fachModel = new FachModel();
+        $dateModel = new DatesModel();
 
-        $view->lektionen = $lektionModel->get_lektionen_by_lp($_SESSION['user']['id']);
+        $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
+        $fachIds = array();
+        foreach ($faecher as $fach) {
+            $fachIds[] = $fach->id;
+        }
+        $lektion = null;
+        if (isset($_POST['lektion_id']) && !empty($_POST['lektion_id'])) {
+            $lektion = $lektionModel->readById($_POST['lektion_id']);
+            $view->date = $dateModel->readById($lektion->date_id);
+        }
+
+        $view->faecher = $faecher;
+        $view->lektion = $lektion;
         $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
 
         $view->display();
@@ -197,18 +254,31 @@ class UserController
             $nachrichtenModel = new NachrichtenModel();
             $klasse = null;
             $lektion = null;
+            $fach = null;
             $date = date('y-m-d');
 
             if (isset($_POST['klassen_select']) && !empty($_POST['klassen_select'])) {
                 $klasse = $_POST['klassen_select'];
             }
-            if (isset($_POST['lektion_select']) && !empty($_POST['lektion_select'])) {
-                $lektion = $_POST['lektion_select'];
+            if (isset($_POST['fach_select']) && !empty($_POST['fach_select'])) {
+                $fach = $_POST['fach_select'];
+            }
+            if (!empty($_POST['lektion_id'])) {
+                $lektion = $_POST['lektion_id'];
             }
 
-            $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion);
+            $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
 
             $this->messages();
+        }
+    }
+
+    public function delete_selected_message() {
+        $nachrichtenModel = new NachrichtenModel();
+        if (isset($_POST['messages']) && !empty($_POST['messages']) && $_SESSION['userType']['id'] == 2) {
+            foreach ($_POST['messages'] as $message) {
+                $nachrichtenModel->deleteById($message);
+            }
         }
     }
 
@@ -219,11 +289,23 @@ class UserController
         $klassenModel = new KlassenModel();
         $lektionenModel = new LektionenModel();
         $userModel = new UserModel();
+        $fachModel = new FachModel();
+        $dateModel = new DatesModel();
+        $fachIds = array();
         /** Lehrperson */
         if ($_SESSION['userType']['id'] == 2) {
-            $view->nachrichten = $nachrichtenModel->get_message_by_creator_sorted($_SESSION['user']['id']);
-            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
-            $view->lektionen = $lektionenModel->get_lektionen_by_lp($_SESSION['user']['id']);
+            $nachrichten = $nachrichtenModel->get_message_by_creator_sorted($_SESSION['user']['id']);
+            $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
+            foreach ($faecher as $fach) {
+                $fachIds[] = $fach->id;
+            }
+            $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
+            $dateIds = array();
+            foreach ($lektionen as $lektion) {
+                $dateIds[] = $lektion->date_id;
+            }
+            $view->dates = $dateModel->get_dates_with_ids($dateIds);
         }
         /** Lernende */
         if ($_SESSION['userType']['id'] == 3) {
@@ -232,23 +314,28 @@ class UserController
             foreach ($user_klassen as $user_klasse) {
                 $klassenIds[] = $user_klasse->klassen_id;
             }
-            $lektionen = array();
-            foreach ($klassenIds as $klassenID) {
-                $lektionen[] = $lektionenModel->get_lektionen_by_klasse($klassenID);
+
+            $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+
+            foreach ($faecher as $fach) {
+                $fachIds[] = $fach->id;
             }
-            $lektionIds = array();
+
+            $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
+            $dateIds = array();
             foreach ($lektionen as $lektion) {
-                foreach ($lektion as $row) {
-                    $lektionIds[] = $row->id;
-                }
+                $dateIds[] = $lektion->id;
             }
 
-
-            $view->klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
-            $view->lektionen = $lektionen;
-            $view->nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $lektionIds);
+            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            $nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $dateIds);
             $view->teachers = $userModel->readAllProfs();
         }
+
+        $view->faecher = $faecher;
+        $view->lektionen = $lektionen;
+        $view->nachrichten = $nachrichten;
+        $view->klassen = $klassen;
         $view->display();
     }
 
@@ -258,40 +345,55 @@ class UserController
             $nachrichtenModel = new NachrichtenModel();
             $klasse = null;
             $lektion = null;
+            $fach = null;
 
             $date = date('y-m-d');
 
             if (isset($_POST['edit_klassen_select']) && !empty($_POST['edit_klassen_select'])) {
                 $klasse = $_POST['edit_klassen_select'];
             }
-            if (isset($_POST['edit_lektion_select']) && !empty($_POST['edit_lektion_select'])) {
-                $lektion = $_POST['edit_lektion_select'];
+            if (isset($_POST['edit_fach_select']) && !empty($_POST['edit_fach_select'])) {
+                $fach = $_POST['edit_fach_select'];
             }
-            $nachrichtenModel->update($_POST['edit_nachricht_id'], htmlspecialchars($_POST['edit_title']), htmlspecialchars($_POST['edit_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion);
+            $nachrichtenModel->update($_POST['edit_nachricht_id'], htmlspecialchars($_POST['edit_title']), htmlspecialchars($_POST['edit_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
 
             $this->messages();
         }
     }
 
-    public function upload_plan()
+    public function lesion_detail()
     {
-        $view = new View('prof_upload');
+        $view = new View('user_lesion_detail');
+        $lesionModel = new LektionenModel();
+        $nachrichtenModel = new NachrichtenModel();
+        $dateModel = new DatesModel();
+        $userModel = new UserModel();
+        $buildModel = new GebaeudeModel();
+        $fachModel = new FachModel();
 
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
-            $klassenModel = new KlassenModel();
-            $gebaeudeModel = new GebaeudeModel();
-
-            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
-            $view->zimmerList = $gebaeudeModel->readAllRooms();
-            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
-            $view->stockwerke = $gebaeudeModel->readAllFloors();
-            $view->buildings = $gebaeudeModel->readAll();
-        } else {
-            header('Location: /user/login');
+        if (isset($_GET['lesion_id']) && !empty($_GET['lesion_id'])) {
+            $lesion = $lesionModel->readById($_GET['lesion_id']);
+            $date = $dateModel->readById($lesion->date_id);
+            $nachrichten = $nachrichtenModel->get_message_for_lesion_sorted($_GET['lesion_id']);
+            $fach = $fachModel->readById($lesion->fach_id);
+            $user = $userModel->readById($fach->lehrer_id);
+            $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
+            $connection = $buildModel->get_connection_by_room_id($zimmer->id);
+            $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
+            $build = $buildModel->readById($stockwerk->gebaeude_id);
         }
 
+        $view->fach = $fach;
+        $view->zimmer = $zimmer;
+        $view->stockwerk = $stockwerk;
+        $view->build = $build;
+        $view->user = $user;
+        $view->date = $date;
+        $view->nachrichten = $nachrichten;
+        $view->lesion = $lesion;
         $view->display();
     }
+
     /** Functions */
     public function check_changePassword()
     {
@@ -383,6 +485,26 @@ class UserController
                 $this->upload_plan();
             }
         }
+    }
+
+    public function upload_plan()
+    {
+        $view = new View('prof_upload');
+
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
+            $klassenModel = new KlassenModel();
+            $gebaeudeModel = new GebaeudeModel();
+
+            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->zimmerList = $gebaeudeModel->readAllRooms();
+            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
+            $view->stockwerke = $gebaeudeModel->readAllFloors();
+            $view->buildings = $gebaeudeModel->readAll();
+        } else {
+            header('Location: /user/login');
+        }
+
+        $view->display();
     }
 
     /** End */

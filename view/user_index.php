@@ -2,32 +2,37 @@
     $(document).ready(function () {
 
             $('#calendar').fullCalendar({
-                eventClick: function(eventObj) {
-                    $.post("/")
-                },
                 events: [
-                <?php
+                    <?php
                     $row = 0;
                     foreach ($lektionen as $lektion) {
-                     foreach ($daten as $datum) {
-                         if ($datum->id == $lektion->date_id) {
-                             $allDay;
-                             if ($datum->all_day == 0) {
-                                 $allDay = 'false';
-                             } elseif ($datum->all_day == 1) {
-                                 $allDay = 'true';
-                             }
-                             if ($row==0) {
-                                 echo '{ id: "' . $lektion->id . '", title: "' . $lektion->titel . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay . '}';
-                             } elseif ($row>0) {
-                                 echo ',{ id: "' . $lektion->id . '", title: "' . $lektion->titel . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay .'}';
-                             }
-                             $row++;
-                         }
-                     }
+                        foreach ($faecher as $fach) {
+                            if ($lektion->fach_id == $fach->id) {
+                                $fachName = $fach->titel;
+                            }
+                        }
+                        foreach ($daten as $datum) {
+                            if ($datum->id == $lektion->date_id) {
+                                $allDay;
+                                if ($datum->all_day == 0) {
+                                    $allDay = 'false';
+                                } elseif ($datum->all_day == 1) {
+                                    $allDay = 'true';
+                                }
+                                if ($row == 0) {
+                                    echo '{ id: "' . $lektion->id . '", title: "' . $fachName . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay . '}';
+                                } elseif ($row > 0) {
+                                    echo ',{ id: "' . $lektion->id . '", title: "' . $fachName . '", start: "' . $datum->start_date . 'T' . $datum->start_time . '", end: "' . $datum->end_date . 'T' . $datum->end_time . '", allDay: ' . $allDay . '}';
+                                }
+                                $row++;
+                            }
+                        }
                     }
                     ?>
                 ],
+                eventClick: function (eventObj) {
+                    window.open('/user/lesion_detail?lesion_id=' + eventObj.id, '_self');
+                },
                 selectable: true,
                 locale: 'de',
                 weekNumbers: true,
@@ -40,7 +45,6 @@
                     $('#calendar').fullCalendar('changeView', 'agendaDay', date.format());
                 }
             })
-
         }
     );
 </script>
@@ -51,17 +55,61 @@
         </div>
         <div id="calendar"></div>
     </div>
-    <div class="mdl-cell mdl-cell--3-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-grid">
-        <div class="demo-updates mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-desktop">
-            <div class="mdl-card__title mdl-card--expand mdl-color--teal-300">
-                <h2 class="mdl-card__title-text">Updates</h2>
-            </div>
-            <div class="mdl-card__supporting-text mdl-color-text--grey-600">
-                Non dolore elit adipisicing ea reprehenderit consectetur culpa.
-            </div>
-            <div class="mdl-card__actions mdl-card--border">
-                <a href="#" class="mdl-button mdl-js-button mdl-js-ripple-effect">Read More</a>
-            </div>
+    <div class="mdl-card mdl-cell mdl-cell--3-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-color--grey-500">
+            <h6 class="mdl-card__title-text">Letzte Nachrichten</h6>
         </div>
+        <div class="mdl-card__supporting-text">
+            <ul class="mdl-list">
+                <?php
+                foreach ($nachrichten as $nachricht) {
+                    echo '<li class="mdl-list__item mdl-list__item--three-line" style="border-bottom: gray; border-bottom-style: solid; border-bottom-width: thin; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
+                            <span class="mdl-list__item-primary-content">
+                                <span>';
+                    foreach ($profs as $prof) {
+                        if ($prof->id == $nachricht->erfasser_id) {
+                            $erfasser = $prof->email;
+                        }
+                    }
+                    foreach ($lektionen as $lektion) {
+                        if ($lektion->id == $nachricht->lektion_id) {
+                            foreach ($faecher as $fach) {
+                                if ($fach->id == $lektion->fach_id) {
+                                    $fachName = $fach->titel;
+                                }
+                            }
+                        }
+                    }
+                    foreach ($klassen as $klasse) {
+                        if ($klasse->id == $nachricht->klassen_id) {
+                            $klassenName = $klasse->name;
+                        }
+                    }
+                    if (!empty($klassenName) && !empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName . '/' . $fachName;
+                    } elseif (!empty($klassenName) && empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName;
+                    } elseif (empty($klassenName) && !empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . 'Alle';
+                    }
+                    echo '</span><span class="mdl-list__item-text-body">';
+                    echo  nl2br($nachricht->text);
+                    echo'</span>';
+
+                }
+                ?>
+            </ul>
+        </div>
+        <?php if ($_SESSION['userType']['id'] == 2) { ?>
+        <div class="mdl-card--border mdl-card__actions">
+            <form action="/user/new_message" method="post">
+                <input type="hidden" id="user_id" name="user_id" value="<?=$_SESSION['user']['id']?>">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                        id="add_button" href="/admin/new_message">
+                    Neue Nachricht
+                </button>
+            </form>
+        </div>
+        <?php } ?>
     </div>
 </div>

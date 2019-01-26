@@ -7,7 +7,7 @@
 </div>
 <!-- End Snackbar -->
 
-<footer class="mdl-mini-footer">
+<footer class="mdl-mini-footer" style="height: 20px">
     <div class="mdl-mini-footer__left-section">
         <div class="mdl-logo">Gibbinator WebApp</div>
         <ul class="mdl-mini-footer__link-list">
