@@ -59,57 +59,55 @@
         <div class="mdl-card__title mdl-color--grey-500">
             <h6 class="mdl-card__title-text">Letzte Nachrichten</h6>
         </div>
-        <div class="mdl-card__supporting-text">
-            <ul class="mdl-list">
-                <?php
-                foreach ($nachrichten as $nachricht) {
-                    echo '<li class="mdl-list__item mdl-list__item--three-line" style="border-bottom: gray; border-bottom-style: solid; border-bottom-width: thin; border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
-                            <span class="mdl-list__item-primary-content">
-                                <span>';
-                    foreach ($profs as $prof) {
-                        if ($prof->id == $nachricht->erfasser_id) {
-                            $erfasser = $prof->email;
-                        }
+        <div id="messages">
+            <?php
+            foreach ($nachrichten as $nachricht) {
+                echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--grey-400">
+                            <h6 class="mdl-card__title-text" style="font-size: 10pt">';
+                foreach ($profs as $prof) {
+                    if ($prof->id == $nachricht->erfasser_id) {
+                        $erfasser = $prof->email;
                     }
-                    foreach ($lektionen as $lektion) {
-                        if ($lektion->id == $nachricht->lektion_id) {
-                            foreach ($faecher as $fach) {
-                                if ($fach->id == $lektion->fach_id) {
-                                    $fachName = $fach->titel;
-                                }
+                }
+                foreach ($lektionen as $lektion) {
+                    if ($lektion->id == $nachricht->lektion_id) {
+                        foreach ($faecher as $fach) {
+                            if ($fach->id == $lektion->fach_id) {
+                                $fachName = $fach->titel;
                             }
                         }
                     }
-                    foreach ($klassen as $klasse) {
-                        if ($klasse->id == $nachricht->klassen_id) {
-                            $klassenName = $klasse->name;
-                        }
-                    }
-                    if (!empty($klassenName) && !empty($fachName)) {
-                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName . '/' . $fachName;
-                    } elseif (!empty($klassenName) && empty($fachName)) {
-                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName;
-                    } elseif (empty($klassenName) && !empty($fachName)) {
-                        echo 'Von: ' . $erfasser . ' -> ' . 'Alle';
-                    }
-                    echo '</span><span class="mdl-list__item-text-body">';
-                    echo  nl2br($nachricht->text);
-                    echo'</span>';
-
                 }
-                ?>
-            </ul>
+                foreach ($klassen as $klasse) {
+                    if ($klasse->id == $nachricht->klassen_id) {
+                        $klassenName = $klasse->name;
+                    }
+                }
+                if (!empty($klassenName) && !empty($fachName)) {
+                    echo 'Von: ' . $erfasser . ' -> ' . $klassenName . '/' . $fachName;
+                } elseif (!empty($klassenName) && empty($fachName)) {
+                    echo 'Von: ' . $erfasser . ' -> ' . $klassenName;
+                } elseif (empty($klassenName) && !empty($fachName)) {
+                    echo 'Von: ' . $erfasser . ' -> ' . 'Alle';
+                }
+                echo '</h6>
+</div><div class="mdl-card__supporting-text">';
+                echo nl2br($nachricht->text);
+                echo '</div></div>';
+
+            }
+            ?>
         </div>
         <?php if ($_SESSION['userType']['id'] == 2) { ?>
-        <div class="mdl-card--border mdl-card__actions">
-            <form action="/user/new_message" method="post">
-                <input type="hidden" id="user_id" name="user_id" value="<?=$_SESSION['user']['id']?>">
-                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
-                        id="add_button" href="/admin/new_message">
-                    Neue Nachricht
-                </button>
-            </form>
-        </div>
+            <div class="mdl-card--border mdl-card__actions">
+                <form action="/user/new_message" method="post">
+                    <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user']['id'] ?>">
+                    <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                            id="add_button" href="/admin/new_message">
+                        Neue Nachricht
+                    </button>
+                </form>
+            </div>
         <?php } ?>
     </div>
 </div>

@@ -13,12 +13,12 @@
             <h2 class="mdl-card__title-text">Semesterplan als .csv hochladen</h2>
         </div>
         <form action="/prof/check_upload" method="post" enctype="multipart/form-data">
-            <div class="mdl-card__supporting-text">
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
-                    <input class="mdl-textfield__input" type="text" id="lesion_title" name="lesion_title">
-                    <label class="mdl-textfield__label" for="lesion_title">Name des Fachs*</label>
+            <div class="mdl-card__supporting-text mdl-grid--no-spacing">
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
+                    <input class="mdl-textfield__input" type="text" id="fach_title" name="fach_title">
+                    <label class="mdl-textfield__label" for="fach_title">Name des Fachs*</label>
                 </div>
-                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone klassen_select"
+                <select class="mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone klassen_select"
                         name="klassen_select"
                         id="klassen_select">
                     <?php
@@ -32,7 +32,7 @@
                     }
                     ?>
                 </select>
-                <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone zimmer_select"
+                <select class="mdl-cell--6-col mdl-cell--12-col-tablet mdl-cell--12-col-phone zimmer_select"
                         name="zimmer_select"
                         id="zimmer_select">
                     <?php

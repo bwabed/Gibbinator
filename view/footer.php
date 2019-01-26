@@ -1,12 +1,4 @@
 </main>
-
-<!-- Dieser DIV ist der Snackbar, dank dieser können wir die Meldungen einfach und Elegant ausgeben. -->
-<div id="snackbar" class="mdl-snackbar">
-    <div class="mdl-snackbar__text"></div>
-    <button class="mdl-snackbar__action" type="button"></button>
-</div>
-<!-- End Snackbar -->
-
 <footer class="mdl-mini-footer" style="height: 20px">
     <div class="mdl-mini-footer__left-section">
         <div class="mdl-logo">Gibbinator WebApp</div>
@@ -23,6 +15,13 @@
     <?php }?>
 </footer>
 </div>
+
+<!-- Dieser DIV ist der Snackbar, dank dieser können wir die Meldungen einfach und Elegant ausgeben. -->
+<div id="snackbar" class="mdl-snackbar mdl-js-snackbar">
+    <div class="mdl-snackbar__text"></div>
+    <button class="mdl-snackbar__action" type="button"></button>
+</div>
+<!-- End Snackbar -->
 <?php if (isset($message[0]) && !empty($message[0])) { ?>
     <!-- Falls wir einer View eine Message mitgeben, wird er mit Dieser Funktion Ausgegeben -->
     <script>

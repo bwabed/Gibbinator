@@ -31,6 +31,19 @@ class FachModel extends Model
         return $rows;
     }
 
+    public function create_new_fach($titel, $klassen_id, $lehrer_id) {
+        $query = "INSERT INTO $this->tableName (titel, klassen_id, lehrer_id) VALUES (?, ?, ?)";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('sii', $titel, $klassen_id, $lehrer_id);
+
+        if (!$statement->execute()) {
+            throw new Exception($statement->error);
+        }
+
+        return $statement->insert_id;
+    }
+
     public function get_faecher_by_klassen($klassenIDs) {
         $inKlassen = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $query = "SELECT * FROM $this->tableName WHERE klassen_id IN ($inKlassen)";

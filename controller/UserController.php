@@ -26,7 +26,7 @@ class UserController
     public function logout()
     {
         session_destroy();
-        $this->login();
+        header('Location: /');
     }
 
     public function check_login()
@@ -91,11 +91,13 @@ class UserController
                 }
 
             } else {
-                $message[] = 'Login Fehlgeschlagen!';
+                $message[] = 'Login fehlgeschlagen!';
                 $this->message = $message;
                 $this->login();
             }
         } else {
+            $message[] = 'Login fehlgeschlagen!';
+            $this->message = $message;
             $this->login();
         }
     }
@@ -144,7 +146,7 @@ class UserController
                 }
                 $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
                 $daten = $lesionModel->get_date_by_lektionen($dateIds);
-                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds);
+                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds, $fachIds);
                 break;
             default:
                 $nachrichten = null;
@@ -180,6 +182,58 @@ class UserController
     public function lesions()
     {
         $view = new View('user_lesions');
+
+        $lektionenModel = new LektionenModel();
+        $fachModel = new FachModel();
+        $dateModel = new DatesModel();
+        $klassenModel = new KlassenModel();
+        $buildModel = new GebaeudeModel();
+
+        if ($_SESSION['userType']['id'] == 2) {
+            $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
+            $fachIds = array();
+            foreach ($faecher as $fach) {
+                $fachIds[] = $fach->id;
+            }
+            $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
+            $dateIds = array();
+            $zimmerIds = array();
+            foreach ($lektionen as $lektion) {
+                $dateIds[] = $lektion->date_id;
+                $zimmerIds[] = $lektion->zimmer;
+            }
+            $dates = $dateModel->get_dates_with_ids($dateIds);
+            $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
+        } elseif ($_SESSION['userType']['id'] == 3) {
+            $userModel = new UserModel();
+            $klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+            $klassenIds = array();
+            foreach ($klassen as $klasse) {
+                $klassenIds[] = $klasse->id;
+            }
+            $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+            $fachIds = array();
+            foreach ($faecher as $fach) {
+                $fachIds[] = $fach->id;
+            }
+            $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
+            $dateIds = array();
+            $zimmerIds = array();
+            foreach ($lektionen as $lektion) {
+                $dateIds[] = $lektion->date_id;
+                $zimmerIds[] = $lektion->zimmer;
+            }
+            $dates = $dateModel->get_dates_with_ids($dateIds);
+            $view->profs = $userModel->readAllProfs();
+            $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
+        }
+
+        $view->zimmer = $zimmer;
+        $view->dates = $dates;
+        $view->lektionen = $lektionen;
+        $view->klassen = $klassen;
+        $view->faecher = $faecher;
         $view->display();
     }
 
@@ -328,7 +382,7 @@ class UserController
             }
 
             $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
-            $nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $dateIds);
+            $nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $dateIds, $fachIds);
             $view->teachers = $userModel->readAllProfs();
         }
 
@@ -394,6 +448,30 @@ class UserController
         $view->display();
     }
 
+    public function klassen() {
+
+    }
+
+    public function upload_plan()
+    {
+        $view = new View('user_upload');
+
+        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
+            $klassenModel = new KlassenModel();
+            $gebaeudeModel = new GebaeudeModel();
+
+            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->zimmerList = $gebaeudeModel->readAllRooms();
+            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
+            $view->stockwerke = $gebaeudeModel->readAllFloors();
+            $view->buildings = $gebaeudeModel->readAll();
+        } else {
+            header('Location: /user/login');
+        }
+
+        $view->display();
+    }
+
     /** Functions */
     public function check_changePassword()
     {
@@ -416,7 +494,19 @@ class UserController
                 if ($affectedRows == 1) {
                     $message[] = 'Passwort geändert!';
                     $this->message = $message;
-                    $this->index();
+                    switch ($_SESSION['userType']['id']) {
+                        case 1:
+                            header('Location: admin/index');
+                            break;
+                        case 2:
+                            $this->index();
+                            break;
+                        case 3:
+                            $this->index();
+                            break;
+                        default:
+                            $this->login();
+                    }
                 } else {
                     $message[] = 'Passwort ändern fehlgeschlagen!';
                     $this->message = $message;
@@ -459,6 +549,7 @@ class UserController
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
+            $fachModel = new FachModel();
 
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                 $row = 0;
@@ -467,9 +558,12 @@ class UserController
                         if ($row > 0) {
                             $date = strtotime($data[1]);
                             $date = date('Y-m-d', $date);
+                            $startZeit = htmlspecialchars($_POST['start_time']);
+
                             $dateID = $lektionModel->create_new_date($date, $date, htmlspecialchars($_POST['start_time']), htmlspecialchars($_POST['end_time']), 0);
                             if (!empty($dateID)) {
-                                $lektionModel->create_new_lesion($_POST['klassen_select'], $_SESSION['user']['id'], htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select']);
+                                $fachId = $fachModel->create_new_fach(htmlspecialchars($_POST['fach_title']), $_POST['klassen_select'], $_SESSION['user']['id']);
+                                $lektionModel->create_new_lesion(htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select'], $fachId);
                             }
                         }
                         $row++;
@@ -485,26 +579,6 @@ class UserController
                 $this->upload_plan();
             }
         }
-    }
-
-    public function upload_plan()
-    {
-        $view = new View('prof_upload');
-
-        if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
-            $klassenModel = new KlassenModel();
-            $gebaeudeModel = new GebaeudeModel();
-
-            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
-            $view->zimmerList = $gebaeudeModel->readAllRooms();
-            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
-            $view->stockwerke = $gebaeudeModel->readAllFloors();
-            $view->buildings = $gebaeudeModel->readAll();
-        } else {
-            header('Location: /user/login');
-        }
-
-        $view->display();
     }
 
     /** End */

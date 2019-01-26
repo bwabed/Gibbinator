@@ -55,6 +55,10 @@ a.addUserButton {
     text-decoration: none;
 }
 
+#snackbar {
+    margin-bottom: 50px;
+}
+
 .gibbinator-avatar-dropdown {
     display: -webkit-box;
     display: -webkit-flex;

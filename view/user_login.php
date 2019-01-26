@@ -5,7 +5,7 @@
     <div class="mdl-card__supporting-text mdl-grid">
         <form action="/user/check_login" method="post">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
-                <input class="mdl-textfield__input" type="email" id="login_username" name="username">
+                <input class="mdl-textfield__input" type="email" id="login_username" name="username" value="<?= isset($_POST['username']) ? htmlspecialchars(strip_tags($_POST['username'])) : ''; ?>">
                 <label class="mdl-textfield__label" for="login_username">Email</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">

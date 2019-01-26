@@ -153,6 +153,25 @@ class GebaeudeModel extends Model
         return $row;
     }
 
+    public function get_rooms_by_ids($roomIds) {
+        $inRooms = rtrim(str_repeat('?,', count($roomIds)), ',');
+        $query = "SELECT * FROM $this->roomTable WHERE id IN ($inRooms)";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $this->DynamicBindVariables($statement, $roomIds, null, null);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
     public function addRoom($name, $optText) {
         $query = "INSERT INTO $this->roomTable (bezeichnung, optional_text) VALUES (?, ?)";
 
@@ -251,5 +270,114 @@ class GebaeudeModel extends Model
         }
 
         return $rows;
+    }
+
+    private function DynamicBindVariables($stmt, $params, $params2, $params3)
+    {
+        if ($params != null)
+        {
+            // Generate the Type String (eg: 'issisd')
+            $types = '';
+            foreach($params as $param)
+            {
+                if(is_int($param)) {
+                    // Integer
+                    $types .= 'i';
+                } elseif (is_float($param)) {
+                    // Double
+                    $types .= 'd';
+                } elseif (is_string($param)) {
+                    // String
+                    $types .= 's';
+                } else {
+                    // Blob and Unknown
+                    $types .= 'b';
+                }
+            }
+
+            if ($params2 != null) {
+                foreach($params2 as $param2)
+                {
+                    if(is_int($param2)) {
+                        // Integer
+                        $types .= 'i';
+                    } elseif (is_float($param2)) {
+                        // Double
+                        $types .= 'd';
+                    } elseif (is_string($param2)) {
+                        // String
+                        $types .= 's';
+                    } else {
+                        // Blob and Unknown
+                        $types .= 'b';
+                    }
+                }
+            }
+
+            if ($params3 != null) {
+                foreach($params3 as $param3)
+                {
+                    if(is_int($param3)) {
+                        // Integer
+                        $types .= 'i';
+                    } elseif (is_float($param3)) {
+                        // Double
+                        $types .= 'd';
+                    } elseif (is_string($param3)) {
+                        // String
+                        $types .= 's';
+                    } else {
+                        // Blob and Unknown
+                        $types .= 'b';
+                    }
+                }
+            }
+
+            // Add the Type String as the first Parameter
+            $bind_names[] = $types;
+
+            $i = 0;
+
+            // Loop thru the given Parameters
+            for ($i; $i<count($params);$i++)
+            {
+                // Create a variable Name
+                $bind_name = 'bind' . $i;
+                // Add the Parameter to the variable Variable
+                $$bind_name = $params[$i];
+                // Associate the Variable as an Element in the Array
+                $bind_names[] = &$$bind_name;
+            }
+
+            if ($params2 != null) {
+                for ($j=0; $j<count($params2);$j++)
+                {
+                    $number = $i + $j;
+                    // Create a variable Name
+                    $bind_name = 'bind' . $number;
+                    // Add the Parameter to the variable Variable
+                    $$bind_name = $params[$j];
+                    // Associate the Variable as an Element in the Array
+                    $bind_names[] = &$$bind_name;
+                }
+            }
+
+            if ($params3 != null) {
+                for ($k=0; $k<count($params3);$k++)
+                {
+                    $number = $i + $j + $k;
+                    // Create a variable Name
+                    $bind_name = 'bind' . $number;
+                    // Add the Parameter to the variable Variable
+                    $$bind_name = $params[$k];
+                    // Associate the Variable as an Element in the Array
+                    $bind_names[] = &$$bind_name;
+                }
+            }
+
+            // Call the Function bind_param with dynamic Parameters
+            call_user_func_array(array($stmt,'bind_param'), $bind_names);
+        }
+        return $stmt;
     }
 }

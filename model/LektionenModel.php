@@ -106,11 +106,11 @@ class LektionenModel extends Model
         return $statement->insert_id;
     }
 
-    public function create_new_lesion($klassenID, $lehrerID, $titel, $progThem, $termAufg, $dateID, $zimmerID) {
-        $query = "INSERT INTO $this->tableName (klassen_id, lehrer_id, titel, programm_themen, termine_aufgaben, date_id, zimmer) VALUES (?, ?, ?, ?, ?, ?, ?)";
+    public function create_new_lesion($titel, $progThem, $termAufg, $dateID, $zimmerID, $fachID) {
+        $query = "INSERT INTO $this->tableName (titel, programm_themen, termine_aufgaben, date_id, zimmer, fach_id) VALUES (?, ?, ?, ?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('iisssii', $klassenID, $lehrerID, $titel, $progThem, $termAufg, $dateID, $zimmerID);
+        $statement->bind_param('sssiii', $titel, $progThem, $termAufg, $dateID, $zimmerID, $fachID);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);

@@ -8,8 +8,8 @@
 ?>
 
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-        <div class="mdl-card__title">
+    <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Nachrichten</h2>
         </div>
         <?php
@@ -89,12 +89,11 @@
                 </tbody>
             </table>
         <?php } elseif ($_SESSION['userType']['id'] == 3) { ?>
-            <ul class="mdl-list">
+            <div id="messages">
                 <?php
                 foreach ($nachrichten as $nachricht) {
-                    echo '<li class="mdl-list__item mdl-list__item--three-line" style="line-height: unset; height: auto">
-                            <span class="mdl-list__item-primary-content">
-                                <span>';
+                    echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--grey-400">
+<h6 class="mdl-card__title-text">';
                     foreach ($teachers as $teacher) {
                         if ($teacher->id == $nachricht->erfasser_id) {
                             $creator = $teacher->email;
@@ -121,13 +120,11 @@
                     } elseif (empty($klassenName) && empty($fachName)) {
                         echo 'Von: ' . $creator . ' -> Alle';
                     }
-                    echo '</span>
-                                <span class="mdl-list__item-text-body">' . $nachricht->text . '</span>
-                            </span>
-                          </li>';
+                    echo '</h6>
+</div><div class="mdl-card__supporting-text"> ' . nl2br($nachricht->text) . '</div></div>';
                 }
                 ?>
-            </ul>
+            </div>
         <?php } ?>
         <div class="mdl-card__actions mdl-grid">
             <?php

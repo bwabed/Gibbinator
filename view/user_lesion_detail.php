@@ -14,7 +14,12 @@ $endTime = strtotime($date->end_time);
         <div class="mdl-card__title mdl-color--grey-500">
             <h6 class="mdl-card__title-text">
                 Lektion <?= $fach->titel . ', ' . date('d.m.Y', $dateString) . ', ' . date('H:i', $startTime) . ' - ' . date('H:i', $endTime) ?>
-                <br/>Lehrperson: <?= $user->email ?></h6>
+                <?php
+                if ($_SESSION['userType']['id'] == 3) {
+                    echo '
+                <br/>Lehrperson: ' . $user->email . '</h6>';
+                }
+                ?>
         </div>
         <div class="mdl-card__supporting-text">
             <?php

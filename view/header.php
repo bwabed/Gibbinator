@@ -1,7 +1,7 @@
-<!DOCTYPE html>
-<html lang="de">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Gibbinator WebApp">
@@ -49,7 +49,6 @@
     <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
-
 </head>
 <body>
 <div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
@@ -57,28 +56,26 @@
         <div class="mdl-layout__header-row">
             <span class="mdl-layout-title">Gibbinator</span>
             <div class="mdl-layout-spacer"></div>
-            <?php
-            if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
                 if ($_SESSION['userType']['id'] == 2) {
                     echo '<button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">
-                <i class="material-icons">swap_vert</i>
+                <i class="material-icons" role="presentation">swap_vert</i>
             </button>
             <ul class="mdl-menu mdl-js-menu mdl-menu--bottom-right" for="hdrbtn">
                 <li class=""><a class="mdl-menu__item" href="/download/get_file?file=' . urlencode("Sem_plan_vorlage.xlsx") . '">Excelvorlage herunterladen</a></li>
                 <li class=""><a class="mdl-menu__item" href="/user/upload_plan">Semesterplan hochladen (csv)</a></li>
             </ul>';
-                };
-            };
-            ?>
+                }
+            }?>
         </div>
     </header>
     <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-        <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) {
+        <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             echo '<header class="mdl-drawer-header" id="loggedin">
                 <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn\'t load..."
                      class="gibbinator-avatar">
                 <div class="gibbinator-avatar-dropdown">
-                    <span>Willkommen ' . $_SESSION ['user']['name'] . '</span>
+                    <span>Willkommen ' . $_SESSION['user']['name'] . '</span>
                     <div class="mdl-layout-spacer"></div>
                     <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
                         <i class="material-icons" role="presentation">arrow_drop_down</i>
@@ -144,10 +141,7 @@
                                     role="presentation">home</i>Home</a>
         
                     </nav>';
-                    break;
-            }
-
-            ?>
+            } ?>
         <?php } else { ?>
             <header class="mdl-drawer-header" id="loggedout">
                 <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
@@ -160,5 +154,4 @@
             </nav>
         <?php } ?>
     </div>
-
     <main class="mdl-layout__content mdl-color--grey-200">
