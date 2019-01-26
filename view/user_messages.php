@@ -6,7 +6,6 @@
  * Time: 18:17
  */
 ?>
-
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--indigo-500">
@@ -14,7 +13,7 @@
         </div>
         <?php
         if ($_SESSION['userType'] ['id'] == 2) { ?>
-            <table class="mdl-cell--12-col mdl-data-table mdl-data-table--selectable mdl-js-data-table mdl-shadow--2dp message_table"
+            <table class="customTable mdl-cell--12-col mdl-data-table mdl-data-table--selectable mdl-js-data-table mdl-shadow--2dp message_table"
                    id="message_table">
                 <thead>
                 <tr>

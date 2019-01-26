@@ -95,7 +95,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/edit_klasse", {delete_users: selectedUsers, klassen_id: <?= $klasse->id ?>})
+                            $.post("/user/edit_klasse", {delete_users: selectedUsers, klassen_id: <?= $klasse->id ?>})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');
@@ -163,7 +163,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/edit_klasse", {add_users: selectedUsers, klassen_id: <?= $klasse->id ?>})
+                            $.post("/user/edit_klasse", {add_users: selectedUsers, klassen_id: <?= $klasse->id ?>})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');
@@ -182,3 +182,4 @@
         </div>
     </div>
 </div>
+/

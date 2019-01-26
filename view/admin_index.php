@@ -3,7 +3,7 @@
         <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
             <h3 class="mdl-card__title-text mdl-color-text--white">Benutzer</h3>
         </div>
-        <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+        <table class="customTable mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="users_table">
             <thead>
             <tr>

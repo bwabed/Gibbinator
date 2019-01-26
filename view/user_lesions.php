@@ -5,7 +5,7 @@
             <div class="mdl-card__title mdl-color--indigo-500">
                 <h6 class="mdl-card__title-text mdl-color-text--white">Lektionenliste</h6>
             </div>
-            <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+            <table class="customTable mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                    id="lesion_table">
                 <thead>
                 <tr>
@@ -24,7 +24,7 @@
                     echo '
           <tr data-id="' . $lektion->id . '">
           <td>
-          <form id="form-select-lesion-' . $lektion->id . '" action="/user/lesion_detail" method="get">
+          <form id="form-select-lesion-' . $lektion->id . '" action="/user/edit_lesion" method="get">
           <a href="#" id="form-select-lesion-button-' . $lektion->id . '" class="mdl-navigation__link">
           <i class="material-icons">edit</i>
           </a>

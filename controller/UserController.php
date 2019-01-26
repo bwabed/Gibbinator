@@ -419,8 +419,41 @@ class UserController
     }
 
     public function lesion_detail()
+{
+    $view = new View('user_lesion_detail');
+    $lesionModel = new LektionenModel();
+    $nachrichtenModel = new NachrichtenModel();
+    $dateModel = new DatesModel();
+    $userModel = new UserModel();
+    $buildModel = new GebaeudeModel();
+    $fachModel = new FachModel();
+
+    if (isset($_GET['lesion_id']) && !empty($_GET['lesion_id'])) {
+        $lesion = $lesionModel->readById($_GET['lesion_id']);
+        $date = $dateModel->readById($lesion->date_id);
+        $nachrichten = $nachrichtenModel->get_message_for_lesion_sorted($_GET['lesion_id']);
+        $fach = $fachModel->readById($lesion->fach_id);
+        $user = $userModel->readById($fach->lehrer_id);
+        $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
+        $connection = $buildModel->get_connection_by_room_id($zimmer->id);
+        $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
+        $build = $buildModel->readById($stockwerk->gebaeude_id);
+    }
+
+    $view->fach = $fach;
+    $view->zimmer = $zimmer;
+    $view->stockwerk = $stockwerk;
+    $view->build = $build;
+    $view->user = $user;
+    $view->date = $date;
+    $view->nachrichten = $nachrichten;
+    $view->lesion = $lesion;
+    $view->display();
+}
+
+    public function edit_lesion()
     {
-        $view = new View('user_lesion_detail');
+        $view = new View('user_edit_lesion');
         $lesionModel = new LektionenModel();
         $nachrichtenModel = new NachrichtenModel();
         $dateModel = new DatesModel();
@@ -452,7 +485,70 @@ class UserController
     }
 
     public function klassen() {
+        $view = new View('user_klassen');
 
+        $klassenModel = new KlassenModel();
+        $fachModel = new FachModel();
+
+        if ($_SESSION['userType']['id'] == 2) {
+               $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+               $klassenIds = array();
+               foreach ($klassen as $klasse) {
+                   $klassenIds[] = $klasse->id;
+               }
+               $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+        }
+
+        $view->klassen = $klassen;
+        $view->faecher = $faecher;
+        $view->display();
+    }
+
+    public function edit_klasse()
+    {
+        if (!empty($_POST['klassen_id'])) {
+
+            $klassenModel = new KlassenModel();
+            if (!empty($_POST['delete_users'])) {
+                foreach ($_POST['delete_users'] as $user) {
+                    $klassenModel->delete_user_klasse_by_user($user);
+                }
+            }
+
+            if (!empty($_POST['add_users'])) {
+                $klassenID = $_POST['klassen_id'];
+                foreach ($_POST['add_users'] as $user) {
+                    $klassenModel->create_user_klasse($klassenID, $user);
+                }
+            }
+
+            $view = new View('user_edit_klasse');
+
+            $userModel = new UserModel();
+
+            $klasse = $klassenModel->readById($_POST['klassen_id']);
+            $klassen_users = $klassenModel->get_user_ids_of_klasse($_POST['klassen_id']);
+
+            $ids = array();
+            foreach ($klassen_users as $klassen_user) {
+                $ids[] = $klassen_user->user_id;
+            }
+
+            $lernende_in = $userModel->get_multiple_user_by_id($ids);
+
+            $lernendeInIds = array();
+            foreach ($lernende_in as $lern) {
+                $lernendeInIds[] = $lern->id;
+            }
+            $lernende_out = $userModel->readAllStudsExceptIds($lernendeInIds);
+
+            $view->klassen_lp = $userModel->readById($klasse->klassen_lp);
+            $view->lehrer = $userModel->readAllProfs();
+            $view->klasse = $klasse;
+            $view->lernende_in = $lernende_in;
+            $view->lernende_out = $lernende_out;
+            $view->display();
+        }
     }
 
     public function upload_plan()

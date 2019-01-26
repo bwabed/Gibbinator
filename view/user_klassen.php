@@ -1,52 +1,52 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: dimi
- * Date: 2019-01-18
- * Time: 13:07
- */
-?>
-
-<div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-card-form mdl-grid mdl-grid--no-spacing  mdl-cell--12-col mdl-shadow--2dp" id="klassen_results">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
-            <h3 class="mdl-card__title-text mdl-color-text--white">Klassen</h3>
+<div class="mdl-layout__content mdl-grid">
+    <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Klassen übersicht</h2>
         </div>
-        <table class="customTable mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="klassen_table">
+        <table class="customTable mdl-cell--12-col mdl-cell mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+               id="klassen_table">
             <thead>
             <tr>
                 <th class="klassen_table">Bearbeiten</th>
                 <th class="klassen_table">Name</th>
-                <th class="klassen_table">Klassenlehrperson</th>
+                <th class="klassen_table">Fächer</th>
             </tr>
             </thead>
             <tbody>
             <?php
-            foreach ($klassen as $row) {
+            foreach ($klassen as $klasse) {
                 echo '
-          <tr data-id="' . $row->id . '">
+          <tr data-id="' . $klasse->id . '">
           <td>
-          <form id="form-select-klasse-' . $row->id . '" action="/admin/edit_klasse" method="post">
-          <a href="#" id="form-select-klasse-button-' . $row->id . '" class="mdl-navigation__link">
+          <form id="form-select-klasse-' . $klasse->id . '" action="/user/edit_klasse" method="post">
+          <a href="#" id="form-select-klasse-button-' . $klasse->id . '" class="mdl-navigation__link">
           <i class="material-icons">edit</i>
           </a>
-          <input type="hidden" name="klassen_id" value="' . $row->id . '">
+          <input type="hidden" name="klassen_id" value="' . $klasse->id . '">
           <script>
           $(document).ready(function() {
-            $("#form-select-klasse-button-' . $row->id . '").click(function(e) {
-              $("#form-select-klasse-' . $row->id . '").submit();
+            $("#form-select-klasse-button-' . $klasse->id . '").click(function(e) {
+              $("#form-select-klasse-' . $klasse->id . '").submit();
             });
           });
           </script>
           </form>
           </td>
-          <td>' . $row->name . '</td>
+          <td>' . $klasse->name . '</td>
           <td>';
-                foreach ($lehrer as $lp) {
-                    if ($lp->id == $row->klassen_lp) {
-                        echo $lp->vorname . ' ' . $lp->nachname;
+                $number = 0;
+                $faecherString = 'Keine';
+                foreach ($faecher as $fach) {
+                    if ($fach->klassen_id == $klasse->id) {
+                        if ($number == 0) {
+                            $faecherString = $fach->titel;
+                        } else {
+                            $faecherString .= ', ' . $fach->titel;
+                        }
+                        $number++;
                     }
                 }
+                echo $faecherString;
                 echo '</td>
           </tr>
           ';
@@ -59,11 +59,6 @@
                     id="delete_button">
                 Klassen Löschen
             </button>
-            <a class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--colored mdl-button--raised form_button add_to_button"
-               id="add_button" href="/admin/new_klasse">
-                Neue Klasse
-            </a>
-
             <script type="text/javascript">
                 // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
                 // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
@@ -99,4 +94,3 @@
             </script>
         </div>
     </div>
-</div>
