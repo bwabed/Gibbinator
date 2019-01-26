@@ -9,7 +9,7 @@
 
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--4-offset-desktop mdl-card-form mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h1 class="mdl-card__title-text">Neue Klasse</h1>
         </div>
         <div class="mdl-card__supporting-text">

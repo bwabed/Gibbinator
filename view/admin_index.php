@@ -1,6 +1,6 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="user_results">
-        <div class="mdl-card__title">
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
             <h3>Benutzer</h3>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"

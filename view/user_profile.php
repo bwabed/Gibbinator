@@ -7,7 +7,7 @@
  */
 ?>
 <div class="mdl-cell mdl-card mdl-card-form mdl-shadow--2dp mdl-cell--12-col">
-    <div class="mdl-card__title">
+    <div class="mdl-card__title mdl-color--grey-500">
         <h1 class="mdl-card__title-text">Edit Profile</h1>
     </div>
     <div class="mdl-grid">

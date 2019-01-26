@@ -9,7 +9,7 @@
 
 <div class="mdl-grid mdl-layout">
     <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--4-offset-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Nachricht bearbeiten</h2>
         </div>
         <form action="/user/update_message" method="post">

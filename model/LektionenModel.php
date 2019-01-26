@@ -38,7 +38,7 @@ class LektionenModel extends Model
         $inLektionen = rtrim(str_repeat('?,', count($lektionDateIDs)), ',');
         $query = "SELECT * FROM $this->datesTable WHERE id IN ($inLektionen)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $lektionDateIDs, null);
+        $statement = $this->DynamicBindVariables($statement, $lektionDateIDs, null);
         $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
@@ -54,12 +54,11 @@ class LektionenModel extends Model
         return $rows;
     }
 
-    public function get_lektionen_by_faecher($faecherIds)
-    {
+    public function get_lektionen_by_faecher($faecherIds) {
         $inFaecher = rtrim(str_repeat('?,', count($faecherIds)), ',');
         $query = "SELECT * FROM $this->tableName WHERE fach_id IN ($inFaecher)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $faecherIds, null);
+        $statement = $this->DynamicBindVariables($statement, $faecherIds);
         $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
@@ -119,7 +118,7 @@ class LektionenModel extends Model
         return $statement->insert_id;
     }
 
-    function DynamicBindVariables($stmt, $params, $params2)
+    function DynamicBindVariables($stmt, $params, $params2 = null)
     {
         if ($params != null)
         {
@@ -177,14 +176,16 @@ class LektionenModel extends Model
                 $bind_names[] = &$$bind_name;
             }
 
+            $j = 0;
+
             if ($params2 != null) {
-                for ($j=0; $j<count($params2);$j++)
+                for ($j; $j<count($params2);$j++)
                 {
                     $number = $i + $j;
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$j];
+                    $$bind_name = $params2[$j];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

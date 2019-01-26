@@ -13,8 +13,8 @@ class NachrichtenModel extends Model
 {
     protected $tableName = 'nachricht';
 
-    public function get_message_by_creator_sorted($creatorID) {
-        $query = "SELECT * FROM $this->tableName WHERE erfasser_id = ? ORDER BY DATE(erstellt_am) DESC";
+    public function get_message_by_creator_sorted($creatorID, $max = 100) {
+        $query = "SELECT * FROM $this->tableName WHERE erfasser_id = ? ORDER BY DATE(erstellt_am) DESC  LIMIT 0, $max";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $creatorID);
         $statement->execute();
@@ -55,11 +55,11 @@ class NachrichtenModel extends Model
         return $connection->affected_rows;
     }
 
-    public function get_message_for_student_sorted($klassenIDs, $lektionIDs, $fachIds) {
+    public function get_message_for_student_sorted($klassenIDs, $lektionIDs, $fachIds, $max = 100) {
         $inKlasse = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $inLektion = rtrim(str_repeat('?,', count($lektionIDs)), ',');
         $inFach = rtrim(str_repeat('?,', count($fachIds)), ',');
-        $query = "SELECT * FROM $this->tableName WHERE (klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) OR fach_id IN ($inFach)) OR (fach_id = null AND klassen_id = null AND lektion_id = null) ORDER BY DATE(erstellt_am) DESC";
+        $query = "SELECT * FROM $this->tableName WHERE (klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) OR fach_id IN ($inFach)) OR (fach_id = null AND klassen_id = null AND lektion_id = null) ORDER BY DATE(erstellt_am) DESC LIMIT 0, $max";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, $fachIds);
         $statement->execute();
@@ -83,7 +83,7 @@ class NachrichtenModel extends Model
         $query = "SELECT * FROM $this->tableName WHERE ersteller_id = ? OR klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) ORDER BY DATE(erstellt_am) DESC";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->bind_param('i', $creatorID);
-        $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, null);
+        $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs);
         $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
@@ -118,7 +118,7 @@ class NachrichtenModel extends Model
         return $rows;
     }
 
-    private function DynamicBindVariables($stmt, $params, $params2, $params3)
+    private function DynamicBindVariables($stmt, $params, $params2 = null, $params3 = null)
     {
         if ($params != null)
         {
@@ -202,7 +202,7 @@ class NachrichtenModel extends Model
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$j];
+                    $$bind_name = $params2[$j];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }
@@ -215,7 +215,7 @@ class NachrichtenModel extends Model
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$k];
+                    $$bind_name = $params3[$k];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

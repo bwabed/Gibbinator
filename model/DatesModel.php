@@ -17,7 +17,7 @@ class DatesModel extends Model
         $inDates = rtrim(str_repeat('?,', count($dateIDs)), ',');
         $query = "SELECT * FROM $this->tableName WHERE id IN ($inDates)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement = $this->DynamicBindVariables($statement, $dateIDs, null);
+        $statement = $this->DynamicBindVariables($statement, $dateIDs);
         $statement->execute();
         $result = $statement->get_result();
         if (!$result) {
@@ -33,7 +33,28 @@ class DatesModel extends Model
         return $rows;
     }
 
-    private function DynamicBindVariables($stmt, $params, $params2)
+    public function get_next_10_dates_with_ids($dateIDs, $today) {
+        $inDates = rtrim(str_repeat('?,', count($dateIDs)), ',');
+        $query = "SELECT * FROM $this->tableName WHERE id IN ($inDates) AND start_date > $today ORDER BY (start_date) DESC";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement = $this->DynamicBindVariables($statement, $dateIDs);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+
+    private function DynamicBindVariables($stmt, $params, $params2 = null)
     {
         if ($params != null)
         {
@@ -98,7 +119,7 @@ class DatesModel extends Model
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$j];
+                    $$bind_name = $params2[$j];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

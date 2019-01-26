@@ -128,7 +128,7 @@ class UserController
                     $dateIds[] = $lesion->date_id;
                 }
                 $daten = $lesionModel->get_date_by_lektionen($dateIds);
-                $nachrichten = $messageModel->get_message_by_creator_sorted($_SESSION['user']['id']);
+                $nachrichten = $messageModel->get_message_by_creator_sorted($_SESSION['user']['id'], 6);
                 break;
             case 3:
                 $userKlassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
@@ -146,7 +146,7 @@ class UserController
                 }
                 $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
                 $daten = $lesionModel->get_date_by_lektionen($dateIds);
-                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds, $fachIds);
+                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds, $fachIds, 6);
                 break;
             default:
                 $nachrichten = null;
@@ -207,11 +207,12 @@ class UserController
             $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
         } elseif ($_SESSION['userType']['id'] == 3) {
             $userModel = new UserModel();
-            $klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+            $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
             $klassenIds = array();
-            foreach ($klassen as $klasse) {
-                $klassenIds[] = $klasse->id;
+            foreach ($user_klassen as $user_klasse) {
+                $klassenIds[] = $user_klasse->klassen_id;
             }
+            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
             $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
             $fachIds = array();
             foreach ($faecher as $fach) {
@@ -225,8 +226,10 @@ class UserController
                 $zimmerIds[] = $lektion->zimmer;
             }
             $dates = $dateModel->get_dates_with_ids($dateIds);
-            $view->profs = $userModel->readAllProfs();
             $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
+            $date = date('Y-m-d');
+            $view->next_ten_dates = $dateModel->get_next_10_dates_with_ids($dateIds, $date);
+            $view->profs = $userModel->readAllProfs();
         }
 
         $view->zimmer = $zimmer;

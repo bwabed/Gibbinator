@@ -349,27 +349,31 @@ class GebaeudeModel extends Model
                 $bind_names[] = &$$bind_name;
             }
 
+            $j = 0;
+
             if ($params2 != null) {
-                for ($j=0; $j<count($params2);$j++)
+                for ($j; $j<count($params2);$j++)
                 {
                     $number = $i + $j;
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$j];
+                    $$bind_name = $params2[$j];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }
             }
 
+            $k = 0;
+
             if ($params3 != null) {
-                for ($k=0; $k<count($params3);$k++)
+                for ($k; $k<count($params3);$k++)
                 {
                     $number = $i + $j + $k;
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$k];
+                    $$bind_name = $params3[$k];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

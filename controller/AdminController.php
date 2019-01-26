@@ -27,7 +27,7 @@ class AdminController
 
         $userModel = new UserModel();
         try {
-            $result = $userModel->readAll();
+            $result = $userModel->readAllExceptLoggedIn($_SESSION['user']['id']);
         } catch (Exception $e) {
             $result = null;
         }
@@ -389,9 +389,8 @@ class AdminController
     {
         if (!empty($_POST['klassen_id'])) {
 
+            $klassenModel = new KlassenModel();
             if (!empty($_POST['delete_users'])) {
-                $klassenModel = new KlassenModel();
-
                 foreach ($_POST['delete_users'] as $user) {
                     $klassenModel->delete_user_klasse_by_user($user);
                 }
@@ -399,7 +398,6 @@ class AdminController
 
             if (!empty($_POST['add_users'])) {
                 $klassenID = $_POST['klassen_id'];
-                $klassenModel = new KlassenModel();
                 foreach ($_POST['add_users'] as $user) {
                     $klassenModel->create_user_klasse($klassenID, $user);
                 }
@@ -407,35 +405,31 @@ class AdminController
 
             $view = new View('admin_edit_klasse');
 
-            $klassenModel = new KlassenModel();
             $userModel = new UserModel();
 
             $klasse = $klassenModel->readById($_POST['klassen_id']);
             $klassen_users = $klassenModel->get_user_ids_of_klasse($_POST['klassen_id']);
 
-
-            $rows = array();
+            $ids = array();
             foreach ($klassen_users as $klassen_user) {
-                $rows[] = $userModel->readById($klassen_user->user_id);
+                $ids[] = $klassen_user->user_id;
             }
+
+            $lernende_in = $userModel->get_multiple_user_by_id($ids);
+
+            $lernendeInIds = array();
+            foreach ($lernende_in as $lern) {
+                $lernendeInIds[] = $lern->id;
+            }
+            $lernende_out = $userModel->readAllStudsExceptIds($lernendeInIds);
 
             $view->klassen_lp = $userModel->readById($klasse->klassen_lp);
             $view->lehrer = $userModel->readAllProfs();
             $view->klasse = $klasse;
-            $view->lernende = $rows;
+            $view->lernende_in = $lernende_in;
+            $view->lernende_out = $lernende_out;
             $view->display();
         }
-    }
-
-    public function user_klasse()
-    {
-        $view = new View('admin_user_class');
-        $userModel = new UserModel();
-
-        $lernende = $userModel->readAllStuds();
-        $view->lernende = $lernende;
-        $view->klassen_id = $_POST['klassen_id'];
-        $view->display();
     }
 
     /** END */

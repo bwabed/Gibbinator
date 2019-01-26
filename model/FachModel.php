@@ -48,7 +48,7 @@ class FachModel extends Model
         $inKlassen = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $query = "SELECT * FROM $this->tableName WHERE klassen_id IN ($inKlassen)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $klassenIDs, null);
+        $this->DynamicBindVariables($statement, $klassenIDs);
         $statement->execute();
 
         $result = $statement->get_result();
@@ -68,7 +68,7 @@ class FachModel extends Model
         $inIds = rtrim(str_repeat('?,', count($ids)), ',');
         $query = "SELECT * FROM $this->tableName WHERE id IN ($inIds)";
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $this->DynamicBindVariables($statement, $ids, null);
+        $this->DynamicBindVariables($statement, $ids);
         $statement->execute();
 
         $result = $statement->get_result();
@@ -84,7 +84,7 @@ class FachModel extends Model
         return $rows;
     }
 
-    private function DynamicBindVariables($stmt, $params, $params2)
+    private function DynamicBindVariables($stmt, $params, $params2 = null)
     {
         if ($params != null)
         {
@@ -142,14 +142,16 @@ class FachModel extends Model
                 $bind_names[] = &$$bind_name;
             }
 
+            $j = 0;
+
             if ($params2 != null) {
-                for ($j=0; $j<count($params2);$j++)
+                for ($j; $j<count($params2);$j++)
                 {
                     $number = $i + $j;
                     // Create a variable Name
                     $bind_name = 'bind' . $number;
                     // Add the Parameter to the variable Variable
-                    $$bind_name = $params[$j];
+                    $$bind_name = $params2[$j];
                     // Associate the Variable as an Element in the Array
                     $bind_names[] = &$$bind_name;
                 }

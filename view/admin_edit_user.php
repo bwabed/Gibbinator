@@ -1,6 +1,6 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--3-offset-desktop mdl-card-form mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h1 class="mdl-card__title-text">Benutzer bearbeiten</h1>
         </div>
         <div class="mdl-card__supporting-text">
@@ -16,6 +16,14 @@
                            value="<?= isset($_POST['edit_password']) ? htmlspecialchars(strip_tags($_POST['edit_password'])) : ''; ?>">
                     <label class="mdl-textfield__label" for="edit_password">Passwort*</label>
                 </div>
+                <label for="edit_pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
+                    <?php if ($userData->initial_pw == 0) { ?>
+                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input">
+                    <?php } else { ?>
+                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input" checked>
+                    <?php } ?>
+                    <span class="mdl-checkbox__label">Initial Passwort</span>
+                </label>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="edit_vorname" name="edit_vorname"
                            value="<?= isset($_POST['edit_vorname']) ? htmlspecialchars(strip_tags($_POST['edit_vorname'])) : $userData->vorname; ?>">
@@ -40,14 +48,6 @@
                     }
                     ?>
                 </select>
-                <label for="edit_pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
-                    <?php if ($userData->initial_pw == 0) { ?>
-                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input">
-                    <?php } else { ?>
-                        <input type="checkbox" id="edit_pw_checkbox" class="mdl-checkbox__input" checked>
-                    <?php } ?>
-                    <span class="mdl-checkbox__label">Initial Passwort</span>
-                </label>
                 <div class="mdl-card__supporting-text" style="font-style: italic">
                     * Mussfelder
                 </div>

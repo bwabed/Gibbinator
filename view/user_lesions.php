@@ -1,10 +1,10 @@
 <div class="mdl-grid mdl-layout__content">
-    <div class="mdl-card mdl-grid--no-spacing mdl-cell--12-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h6 class="mdl-card__title-text">Lektionenliste</h6>
-        </div>
-        <?php
-        if ($_SESSION['userType']['id'] == 2) { ?>
+    <?php
+    if ($_SESSION['userType']['id'] == 2) { ?>
+        <div class="mdl-card mdl-grid--no-spacing mdl-cell--12-col mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-color--grey-500">
+                <h6 class="mdl-card__title-text">Lektionenliste</h6>
+            </div>
             <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                    id="lesion_table">
                 <thead>
@@ -60,57 +60,202 @@
           <td>';
                     echo date('G:i', $timeStart) . ' - ' . date('G:i', $timeEnd);
                     echo '</td><td>';
-foreach ($zimmer as $room) {
-    if ($room->id == $lektion->zimmer) {
-        echo $room->bezeichnung;
-    }
-}
+                    foreach ($zimmer as $room) {
+                        if ($room->id == $lektion->zimmer) {
+                            echo $room->bezeichnung;
+                        }
+                    }
                     echo '</td></tr>
           ';
                 }
                 ?>
                 </tbody>
             </table>
-        <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button mdl-color--red"
-                    id="delete_button">
-                Lektionen löschen
-            </button>
-            <script type="text/javascript">
-                // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
-                // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
-                // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
-                $(document).ready(function () {
-                    $('#delete_button').click(function (e) {
+            <div class="mdl-card__actions mdl-card--border">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button mdl-color--red"
+                        id="delete_button">
+                    Lektionen löschen
+                </button>
+                <script type="text/javascript">
+                    // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
+                    // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
+                    // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
+                    $(document).ready(function () {
+                        $('#delete_button').click(function (e) {
 
-                        var selectedLesions = [];
+                            var selectedLesions = [];
 
-                        $('table#lesion_table tbody tr td:first-child input').each(function (index, value) {
-                            if (value.checked) {
-                                selectedLesions.push($(value).parent().parent().parent().data('id'));
+                            $('table#lesion_table tbody tr td:first-child input').each(function (index, value) {
+                                if (value.checked) {
+                                    selectedLesions.push($(value).parent().parent().parent().data('id'));
+                                }
+                            });
+
+                            if (selectedLesions.length != 0) {
+                                $.post("/user/delete_selected_lesion", {lesions: selectedLesions})
+                                    .done(function (data) {
+                                        'use strict';
+                                        var snackbarContainer = document.querySelector('#snackbar');
+                                        var data = {message: 'Benutzer erfolgreich gelöscht.'};
+                                        snackbarContainer.MaterialSnackbar.showSnackbar(data);
+                                    });
+                            } else {
+                                var snackbarContainer = document.querySelector('#snackbar');
+                                var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
+                                snackbarContainer.MaterialSnackbar.showSnackbar(data);
                             }
+
+                            window.location.reload();
                         });
-
-                        if (selectedLesions.length != 0) {
-                            $.post("/user/delete_selected_lesion", {lesions: selectedLesions})
-                                .done(function (data) {
-                                    'use strict';
-                                    var snackbarContainer = document.querySelector('#snackbar');
-                                    var data = {message: 'Benutzer erfolgreich gelöscht.'};
-                                    snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                                });
-                        } else {
-                            var snackbarContainer = document.querySelector('#snackbar');
-                            var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
-                            snackbarContainer.MaterialSnackbar.showSnackbar(data);
-                        }
-
-                        window.location.reload();
                     });
-                });
-            </script>
-        <?php } else { ?>
+                </script>
+            </div>
+        </div>
+    <?php } else {
+        echo '<div class="mdl-cell mdl-cell--12-col">
+                <div class="mdl-card__title mdl-color--grey-500">
+                <h2 class="mdl-card__title-text">Nächste Lektionen</h2>
+                </div>
+                </div>';
+        foreach ($next_ten_dates as $next_date) {
+            foreach ($lektionen as $lektion) {
+                if ($lektion->date_id == $next_date->id) {
+                    $lesion = $lektion;
+                }
+                foreach ($zimmer as $room) {
+                    if ($room->id == $lektion->zimmer) {
+                        $inZimmer = $room;
+                    }
+                }
+                foreach ($faecher as $fachRow) {
+                    if ($lektion->fach_id == $fachRow->id) {
+                        $fach = $fachRow;
+                        foreach ($profs as $prof) {
+                            if ($prof->id == $fach->lehrer_id) {
+                                $profEmail = $prof->email;
+                            }
+                        }
+                    }
 
-        <?php } ?>
-    </div>
+                }
+            }
+            $dateString = strtotime($next_date->start_date);
+            $startTime = strtotime($next_date->start_time);
+            $endTime = strtotime($next_date->end_time);
+            ?>
+
+            <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp">
+                <div class="mdl-card__title mdl-color--grey-500">
+                    <h6 class="mdl-card__title-text">
+                        Lektion <?= $fach->titel . ', ' . date('d.m.Y', $dateString) . ', ' . date('H:i', $startTime) . ' - ' . date('H:i', $endTime) ?>
+                        <?php
+                        if ($_SESSION['userType']['id'] == 3) {
+                            echo '
+                <br/>Lehrperson: ' . $profEmail . '</h6>';
+                        }
+                        ?>
+                </div>
+                <div class="mdl-card__supporting-text">
+                    <?php
+                    if ($lesion->programm_themen != null) {
+                        echo '<h5>Programm und Themen</h5>';
+                        echo $lesion->programm_themen;
+                    }
+                    if ($lesion->termine_aufgaben != null) {
+                        echo '<h5>Termine und Aufgaben</h5>';
+                        echo $lesion->termine_aufgaben;
+                    }
+                    ?>
+                    <h5>Zimmer</h5>
+                    <?php
+                    echo $inZimmer->bezeichnung;
+
+                    ?>
+                </div>
+            </div>
+            <?php
+        }
+        ?>
+        <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
+            <div class="mdl-card__title mdl-color--grey-500">
+                <h2 class="mdl-card__title-text">Alle Lektionen</h2>
+            </div>
+            <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-shadow--2dp"
+                   id="lesion_table">
+                <thead>
+                <tr>
+                    <th class="lesion_table">Details</th>
+                    <th class="lesion_table">Fach</th>
+                    <th class="lesion_table">Lehrperson</th>
+                    <th class="lesion_table">Programm und Themen</th>
+                    <th class="lesion_table">Termine und Aufgaben</th>
+                    <th class="lesion_table">Datum</th>
+                    <th class="lesion_table">Von - Bis</th>
+                    <th class="lesion_table">Zimmer</th>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                foreach ($lektionen as $lektion) {
+                    echo '
+          <tr data-id="' . $lektion->id . '">
+          <td>
+          <form id="form-select-lesion-' . $lektion->id . '" action="/user/lesion_detail" method="get">
+          <a href="#" id="form-select-lesion-button-' . $lektion->id . '" class="mdl-navigation__link">
+          <i class="material-icons">list</i>
+          </a>
+          <input type="hidden" name="lesion_id" value="' . $lektion->id . '">
+          <script>
+          $(document).ready(function() {
+            $("#form-select-lesion-button-' . $lektion->id . '").click(function(e) {
+              $("#form-select-lesion-' . $lektion->id . '").submit();
+            });
+          });
+          </script>
+          </form>
+          </td>
+          <td>';
+                    foreach ($faecher as $fach) {
+                        if ($fach->id == $lektion->fach_id) {
+                            foreach ($profs as $prof) {
+                                if ($fach->lehrer_id == $prof->id) {
+                                    $profName = $prof->vorname . ' ' . $prof->nachname;
+                                }
+                            }
+                            echo $fach->titel;
+                        }
+                    }
+                    echo '</td>
+          <td>' . $profName . '</td>
+          <td>' . $lektion->programm_themen . '</td>
+          <td>' . $lektion->termine_aufgaben . '</td>
+          <td>';
+                    foreach ($dates as $date) {
+                        if ($date->id == $lektion->date_id) {
+                            $dateString = strtotime($date->start_date);
+                            $timeStart = strtotime($date->start_time);
+                            $timeEnd = strtotime($date->end_time);
+                            echo date('d.m.Y', $dateString);
+                        }
+                    }
+                    echo '</td>
+          <td>';
+                    echo date('G:i', $timeStart) . ' - ' . date('G:i', $timeEnd);
+                    echo '</td><td>';
+                    foreach ($zimmer as $room) {
+                        if ($room->id == $lektion->zimmer) {
+                            echo $room->bezeichnung;
+                        }
+                    }
+                    echo '</td></tr>
+          ';
+                }
+                ?>
+                </tbody>
+            </table>
+            <div class="mdl-card__actions mdl-card--border">
+
+            </div>
+        </div>
+    <?php } ?>
 </div>

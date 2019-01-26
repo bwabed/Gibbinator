@@ -1,6 +1,6 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Neues Gebäude</h2>
         </div>
 
@@ -27,7 +27,7 @@
                     <label class="mdl-textfield__label" for="build_ort">Ort*</label>
                 </div>
             </div>
-            <div class="mdl-card__actions">
+            <div class="mdl-card__actions mdl-card--border">
                 <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
                         id="gebaeude">
                     Erstellen
@@ -36,7 +36,7 @@
         </form>
     </div>
     <div class="mdl-card mdl-cell mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Neues Stockwerk</h2>
         </div>
         <form action="/admin/add_floor" method="post">
@@ -63,7 +63,7 @@
                     ?>
                 </select>
             </div>
-            <div class="mdl-card__actions">
+            <div class="mdl-card__actions mdl-card--border">
                 <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
                         id="stockwerk">
                     Erstellen
@@ -72,7 +72,7 @@
         </form>
     </div>
     <div class="mdl-cell mdl-card mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Neues Zimmer</h2>
         </div>
         <form action="/admin/add_room" method="post">
@@ -95,7 +95,7 @@
                     ?>
                 </select>
             </div>
-            <div class="mdl-card__actions">
+            <div class="mdl-card__actions mdl-card--border">
                 <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
                         id="zimmer">
                     Weiter
@@ -104,7 +104,7 @@
         </form>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Gebäude</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
@@ -176,7 +176,7 @@
         </div>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--7-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Zimmer</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
@@ -265,7 +265,7 @@
         </div>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--5-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-card__title">
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
             <h2 class="mdl-card__title-text">Stockwerk</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
