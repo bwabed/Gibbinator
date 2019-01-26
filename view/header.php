@@ -70,7 +70,7 @@
     </header>
     <div class="mdl-layout__drawer mdl-color--grey-800 mdl-color-text--white">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            echo '<header class="mdl-drawer-header mdl-color--grey-800" id="loggedin">
+            echo '<header class="mdl-drawer-header mdl-color--indigo-500" id="loggedin">
                 <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn\'t load..."
                      class="gibbinator-avatar">
                 <div class="gibbinator-avatar-dropdown">
@@ -92,62 +92,62 @@
                 case 1:
                     echo '
                     <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
-                        <a class="mdl-navigation__link" href="/admin/index"><i
-                                class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/admin/index"><i style="margin-right: 5px"
+                                class="mdl-color-text--indigo-500 material-icons"
                                 role="presentation">group</i>Benutzer bearbeiten</a>
-                        <a class="mdl-navigation__link" href="/admin/infra"><i class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/admin/infra"><i style="margin-right: 5px" class="mdl-color-text--indigo-500 material-icons"
                                                                role="presentation">inbox</i>Infrastruktur</a>
-                        <a class="mdl-navigation__link" href="/admin/classes"><i
-                                class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/admin/classes"><i style="margin-right: 5px"
+                                class="mdl-color-text--indigo-500 material-icons"
                                 role="presentation">delete</i>Klassen bearbeiten</a>
                     </nav>';
                     break;
                 case 2:
                     echo '
                     <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
-                        <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
+                                    class="mdl-color-text--indigo-500 material-icons"
                                     role="presentation">home</i>Home</a>
-                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/messages"><i style="margin-right: 5px" class="mdl-color-text--indigo-500 material-icons"
                                                                    role="presentation">inbox</i>Nachrichten</a>
-                        <a class="mdl-navigation__link" href="/user/lesions"><i
-                                    class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/lesions"><i style="margin-right: 5px"
+                                    class="mdl-color-text--indigo-500 material-icons"
                                     role="presentation">calendar_today</i>Lektionen Liste</a>
-                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/klassen"><i style="margin-right: 5px" class="mdl-color-text--indigo-500 material-icons"
                                                                    role="presentation">school</i>Klassen</a>
                     </nav>';
                     break;
                 case 3:
                     echo '
                     <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
-                        <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
+                                    class="mdl-color-text--indigo-500 material-icons"
                                     role="presentation">home</i>Home</a>
-                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/messages"><i style="margin-right: 5px" class="mdl-color-text--indigo-500 material-icons"
                                                                    role="presentation">inbox</i>Nachrichten</a>
-                        <a class="mdl-navigation__link" href="/user/lesions"><i
-                                    class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/lesions"><i style="margin-right: 5px"
+                                    class="mdl-color-text--indigo-500 material-icons"
                                     role="presentation">calendar_today</i>Lektionen Liste</a>
-                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--white material-icons"
+                        <a class="mdl-navigation__link" href="/user/klassen"><i style="margin-right: 5px" class="mdl-color-text--indigo-500 material-icons"
                                                                    role="presentation">school</i>Klassen</a>
                     </nav>';
                     break;
                 default:
                     echo '
-                    <nav class="mdl-navigation mdl-color--blue-grey-800">
-                        <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--white material-icons"
+                    <nav class="mdl-navigation mdl-color--grey-800">
+                        <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
+                                    class="mdl-color-text--indigo-500 material-icons"
                                     role="presentation">home</i>Home</a>
         
                     </nav>';
             } ?>
         <?php } else { ?>
-            <header class="mdl-drawer-header" id="loggedout">
-                <img src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
+            <header class="mdl-drawer-header mdl-color--indigo-500" id="loggedout">
+                <img style="width: 200px" src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
             </header>
-            <nav class="mdl-navigation mdl-color--blue-grey-800">
-                <a class="mdl-navigation__link" href="/"><i
-                            class="mdl-color-text--white material-icons"
+            <nav class="mdl-navigation mdl-color--grey-800">
+                <a class="mdl-navigation__link" href="/"><i style="margin-right: 5px"
+                            class="mdl-color-text--indigo-500 material-icons"
                             role="presentation">perm_identity</i>Login</a>
 
             </nav>

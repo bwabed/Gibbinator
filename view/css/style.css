@@ -34,9 +34,10 @@
 }
 
 .gibbinator-avatar {
-    width: 48px;
+    width: 100px;
     height: 48px;
-    border-radius: 24px;
+    border-radius: 2px;
+    margin-bottom: 10px;
 }
 
 #loggedin {
@@ -57,6 +58,12 @@ a.addUserButton {
 
 #snackbar {
     margin-bottom: 50px;
+}
+
+.picture {
+    display: inline-block;
+    max-width: 15px;
+    max-height: 10px;
 }
 
 .gibbinator-avatar-dropdown {
@@ -123,7 +130,7 @@ html, body {
 }
 .demo-drawer {
     border: none;
-}
+}i
 /* iOS Safari specific workaround
 .demo-drawer .mdl-menu__container {
     z-index: -1;
