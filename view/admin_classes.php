@@ -9,8 +9,8 @@
 
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-card-form mdl-grid mdl-grid--no-spacing  mdl-cell--12-col mdl-shadow--2dp" id="klassen_results">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
-            <h3>Klassen</h3>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
+            <h3 class="mdl-card__title-text mdl-color-text--white">Klassen</h3>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp" id="klassen_table">
             <thead>
@@ -59,7 +59,7 @@
                     id="delete_button">
                 Klassen Löschen
             </button>
-            <a class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button"
+            <a class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--colored mdl-button--raised form_button add_to_button"
                id="add_button" href="/admin/new_klasse">
                 Neue Klasse
             </a>

@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Neues Gebäude</h2>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Neues Gebäude</h2>
         </div>
 
         <form action="/admin/add_building" method="post">
@@ -36,8 +36,8 @@
         </form>
     </div>
     <div class="mdl-card mdl-cell mdl-card-form mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Neues Stockwerk</h2>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Neues Stockwerk</h2>
         </div>
         <form action="/admin/add_floor" method="post">
             <div class="mdl-card__supporting-text">
@@ -72,8 +72,8 @@
         </form>
     </div>
     <div class="mdl-cell mdl-card mdl-cell--4-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Neues Zimmer</h2>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Neues Zimmer</h2>
         </div>
         <form action="/admin/add_room" method="post">
             <div class="mdl-card__supporting-text">
@@ -104,8 +104,8 @@
         </form>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Gebäude</h2>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Gebäude</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="build_table">
@@ -176,8 +176,8 @@
         </div>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--7-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Zimmer</h2>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Zimmer</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="room_table">
@@ -265,8 +265,8 @@
         </div>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--5-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Stockwerk</h2>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Stockwerk</h2>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="floor_table">

@@ -9,8 +9,8 @@
 
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Nachrichten</h2>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Nachrichten</h2>
         </div>
         <?php
         if ($_SESSION['userType'] ['id'] == 2) { ?>
@@ -92,8 +92,8 @@
             <div id="messages">
                 <?php
                 foreach ($nachrichten as $nachricht) {
-                    echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--grey-400">
-<h6 class="mdl-card__title-text">';
+                    echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--indigo-400">
+<h6 class="mdl-card__title-text mdl-color-text--white">';
                     foreach ($teachers as $teacher) {
                         if ($teacher->id == $nachricht->erfasser_id) {
                             $creator = $teacher->email;

@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--3-offset-desktop mdl-card-form mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h1 class="mdl-card__title-text">Neuer Benutzer</h1>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h1 class="mdl-card__title-text mdl-color-text--white">Neuer Benutzer</h1>
         </div>
         <div class="mdl-card__supporting-text">
             <form action="/admin/create_user" method="post">

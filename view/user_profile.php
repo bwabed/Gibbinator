@@ -7,13 +7,13 @@
  */
 ?>
 <div class="mdl-cell mdl-card mdl-card-form mdl-shadow--2dp mdl-cell--12-col">
-    <div class="mdl-card__title mdl-color--grey-500">
-        <h1 class="mdl-card__title-text">Edit Profile</h1>
+    <div class="mdl-card__title mdl-color--indigo-500">
+        <h1 class="mdl-card__title-text mdl-color-text--white">Edit Profile</h1>
     </div>
     <div class="mdl-grid">
         <div class="mdl-card mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card-form mdl-shadow--2dp">
             <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Change Password</h2>
+                <h2 class="mdl-card__title-text mdl-color-text--white">Change Password</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-grid">
                 <form action="/user/check_changePassword/" method="post">
@@ -74,7 +74,7 @@
         </div>
         <div class="mdl-card mdl-cell mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card-form mdl-shadow--2dp">
             <div class="mdl-card__title">
-                <h2 class="mdl-card__title-text">Change E-Mail</h2>
+                <h2 class="mdl-card__title-text mdl-color-text--white">Change E-Mail</h2>
             </div>
             <div class="mdl-card__supporting-text mdl-grid">
                 <form action="/user/check_changeEmail/" method="post">

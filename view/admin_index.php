@@ -1,7 +1,7 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-card-form mdl-cell--12-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp" id="user_results">
-        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--grey-500">
-            <h3>Benutzer</h3>
+        <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
+            <h3 class="mdl-card__title-text mdl-color-text--white">Benutzer</h3>
         </div>
         <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="users_table">

@@ -1,6 +1,6 @@
 <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--4-offset-desktop mdl-card-form mdl-shadow--2dp" id="loginCard">
-    <div class="mdl-card__title mdl-color--grey-500">
-        <h1 class="mdl-card__title-text">Login</h1>
+    <div class="mdl-card__title mdl-color--indigo-500">
+        <h1 class="mdl-card__title-text mdl-color-text--white">Login</h1>
     </div>
     <div class="mdl-card__supporting-text mdl-grid">
         <form action="/user/check_login" method="post">

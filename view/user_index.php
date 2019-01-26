@@ -49,20 +49,20 @@
 </script>
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--9-col mdl-shadow--2dp mdl-color--white">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h1>Kalender</h1>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h1 class="mdl-card__title-text mdl-color-text--white">Kalender</h1>
         </div>
         <div id="calendar"></div>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--3-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h6 class="mdl-card__title-text">Letzte Nachrichten</h6>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h6 class="mdl-card__title-text mdl-color-text--white">Letzte Nachrichten</h6>
         </div>
         <div id="messages">
             <?php
             foreach ($nachrichten as $nachricht) {
-                echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--grey-400">
-                            <h6 class="mdl-card__title-text" style="font-size: 10pt">';
+                echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--indigo-400">
+                            <h6 class="mdl-card__title-text mdl-color-text--white" style="font-size: 10pt">';
                 foreach ($profs as $prof) {
                     if ($prof->id == $nachricht->erfasser_id) {
                         $erfasser = $prof->email;

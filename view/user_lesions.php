@@ -2,8 +2,8 @@
     <?php
     if ($_SESSION['userType']['id'] == 2) { ?>
         <div class="mdl-card mdl-grid--no-spacing mdl-cell--12-col mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-color--grey-500">
-                <h6 class="mdl-card__title-text">Lektionenliste</h6>
+            <div class="mdl-card__title mdl-color--indigo-500">
+                <h6 class="mdl-card__title-text mdl-color-text--white">Lektionenliste</h6>
             </div>
             <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                    id="lesion_table">
@@ -113,8 +113,8 @@
         </div>
     <?php } else {
         echo '<div class="mdl-cell mdl-cell--12-col">
-                <div class="mdl-card__title mdl-color--grey-500">
-                <h2 class="mdl-card__title-text">Nächste Lektionen</h2>
+                <div class="mdl-card__title mdl-color--indigo-500">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Nächste Lektionen</h2>
                 </div>
                 </div>';
         foreach ($next_ten_dates as $next_date) {
@@ -145,8 +145,8 @@
             ?>
 
             <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp">
-                <div class="mdl-card__title mdl-color--grey-500">
-                    <h6 class="mdl-card__title-text">
+                <div class="mdl-card__title mdl-color--indigo-500">
+                    <h6 class="mdl-card__title-text mdl-color-text--white">
                         Lektion <?= $fach->titel . ', ' . date('d.m.Y', $dateString) . ', ' . date('H:i', $startTime) . ' - ' . date('H:i', $endTime) ?>
                         <?php
                         if ($_SESSION['userType']['id'] == 3) {
@@ -177,8 +177,8 @@
         }
         ?>
         <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-            <div class="mdl-card__title mdl-color--grey-500">
-                <h2 class="mdl-card__title-text">Alle Lektionen</h2>
+            <div class="mdl-card__title mdl-color--indigo-500">
+                <h2 class="mdl-card__title-text mdl-color-text--white">Alle Lektionen</h2>
             </div>
             <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-shadow--2dp"
                    id="lesion_table">

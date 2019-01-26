@@ -1,9 +1,9 @@
 </main>
-<footer class="mdl-mini-footer" style="height: 20px">
+<footer class="mdl-mini-footer mdl-color--grey-700 mdl-color-text--white" style="height: 20px">
     <div class="mdl-mini-footer__left-section">
-        <div class="mdl-logo">Gibbinator WebApp</div>
+        <div class="mdl-logo mdl-color-text--white">Gibbinator WebApp</div>
         <ul class="mdl-mini-footer__link-list">
-            <li><a href="http://www.getmdl.io/index.html" target="_blank">Material Design Lite</a></li>
+            <li class="mdl-color-text--white"><a href="http://www.getmdl.io/index.html" target="_blank">Material Design Lite</a></li>
         </ul>
     </div>
     <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) {?>

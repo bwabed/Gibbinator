@@ -1,6 +1,6 @@
 <div class="mdl-grid mdl-layout__content">
     <div class="mdl-card mdl-cell mdl-cell--6-col-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-cell--3-offset-desktop mdl-card-form mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
+        <div class="mdl-card__title mdl-color--indigo-500">
         </div>
         <div class="mdl-card__supporting-text">
             <form action="/admin/edit_room" method="post">

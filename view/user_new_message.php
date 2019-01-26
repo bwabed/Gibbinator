@@ -9,8 +9,8 @@
 
 <div class="mdl-grid mdl-layout">
     <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--4-offset-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-color--grey-500">
-            <h2 class="mdl-card__title-text">Neue Nachricht</h2>
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h2 class="mdl-card__title-text mdl-color-text--white">Neue Nachricht</h2>
         </div>
         <form action="/user/create_message" method="post">
             <div class="mdl-card__supporting-text mdl-grid">

@@ -28,7 +28,7 @@
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.grey-indigo.min.css">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
 
     <script src="/view/js/material.min.js"></script>
 
@@ -68,9 +68,9 @@
             }?>
         </div>
     </header>
-    <div class="mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+    <div class="mdl-layout__drawer mdl-color--grey-800 mdl-color-text--white">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
-            echo '<header class="mdl-drawer-header" id="loggedin">
+            echo '<header class="mdl-drawer-header mdl-color--grey-800" id="loggedin">
                 <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn\'t load..."
                      class="gibbinator-avatar">
                 <div class="gibbinator-avatar-dropdown">
@@ -91,44 +91,44 @@
             switch ($_SESSION['userType']['id']) {
                 case 1:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/admin/index"><i
-                                class="mdl-color-text--blue-grey-400 material-icons"
+                                class="mdl-color-text--white material-icons"
                                 role="presentation">group</i>Benutzer bearbeiten</a>
-                        <a class="mdl-navigation__link" href="/admin/infra"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        <a class="mdl-navigation__link" href="/admin/infra"><i class="mdl-color-text--white material-icons"
                                                                role="presentation">inbox</i>Infrastruktur</a>
                         <a class="mdl-navigation__link" href="/admin/classes"><i
-                                class="mdl-color-text--blue-grey-400 material-icons"
+                                class="mdl-color-text--white material-icons"
                                 role="presentation">delete</i>Klassen bearbeiten</a>
                     </nav>';
                     break;
                 case 2:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--blue-grey-400 material-icons"
+                                    class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
-                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--white material-icons"
                                                                    role="presentation">inbox</i>Nachrichten</a>
                         <a class="mdl-navigation__link" href="/user/lesions"><i
-                                    class="mdl-color-text--blue-grey-400 material-icons"
+                                    class="mdl-color-text--white material-icons"
                                     role="presentation">calendar_today</i>Lektionen Liste</a>
-                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--white material-icons"
                                                                    role="presentation">school</i>Klassen</a>
                     </nav>';
                     break;
                 case 3:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--blue-grey-400 material-icons"
+                                    class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
-                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        <a class="mdl-navigation__link" href="/user/messages"><i class="mdl-color-text--white material-icons"
                                                                    role="presentation">inbox</i>Nachrichten</a>
                         <a class="mdl-navigation__link" href="/user/lesions"><i
-                                    class="mdl-color-text--blue-grey-400 material-icons"
+                                    class="mdl-color-text--white material-icons"
                                     role="presentation">calendar_today</i>Lektionen Liste</a>
-                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--blue-grey-400 material-icons"
+                        <a class="mdl-navigation__link" href="/user/klassen"><i class="mdl-color-text--white material-icons"
                                                                    role="presentation">school</i>Klassen</a>
                     </nav>';
                     break;
@@ -136,7 +136,7 @@
                     echo '
                     <nav class="mdl-navigation mdl-color--blue-grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i
-                                    class="mdl-color-text--blue-grey-400 material-icons"
+                                    class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
         
                     </nav>';
@@ -147,7 +147,7 @@
             </header>
             <nav class="mdl-navigation mdl-color--blue-grey-800">
                 <a class="mdl-navigation__link" href="/"><i
-                            class="mdl-color-text--blue-grey-400 material-icons"
+                            class="mdl-color-text--white material-icons"
                             role="presentation">perm_identity</i>Login</a>
 
             </nav>
