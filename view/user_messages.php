@@ -19,7 +19,7 @@
                 <tr>
                     <th class="message_table">Bearbeiten</th>
                     <th class="message_table">Titel</th>
-                    <th class="message_table">Nachricht</th>
+                    <th style="text-align: left" class="message_table">Nachricht</th>
                     <th class="message_table">Erstellt am</th>
                     <th class="message_table">Klasse</th>
                     <th class="message_table">Fach (Lektion)</th>
@@ -47,7 +47,7 @@
           </form>
           </td>
           <td>' . $row->titel . '</td>
-          <td>' . $row->text . '</td>
+          <td style="text-align: left">' . nl2br($row->text) . '</td>
           <td>' . date('d.m.Y', $erstelltAm) . '</td>
           <td>';
                     foreach ($klassen as $klasse) {

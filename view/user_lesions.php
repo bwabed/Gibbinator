@@ -11,8 +11,8 @@
                 <tr>
                     <th class="lesion_table">Bearbeiten</th>
                     <th class="lesion_table">Fach</th>
-                    <th class="lesion_table">Programm und Themen</th>
-                    <th class="lesion_table">Termine und Aufgaben</th>
+                    <th style="text-align: left" class="lesion_table">Programm und Themen</th>
+                    <th style="text-align: left" class="lesion_table">Termine und Aufgaben</th>
                     <th class="lesion_table">Datum</th>
                     <th class="lesion_table">Von - Bis</th>
                     <th class="lesion_table">Zimmer</th>
@@ -45,8 +45,8 @@
                         }
                     }
                     echo '</td>
-          <td>' . $lektion->programm_themen . '</td>
-          <td>' . $lektion->termine_aufgaben . '</td>
+          <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
+          <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';
                     foreach ($dates as $date) {
                         if ($date->id == $lektion->date_id) {

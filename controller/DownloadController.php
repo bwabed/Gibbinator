@@ -6,8 +6,7 @@
  * Time: 11:16
  */
 
-class DownloadController
-{
+class DownloadController {
     public function get_file() {
         if (isset($_GET['file']) && !empty($_GET['file'])) {
             $file = urldecode($_GET['file']);

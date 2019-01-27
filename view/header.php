@@ -87,10 +87,10 @@
                         Logout /<br>Profil bearbeiten
                     </div>
                     <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect" for="accbtn">
-                        <li class="mdl-menu__item"><a class="mdl-navigation__link" href="/user/edit_profile">Profil
-                                bearbeiten</a></li>
-                        <li class="mdl-menu__item"><a class="mdl-navigation__link"
-                                                      href="/user/logout">Logout</a></li>
+                        <a class="mdl-navigation__link" href="/user/edit_profile"><li class="mdl-menu__item">Profil
+                                bearbeiten</li></a>
+                        <a class="mdl-navigation__link"
+                                                      href="/user/logout"><li class="mdl-menu__item">Logout</li></a>
                     </ul>
                 </div>
             </header>';

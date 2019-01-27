@@ -22,8 +22,7 @@
  *     - Daten welche z.B. von einem Formular kommen validieren und dem Model
  *         übergeben, damit sie in der Datenbank persistiert werden können.
  */
-class DefaultController
-{
+class DefaultController {
     /**
      * Die index Funktion des DefaultControllers sollte in jedem Projekt
      * existieren, da diese ausgeführt wird, falls die URI des Requests leer
@@ -34,14 +33,12 @@ class DefaultController
 
     private $message;
 
-    public function __construct()
-    {
+    public function __construct() {
         $view = new View('header', array('title' => 'Startseite', 'heading' => 'Startseite'));
         $view->display();
     }
 
-    public function index()
-    {
+    public function index() {
         if (!empty($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
             switch ($_SESSION['userType']['id']) {
                 case 1:
@@ -59,8 +56,7 @@ class DefaultController
         }
     }
 
-    public function __destruct()
-    {
+    public function __destruct() {
         $view = new View('footer');
         $view->message = $this->message;
         $view->display();

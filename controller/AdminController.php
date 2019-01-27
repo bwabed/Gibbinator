@@ -11,19 +11,16 @@ require_once('model/KlassenModel.php');
  * Date: 12.01.2019
  * Time: 11:57
  */
-class AdminController
-{
+class AdminController {
     private $message;
 
     /** Start */
-    public function __construct()
-    {
+    public function __construct() {
         $view = new View('header', array('title' => 'Startseite', 'heading' => 'Startseite'));
         $view->display();
     }
 
-    public function index()
-    {
+    public function index() {
 
         $userModel = new UserModel();
         try {
@@ -42,12 +39,10 @@ class AdminController
         $view->users = $result;
         $view->usertypes = $usertypes;
         $view->display();
-
     }
 
     /** Infrastruktur */
-    public function add_building()
-    {
+    public function add_building() {
         if (!empty($_POST['build_name']) && !empty($_POST['build_street']) && !empty($_POST['build_number']) && !empty($_POST['build_plz']) && !empty($_POST['build_ort'])) {
             $buildModel = new GebaeudeModel();
             try {
@@ -67,8 +62,7 @@ class AdminController
         }
     }
 
-    public function infra()
-    {
+    public function infra() {
 
         $gebaeudeModel = new GebaeudeModel();
         try {
@@ -103,8 +97,7 @@ class AdminController
         $view->display();
     }
 
-    public function edit_room()
-    {
+    public function edit_room() {
         if (!empty($_POST['floor_select']) && !empty($_POST['room_name']) && !empty($_POST['gebaeude_id'])) {
 
             if (!empty($_POST['room_opt'])) {
@@ -128,8 +121,7 @@ class AdminController
         }
     }
 
-    public function add_room()
-    {
+    public function add_room() {
         if (!empty($_POST['room_name']) && !empty($_POST['room_gebaeude_select'])) {
 
             $roomData = ['name' => htmlspecialchars($_POST['room_name']), 'gebaueude_id' => $_POST['room_gebaeude_select']];
@@ -150,8 +142,7 @@ class AdminController
         }
     }
 
-    public function add_floor()
-    {
+    public function add_floor() {
         if (!empty($_POST['floor_name']) && !empty($_POST['gebaeude_select']) && !empty($_POST['floor_number'])) {
             $buildModel = new GebaeudeModel();
 
@@ -170,8 +161,7 @@ class AdminController
         }
     }
 
-    public function delete_selected_buildings()
-    {
+    public function delete_selected_buildings() {
         if (!empty($_POST['buildings'])) {
             $buildingModel = new GebaeudeModel();
 
@@ -189,8 +179,7 @@ class AdminController
         }
     }
 
-    public function delete_selected_rooms()
-    {
+    public function delete_selected_rooms() {
         if (!empty($_POST['rooms'])) {
             $gebaeudeModel = new GebaeudeModel();
 
@@ -201,8 +190,7 @@ class AdminController
         }
     }
 
-    public function delete_selected_floors()
-    {
+    public function delete_selected_floors() {
         if (!empty($_POST['floors'])) {
             $gebaeudeModel = new GebaeudeModel();
 
@@ -219,8 +207,7 @@ class AdminController
     }
 
     /** User Stuff */
-    public function edit_user()
-    {
+    public function edit_user() {
 
         if (!empty($_POST['user_id'])) {
             $view = new View('admin_edit_user');
@@ -237,8 +224,7 @@ class AdminController
         }
     }
 
-    public function check_edit_user()
-    {
+    public function check_edit_user() {
         $userModel = new UserModel();
 
         if (!empty($_POST['edit_user_id']) && !empty($_POST['edit_username']) && !empty($_POST['edit_password']) && !empty($_POST['edit_vorname']) && !empty($_POST['edit_nachname']) && !empty($_POST['edit_usertype_select']) && !empty($_POST['edit_pw_checkbox'])) {
@@ -260,21 +246,18 @@ class AdminController
         }
     }
 
-    public function delete_selected_users()
-    {
+    public function delete_selected_users() {
         if (!empty($_POST['message'])) {
             $userModel = new UserModel();
 
             foreach ($_POST['message'] as $user) {
                 $userModel->deleteById($user);
             }
-
             header('Location: /admin/index');
         }
     }
 
-    public function create_user()
-    {
+    public function create_user() {
         if (!empty($_POST['new_username']) && !empty($_POST['new_password']) && !empty($_POST['new_vorname']) && !empty($_POST['new_nachname']) && !empty($_POST['usertype_select'])) {
             $userModel = new UserModel();
             $checkEmail = $userModel->check_if_email_exists($_POST['new_username']);
@@ -299,8 +282,7 @@ class AdminController
         }
     }
 
-    public function new_user()
-    {
+    public function new_user() {
         $view = new View('admin_new_user');
 
         $usertypeModel = new UsertypeModel();
@@ -310,8 +292,7 @@ class AdminController
     }
 
     /** Klassen Stuff */
-    public function update_klasse()
-    {
+    public function update_klasse() {
         if (!empty($_POST['edit_klassenname']) && !empty($_POST['edit_klassen_lp_select'])) {
             $klassenModel = new KlassenModel();
 
@@ -330,8 +311,7 @@ class AdminController
         }
     }
 
-    public function classes()
-    {
+    public function classes() {
         $view = new View('admin_classes');
 
         $klassenModel = new KlassenModel();
@@ -342,8 +322,7 @@ class AdminController
         $view->display();
     }
 
-    public function new_klasse()
-    {
+    public function new_klasse() {
         $view = new View('admin_new_klasse');
 
         $userModel = new UserModel();
@@ -352,8 +331,7 @@ class AdminController
         $view->display();
     }
 
-    public function delete_selected_klassen()
-    {
+    public function delete_selected_klassen() {
         if (!empty($_POST['klassen'])) {
             $klassenModel = new KlassenModel();
 
@@ -365,8 +343,7 @@ class AdminController
         }
     }
 
-    public function create_klasse()
-    {
+    public function create_klasse() {
         if (!empty($_POST['new_klassenname']) && !empty($_POST['klassen_lp_select'])) {
             $klassenModel = new KlassenModel();
 
@@ -385,8 +362,7 @@ class AdminController
         }
     }
 
-    public function edit_klasse()
-    {
+    public function edit_klasse() {
         if (!empty($_POST['klassen_id'])) {
 
             $klassenModel = new KlassenModel();
@@ -410,18 +386,29 @@ class AdminController
             $klasse = $klassenModel->readById($_POST['klassen_id']);
             $klassen_users = $klassenModel->get_user_ids_of_klasse($_POST['klassen_id']);
 
+            $lernende_in = array();
+            $lernende_out = array();
+
             $ids = array();
             foreach ($klassen_users as $klassen_user) {
                 $ids[] = $klassen_user->user_id;
             }
 
-            $lernende_in = $userModel->get_multiple_user_by_id($ids);
-
-            $lernendeInIds = array();
-            foreach ($lernende_in as $lern) {
-                $lernendeInIds[] = $lern->id;
+            if (!empty($ids)) {
+                $lernende_in = $userModel->get_multiple_user_by_id($ids);
             }
-            $lernende_out = $userModel->readAllStudsExceptIds($lernendeInIds);
+
+            if (!empty($lernende_in)) {
+                $lernendeInIds = array();
+                foreach ($lernende_in as $lern) {
+                    $lernendeInIds[] = $lern->id;
+                }
+                if (!empty($lernendeInIds)) {
+                    $lernende_out = $userModel->readAllStudsExceptIds($lernendeInIds);
+                }
+            } else {
+                $lernende_out = $userModel->readAllStuds();
+            }
 
             $view->klassen_lp = $userModel->readById($klasse->klassen_lp);
             $view->lehrer = $userModel->readAllProfs();

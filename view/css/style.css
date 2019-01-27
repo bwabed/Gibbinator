@@ -56,10 +56,6 @@ a.addUserButton {
     text-decoration: none;
 }
 
-#snackbar {
-    margin-bottom: 50px;
-}
-
 .picture {
     display: inline-block;
     max-width: 15px;
