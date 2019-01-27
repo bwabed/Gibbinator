@@ -262,7 +262,7 @@
     </div>
     <div class="mdl-card mdl-cell mdl-cell--5-col mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
         <div class="mdl-cell mdl-cell--12-col mdl-card__title mdl-color--indigo-500">
-            <h2 class="q mdl-color-text--white">Stockwerk</h2>
+            <h2 class="mdl-card__title-text mdl-color-text--white">Stockwerk</h2>
         </div>
         <table class="customTable mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="floor_table">

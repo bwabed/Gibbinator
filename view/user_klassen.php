@@ -1,9 +1,9 @@
 <div class="mdl-layout__content mdl-grid">
     <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
-        <div class="mdl-card__title mdl-cell mdl-cell--12-col mdl-color--indigo-500">
+        <div class="mdl-card__title mdl-cell--12-col mdl-color--indigo-500">
             <h2 class="mdl-card__title-text mdl-color-text--white">Klassen übersicht</h2>
         </div>
-        <table class="customTable mdl-cell--12-col mdl-cell mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
+        <table class="customTable mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-data-table--selectable mdl-shadow--2dp"
                id="klassen_table">
             <thead>
             <tr>

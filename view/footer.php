@@ -9,7 +9,7 @@
     <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) {?>
         <div class="mdl-mini-footer__right-section">
             <ul class="mdl-mini-footer__link-list">
-                <li>Profil: <?php echo $_SESSION ['userType'] ['name'] ?></li>
+                <li><?php echo $_SESSION ['user']['vorname'] . ' ' . $_SESSION ['user'] ['nachname']; ?></li>
             </ul>
         </div>
     <?php }?>
