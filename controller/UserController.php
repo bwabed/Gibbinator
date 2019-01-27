@@ -59,12 +59,10 @@ class UserController
                                 header("Location: /admin/index");
                                 break;
                             case 2:
-                                $this->message = ['Willkommen'];
-                                $this->index();
+                                header('Location: /user/index');
                                 break;
                             case 3:
-                                $this->message = ['Willkommen'];
-                                $this->index();
+                                header('Location: /user/index');
                                 break;
                         }
                     } else {
