@@ -66,6 +66,12 @@ a.addUserButton {
     max-height: 10px;
 }
 
+.copyright_link {
+    color: white;
+    margin-bottom: 16px;
+    margin-left: 190px;
+}
+
 .gibbinator-avatar-dropdown {
     display: -webkit-box;
     display: -webkit-flex;

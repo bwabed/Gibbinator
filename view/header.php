@@ -6,30 +6,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Gibbinator WebApp">
 
-
     <title>Gibbinator WebApp</title>
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="view/images/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Gibbinator">
-    <link rel="apple-touch-icon-precomposed" href="images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="view/images/ios-desktop.png">
 
-    <!-- Tile icon for Win8 (144x144 + tile color) -->
-    <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
-    <meta name="msapplication-TileColor" content="#3372DF">
+    <!-- Shortcut Icon -->
+    <link rel="shortcut icon" href="/view/images/gibb_logo.svg.png">
 
-    <link rel="shortcut icon" href="images/gibb_logo.svg.png">
-    <link href="/view/css/material.min.css" rel="stylesheet">
+    <!-- Google Fonts -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+    <!-- MDL CSS Framework -->
+    <link href="/view/css/material.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-blue.min.css">
 
+    <!-- MDL JavaScrip Framework -->
     <script src="/view/js/material.min.js"></script>
 
     <!-- FullCalendar Framework -->
@@ -160,5 +161,7 @@
 
             </nav>
         <?php } ?>
+        <div class="mdl-layout-spacer"></div>
+        <a class="copyright_link" href="https://github.com/bwabed/Gibbinator" target="_blank"><i class="material-icons" role="presentation">copyright</i></a>
     </div>
     <main class="mdl-layout__content mdl-color--grey-200">
