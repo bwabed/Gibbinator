@@ -59,7 +59,34 @@ class NachrichtenModel extends Model
         $inKlasse = rtrim(str_repeat('?,', count($klassenIDs)), ',');
         $inLektion = rtrim(str_repeat('?,', count($lektionIDs)), ',');
         $inFach = rtrim(str_repeat('?,', count($fachIds)), ',');
-        $query = "SELECT * FROM $this->tableName WHERE (klassen_id IN ($inKlasse) OR lektion_id IN ($inLektion) OR fach_id IN ($inFach)) OR (fach_id = null AND klassen_id = null AND lektion_id = null) ORDER BY DATE(erstellt_am) DESC LIMIT 0, $max";
+        $isSecond = 0;
+        if (!empty($inKlasse)) {
+            $klassenPart = 'klassen_id IN (' . $inKlasse . ')';
+            $isSecond = 1;
+        } else {
+            $klassenPart = '';
+        }
+        if (!empty($inLektion)) {
+            if ($isSecond == 1) {
+                $lektionPart = ' OR lektion_id IN (' . $inLektion . ')';
+            } else {
+                $lektionPart = 'lektion_id IN (' . $inLektion . ')';
+                $isSecond = 1;
+            }
+        } else {
+            $lektionPart = '';
+        }
+        if (!empty($inFach)) {
+            if ($isSecond == 1) {
+                $fachPart = ' OR fach_id IN (' . $inFach . ')';
+            } else {
+                $fachPart = 'fach_id IN (' . $inFach . ')';
+            }
+        } else {
+            $fachPart = '';
+        }
+        
+        $query = "SELECT * FROM $this->tableName WHERE ($klassenPart$lektionPart$fachPart) OR (fach_id = NULL AND klassen_id = NULL AND lektion_id = NULL) ORDER BY DATE(erstellt_am) DESC LIMIT 0, $max";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, $fachIds);
         $statement->execute();

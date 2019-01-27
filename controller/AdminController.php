@@ -247,13 +247,14 @@ class AdminController {
     }
 
     public function delete_selected_users() {
-        if (!empty($_POST['message'])) {
+        if (!empty($_POST['users'])) {
             $userModel = new UserModel();
 
-            foreach ($_POST['message'] as $user) {
+            foreach ($_POST['users'] as $user) {
                 $userModel->deleteById($user);
             }
-            header('Location: /admin/index');
+            $this->message = ['Benutzer gelöscht'];
+            $this->index();
         }
     }
 

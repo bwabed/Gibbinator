@@ -118,6 +118,8 @@
                         echo 'Von: ' . $creator . ' -> ' . $klassenName;
                     } elseif (empty($klassenName) && empty($fachName)) {
                         echo 'Von: ' . $creator . ' -> Alle';
+                    } elseif (empty($klassenName) && !empty($fachName)) {
+                        echo 'Von: ' . $creator . ' -> ' . $fachName;
                     }
                     echo '</h6>
 </div><div class="mdl-card__supporting-text"> ' . nl2br($nachricht->text) . '</div></div>';

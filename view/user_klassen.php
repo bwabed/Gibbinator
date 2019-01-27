@@ -54,11 +54,18 @@
             ?>
             </tbody>
         </table>
-        <div class="mdl-card__actions mdl-card--border">
-            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+        <div class=" mdl-card__actions mdl-card--border">
+            <button style="margin-bottom: 5px" class=" mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
                     id="delete_button">
                 Klassen Löschen
             </button>
+            <form action="/user/new_klasse" method="post">
+                <input type="hidden" name="user_id" id="user_id" value="<?= $_SESSION['user']['id'] ?>">
+            <button class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--colored mdl-button--raised form_button add_to_button"
+               id="add_button">
+                Neue Klasse
+            </button>
+            </form>
             <script type="text/javascript">
                 // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
                 // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.
@@ -75,7 +82,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/delete_selected_klassen", {klassen: selectedUsers})
+                            $.post("/user/delete_selected_klassen", {klassen: selectedUsers})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');

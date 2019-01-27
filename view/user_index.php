@@ -68,6 +68,7 @@
                         $erfasser = $prof->email;
                     }
                 }
+                $lektionCount = 0;
                 foreach ($lektionen as $lektion) {
                     if ($lektion->id == $nachricht->lektion_id) {
                         foreach ($faecher as $fach) {
@@ -75,6 +76,7 @@
                                 $fachName = $fach->titel;
                             }
                         }
+                        $lektionCount = 1;
                     }
                 }
                 foreach ($klassen as $klasse) {
@@ -82,12 +84,28 @@
                         $klassenName = $klasse->name;
                     }
                 }
-                if (!empty($klassenName) && !empty($fachName)) {
-                    echo 'Von: ' . $erfasser . ' -> ' . $klassenName . '/' . $fachName;
-                } elseif (!empty($klassenName) && empty($fachName)) {
-                    echo 'Von: ' . $erfasser . ' -> ' . $klassenName;
-                } elseif (empty($klassenName) && !empty($fachName)) {
-                    echo 'Von: ' . $erfasser . ' -> ' . 'Alle';
+                if ($_SESSION['userType']['id'] == 2) {
+                    if (!empty($klassenName) && !empty($fachName)) {
+                        echo 'An ' . $klassenName . '/' . $fachName;
+                    } elseif (!empty($klassenName) && empty($fachName)) {
+                        echo 'An ' . $klassenName;
+                    } elseif (empty($klassenName) && empty($fachName)) {
+                        echo 'An ' . 'Alle';
+                    } elseif (empty($klassenName) && !empty($fachName)) {
+                        echo 'An ' . $fachName;
+                    }
+                } else {
+                    if (!empty($klassenName) && !empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName . '/' . $fachName;
+                    } elseif (!empty($klassenName) && empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . $klassenName;
+                    } elseif (empty($klassenName) && empty($fachName)) {
+                        echo 'Von: ' . $erfasser . ' -> ' . 'Alle';
+                    } elseif (empty($klassenName) && !empty($fachName) && $lektionCount == 1) {
+                        echo 'Von: ' . $erfasser . ' -> ' . $fachName;
+                    } else {
+                        echo 'Von: ' . $erfasser;
+                    }
                 }
                 echo '</h6>
 </div><div class="mdl-card__supporting-text">';

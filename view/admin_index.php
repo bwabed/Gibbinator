@@ -84,7 +84,7 @@
                         });
 
                         if (selectedUsers.length != 0) {
-                            $.post("/admin/delete_selected_user", {message: selectedUsers})
+                            $.post("/admin/delete_selected_users", {users: selectedUsers})
                                 .done(function (data) {
                                     'use strict';
                                     var snackbarContainer = document.querySelector('#snackbar');

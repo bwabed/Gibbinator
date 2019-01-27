@@ -391,9 +391,7 @@ class UserController
             if (!empty($klassenIds)) {
                 $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
             }
-            if (!empty($klassenIds) && !empty($dateIds) && !empty($fachIds)) {
-                $nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $dateIds, $fachIds);
-            }
+            $nachrichten = $nachrichtenModel->get_message_for_student_sorted($klassenIds, $dateIds, $fachIds);
             $view->teachers = $userModel->readAllProfs();
         }
 
@@ -676,7 +674,8 @@ class UserController
     }
 
     /** Functions */
-    public function check_changePassword() {
+    public function check_changePassword()
+    {
         if (isset($_POST["old_password"]) && !empty($_POST["old_password"]) && isset($_POST["new_password"]) && !empty($_POST["new_password"])) {
             $old_password = htmlspecialchars($_POST["old_password"]);
             $new_password = htmlspecialchars($_POST["new_password"]);
@@ -724,7 +723,53 @@ class UserController
         }
     }
 
-    public function create_message() {
+    public function delete_selected_klassen()
+    {
+        if (!empty($_POST['klassen'])) {
+            $klassenModel = new KlassenModel();
+
+            foreach ($_POST['klassen'] as $klasse) {
+                $klassenModel->deleteById($klasse);
+            }
+
+            $message[] = 'Klassen gelöscht';
+            $this->message = $message;
+            $this->klassen();
+        }
+    }
+
+    public function new_klasse()
+    {
+        $view = new View('user_new_klasse');
+
+        $userModel = new UserModel();
+
+        $view->lehrer = $userModel->readById($_SESSION['user']['id']);
+        $view->display();
+    }
+
+    public function create_klasse()
+    {
+        if (!empty($_POST['new_klassenname'])) {
+            $klassenModel = new KlassenModel();
+
+            try {
+                $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), $_SESSION['user']['id']);
+                $this->klassen();
+            } catch (Exception $e) {
+                $message[] = "Die Klasse konnte nicht erstellt werden!";
+                $this->message = $message;
+                $this->new_klasse();
+            }
+        } else {
+            $message[] = "Bitte alle Felder ausfüllen!";
+            $this->message = $message;
+            $this->new_klasse();
+        }
+    }
+
+    public function create_message()
+    {
         if (!empty($_POST['new_title']) && !empty($_POST['new_message_text'])) {
             $nachrichtenModel = new NachrichtenModel();
             $klasse = null;
@@ -748,7 +793,8 @@ class UserController
         }
     }
 
-    public function delete_selected_message() {
+    public function delete_selected_message()
+    {
         $nachrichtenModel = new NachrichtenModel();
         if (isset($_POST['messages']) && !empty($_POST['messages']) && $_SESSION['userType']['id'] == 2) {
             foreach ($_POST['messages'] as $message) {
@@ -757,7 +803,8 @@ class UserController
         }
     }
 
-    public function edit_profile() {
+    public function edit_profile()
+    {
         if (isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] == true) {
             $view = new View('user_profile');
             $view->display();
@@ -768,7 +815,8 @@ class UserController
         }
     }
 
-    public function delete() {
+    public function delete()
+    {
         $userRepository = new UserModel();
         $userRepository->deleteById($_GET['id']);
 
@@ -776,8 +824,9 @@ class UserController
         header('Location: /user');
     }
 
-    public function check_upload() {
-        if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['lesion_title'])) && $_POST['zimmer_select']) {
+    public function check_upload()
+    {
+        if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['fach_title'])) && $_POST['zimmer_select']) {
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
@@ -786,16 +835,17 @@ class UserController
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                 $row = 0;
                 if (($handle = fopen($uploadFile, "r")) !== FALSE) {
-                    while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+                    while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                         if ($row > 0) {
                             $date = strtotime($data[1]);
                             $date = date('Y-m-d', $date);
-                            $startZeit = htmlspecialchars($_POST['start_time']);
+                            $startZeit = htmlspecialchars($_POST['start_time']) . ':00';
+                            $endZeit = htmlspecialchars($_POST['end_time']) . ':00';
 
-                            $dateID = $lektionModel->create_new_date($date, $date, htmlspecialchars($_POST['start_time']), htmlspecialchars($_POST['end_time']), 0);
+                            $dateID = $lektionModel->create_new_date($date, $date, $startZeit, $endZeit, 0);
                             if (!empty($dateID)) {
                                 $fachId = $fachModel->create_new_fach(htmlspecialchars($_POST['fach_title']), $_POST['klassen_select'], $_SESSION['user']['id']);
-                                $lektionModel->create_new_lesion(htmlspecialchars($_POST['lesion_title']), $data[2], $data[3], $dateID, $_POST['zimmer_select'], $fachId);
+                                $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $fachId);
                             }
                         }
                         $row++;
@@ -814,7 +864,8 @@ class UserController
     }
 
     /** End */
-    public function __destruct() {
+    public function __destruct()
+    {
         $view = new View('footer');
         $view->message = $this->message;
         $view->display();
