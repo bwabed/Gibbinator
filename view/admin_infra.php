@@ -198,14 +198,10 @@
           <td>' . $row->optional_text . '</td>
           <td>';
                 $buildID = 0;
-                foreach ($connections as $tmp) {
-                    if ($row->id == $tmp->zimmer_id) {
-                        foreach ($stockwerke as $stockwerk) {
-                            if ($stockwerk->id == $tmp->stockwerk_id) {
-                                $buildID = $stockwerk->gebaeude_id;
-                                echo $stockwerk->bezeichnung;
-                            }
-                        }
+                foreach ($stockwerke as $stockwerk) {
+                    if ($stockwerk->id == $row->stockwerk_id) {
+                        $buildID = $stockwerk->gebaeude_id;
+                        echo $stockwerk->bezeichnung;
                     }
                 }
                 echo '</td>

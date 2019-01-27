@@ -172,11 +172,11 @@ class GebaeudeModel extends Model
         return $rows;
     }
 
-    public function addRoom($name, $optText) {
-        $query = "INSERT INTO $this->roomTable (bezeichnung, optional_text) VALUES (?, ?)";
+    public function addRoom($name, $stockID, $optText) {
+        $query = "INSERT INTO $this->roomTable (stockwerk_id, bezeichnung, optional_text) VALUES (?, ?, ?)";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
-        $statement->bind_param('ss', $name, $optText);
+        $statement->bind_param('iss', $stockID, $name, $optText);
 
         if (!$statement->execute()) {
             throw new Exception($statement->error);
@@ -196,6 +196,19 @@ class GebaeudeModel extends Model
             throw new Exception($statement->error);
         }
     }
+
+    public function deleteRoomByStockwerkId($stocckwerkID)
+    {
+        $query = "DELETE FROM $this->roomTable WHERE stockwerk_id = ?";
+
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement->bind_param('i', $stocckwerkID);
+
+        if (!$statement->execute()) {
+            throw new Exception($statement->error);
+        }
+    }
+
 
     public function addConnectionRoomFloor($roomID, $floorID) {
         $query = "INSERT INTO $this->connectionTable (stockwerk_id, zimmer_id) VALUES (?, ?)";

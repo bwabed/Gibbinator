@@ -37,18 +37,14 @@
                     <?php
                     echo '<option value="">Zimmer wählen..*</option>';
                     foreach ($zimmerList as $zimmer) {
-                        foreach ($stockwerkeZimmer as $stockwerkZimmer) {
-                            if ($stockwerkZimmer->zimmer_id == $zimmer->id) {
-                                foreach ($stockwerke as $stockwerk) {
-                                    if ($stockwerkZimmer->stockwerk_id == $stockwerk->id) {
-                                        foreach ($buildings as $building) {
-                                            if ($building->id == $stockwerk->gebaeude_id) {
-                                                if (!empty($_POST['zimmer_select']) && rawurldecode($_POST['zimmer_select']) == $zimmer->id) {
-                                                    echo '<option class="mdl-menu__item" value="' . rawurlencode($zimmer->id) . '" selected="selected">' . $building->bezeichnung . '/' . $stockwerk->bezeichnung . '/' . $zimmer->bezeichnung . '</option>';
-                                                } else {
-                                                    echo '<option value="' . rawurlencode($zimmer->id) . '">' . $building->bezeichnung . '/' . $stockwerk->bezeichnung . '/' . $zimmer->bezeichnung . '</option>';
-                                                }
-                                            }
+                        foreach ($stockwerke as $stockwerk) {
+                            if ($zimmer->stockwerk_id == $stockwerk->id) {
+                                foreach ($buildings as $building) {
+                                    if ($building->id == $stockwerk->gebaeude_id) {
+                                        if (!empty($_POST['zimmer_select']) && rawurldecode($_POST['zimmer_select']) == $zimmer->id) {
+                                            echo '<option class="mdl-menu__item" value="' . rawurlencode($zimmer->id) . '" selected="selected">' . $building->bezeichnung . '/' . $stockwerk->bezeichnung . '/' . $zimmer->bezeichnung . '</option>';
+                                        } else {
+                                            echo '<option value="' . rawurlencode($zimmer->id) . '">' . $building->bezeichnung . '/' . $stockwerk->bezeichnung . '/' . $zimmer->bezeichnung . '</option>';
                                         }
                                     }
                                 }
@@ -75,7 +71,8 @@
                 * Mussfelder
             </div>
             <div class="mdl-card__action mdl-card--border mdl-cell">
-                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button" id="upload" name="upload">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button"
+                        id="upload" name="upload">
                     Hochladen
                 </button>
             </div>

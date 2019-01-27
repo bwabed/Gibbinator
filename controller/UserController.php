@@ -59,10 +59,12 @@ class UserController
                                 header("Location: /admin/index");
                                 break;
                             case 2:
-                                header("Location: /user/index");
+                                $this->message = ['Willkommen'];
+                                $this->index();
                                 break;
                             case 3:
-                                header("Location: /user/index");
+                                $this->message = ['Willkommen'];
+                                $this->index();
                                 break;
                         }
                     } else {
@@ -306,6 +308,7 @@ class UserController
 
             $view->display();
         } else {
+            $this->message = ['Keine Nachricht ausgewählt'];
             $this->new_message();
         }
     }
@@ -420,6 +423,7 @@ class UserController
             }
             $nachrichtenModel->update($_POST['edit_nachricht_id'], htmlspecialchars($_POST['edit_title']), htmlspecialchars($_POST['edit_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
 
+            $this->message = ['Nachricht gespeichert'];
             $this->messages();
         }
     }
@@ -445,8 +449,7 @@ class UserController
             $fach = $fachModel->readById($lesion->fach_id);
             $user = $userModel->readById($fach->lehrer_id);
             $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
-            $connection = $buildModel->get_connection_by_room_id($zimmer->id);
-            $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
+            $stockwerk = $buildModel->get_floor_by_id($zimmer->stockwerk_id);
             $build = $buildModel->readById($stockwerk->gebaeude_id);
         }
 
@@ -478,8 +481,7 @@ class UserController
             $fach = $fachModel->readById($lesion->fach_id);
             $user = $userModel->readById($fach->lehrer_id);
             $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
-            $connection = $buildModel->get_connection_by_room_id($zimmer->id);
-            $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
+            $stockwerk = $buildModel->get_floor_by_id($zimmer->stockwerk_id);
             $build = $buildModel->readById($stockwerk->gebaeude_id);
         }
 
@@ -504,7 +506,8 @@ class UserController
 
             $row = $lesionModel->update(htmlspecialchars($_POST['edit_prog_them']), htmlspecialchars($_POST['edit_term_aufg']), $_POST['lektion_id']);
             if ($row == 1) {
-                header('Location: /user/lesions');
+                $this->message = ['Lektion gespeichert'];
+                $this->lesions();
             } else {
                 header('Location: /user/edit_lesion?lesion_id=' . $_POST['lektion_id']);
             }
@@ -600,7 +603,6 @@ class UserController
 
             $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
             $view->zimmerList = $gebaeudeModel->readAllRooms();
-            $view->stockwerkeZimmer = $gebaeudeModel->readAllConnections();
             $view->stockwerke = $gebaeudeModel->readAllFloors();
             $view->buildings = $gebaeudeModel->readAll();
         } else {
@@ -719,6 +721,7 @@ class UserController
                 $this->edit_profile();
             }
         } else {
+            $this->message = ['Bitte beide Passwörter angeben'];
             $this->edit_profile();
         }
     }
@@ -755,6 +758,7 @@ class UserController
 
             try {
                 $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), $_SESSION['user']['id']);
+                $this->message ['Klasse erstellt'];
                 $this->klassen();
             } catch (Exception $e) {
                 $message[] = "Die Klasse konnte nicht erstellt werden!";
@@ -789,6 +793,7 @@ class UserController
 
             $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
 
+            $this->message = ['Nachricht erstellt'];
             $this->messages();
         }
     }
@@ -801,6 +806,8 @@ class UserController
                 $nachrichtenModel->deleteById($message);
             }
         }
+        $this->message = ['Nachricht gelöscht'];
+        $this->messages();
     }
 
     public function edit_profile()
@@ -815,17 +822,7 @@ class UserController
         }
     }
 
-    public function delete()
-    {
-        $userRepository = new UserModel();
-        $userRepository->deleteById($_GET['id']);
-
-        // Anfrage an die URI /user weiterleiten (HTTP 302)
-        header('Location: /user');
-    }
-
-    public function check_upload()
-    {
+    public function check_upload() {
         if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['fach_title'])) && $_POST['zimmer_select']) {
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
