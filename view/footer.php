@@ -1,5 +1,5 @@
 </main>
-<footer class="mdl-mini-footer mdl-color--grey-800 mdl-color-text--white" style="height: 20px">
+<footer class="mdl-mini-footer mdl-color--grey-700 mdl-color-text--white" style="height: 20px">
     <div class="mdl-mini-footer__left-section">
         <div class="mdl-logo mdl-color-text--white">Gibbinator WebApp</div>
         <ul class="mdl-mini-footer__link-list">
@@ -9,7 +9,7 @@
     <?php if (isset($_SESSION ['loggedin']) && $_SESSION ['loggedin'] == true) {?>
         <div class="mdl-mini-footer__right-section">
             <ul class="mdl-mini-footer__link-list">
-                <li>Eingeloggt als: <?php echo $_SESSION ['userType'] ['name'] ?></li>
+                <li>Profil: <?php echo $_SESSION ['userType'] ['name'] ?></li>
             </ul>
         </div>
     <?php }?>

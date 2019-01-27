@@ -4,7 +4,7 @@
  * User: dimi
  * Date: 2019-01-21
  * Time: 17:17
- */
+*/
 ?>
 
 <div class="mdl-grid mdl-layout">
@@ -20,10 +20,10 @@
                            value="<?= isset($_POST['edit_title']) ? htmlspecialchars(strip_tags($_POST['edit_title'])) : $nachricht->titel; ?>">
                     <label class="mdl-textfield__label" for="edit_title">Titel*</label>
                 </div>
-                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="edit_message_text" name="edit_message_text"
-                           value="<?= isset($_POST['edit_message_text']) ? htmlspecialchars(strip_tags($_POST['edit_message_text'])) : $nachricht->text; ?>">
-                    <label class="mdl-textfield__label" for="edit_message_text">Nachricht*</label>
+                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <textarea class="mdl-textfield__input" rows="5" type="text" id="new_message_text" name="new_message_text"
+                              value=""><?= isset($_POST['edit_message_text']) ? htmlspecialchars(strip_tags($_POST['edit_message_text'])) : $nachricht->text; ?></textarea>
+                    <label class="mdl-textfield__label" for="new_message_text">Nachricht*</label>
                 </div>
                 <select class="mdl-cell--6-col mdl-cell--4-col-tablet mdl-cell--2-col-phone edit_klassen_select"
                         name="edit_klassen_select"

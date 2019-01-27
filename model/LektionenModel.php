@@ -92,6 +92,15 @@ class LektionenModel extends Model
         return $row;
     }
 
+    public function update($progThem, $termAufg, $lektionID) {
+        $query = "UPDATE $this->tableName SET programm_themen = ?, termine_aufgaben = ? where id = ?";
+        $connection = ConnectionHandler::getConnection();
+        $statement = $connection->prepare($query);
+        $statement->bind_param('ssi', $progThem, $termAufg, $lektionID);
+        $statement->execute();
+        return $connection->affected_rows;
+    }
+
     public function create_new_date($startDate, $endDate, $startTime, $endTime, $allDay) {
         $query = "INSERT INTO $this->datesTable (start_date, end_date, start_time, end_time, all_day) VALUES (?, ?, ?, ?, ?)";
 

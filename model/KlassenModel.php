@@ -148,6 +148,27 @@ class KlassenModel extends Model
         return $rows;
     }
 
+    public function get_user_ids_of_multiple_klasse($klassenIDs)
+    {
+        $inKlassen = rtrim(str_repeat('?,', count($klassenIDs)), ',');
+        $query = "SELECT * FROM $this->userKlassenTable WHERE klassen_id IN ($inKlassen)";
+        $statement = ConnectionHandler::getConnection()->prepare($query);
+        $statement = $this->DynamicBindVariables($statement, $klassenIDs);
+        $statement->execute();
+        $result = $statement->get_result();
+        if (!$result) {
+            throw new Exception($statement->error);
+        }
+
+        // Datensätze aus dem Resultat holen und in das Array $rows speichern
+        $rows = array();
+        while ($row = $result->fetch_object()) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
     private function DynamicBindVariables($stmt, $params, $params2 = null, $params3 = null)
     {
         if ($params != null) {

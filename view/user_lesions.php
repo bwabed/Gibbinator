@@ -117,9 +117,9 @@
                 <h2 class="mdl-card__title-text mdl-color-text--white">Nächste Lektionen</h2>
                 </div>
                 </div>';
-        foreach ($next_ten_dates as $next_date) {
+        foreach ($dates as $date) {
             foreach ($lektionen as $lektion) {
-                if ($lektion->date_id == $next_date->id) {
+                if ($lektion->date_id == $date->id) {
                     $lesion = $lektion;
                 }
                 foreach ($zimmer as $room) {
@@ -139,9 +139,12 @@
 
                 }
             }
-            $dateString = strtotime($next_date->start_date);
-            $startTime = strtotime($next_date->start_time);
-            $endTime = strtotime($next_date->end_time);
+            $dateString = strtotime($date->start_date);
+            $startTime = strtotime($date->start_time);
+            $endTime = strtotime($date->end_time);
+            if (date('Y-m-d') > $date->start_date) {
+                continue;
+            }
             ?>
 
             <div class="mdl-card mdl-cell mdl-cell--4-col-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp">
@@ -172,6 +175,14 @@
 
                     ?>
                 </div>
+                <div class="mdl-card__menu">
+                    <form action="/user/lesion_detail" method="get">
+                        <input type="hidden" id="lesion_id" name="lesion_id" value="<?= $lesion->id ?>">
+                        <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect">
+                            <i class="material-icons mdl-color-text--white">arrow_forward</i>
+                        </button>
+                    </form>
+                </div>
             </div>
             <?php
         }
@@ -187,8 +198,8 @@
                     <th class="lesion_table">Details</th>
                     <th class="lesion_table">Fach</th>
                     <th class="lesion_table">Lehrperson</th>
-                    <th class="lesion_table">Programm und Themen</th>
-                    <th class="lesion_table">Termine und Aufgaben</th>
+                    <th style="text-align: left" class="lesion_table">Programm und Themen</th>
+                    <th style="text-align: left" class="lesion_table">Termine und Aufgaben</th>
                     <th class="lesion_table">Datum</th>
                     <th class="lesion_table">Von - Bis</th>
                     <th class="lesion_table">Zimmer</th>
@@ -227,8 +238,8 @@
                     }
                     echo '</td>
           <td>' . $profName . '</td>
-          <td>' . $lektion->programm_themen . '</td>
-          <td>' . $lektion->termine_aufgaben . '</td>
+          <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
+          <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';
                     foreach ($dates as $date) {
                         if ($date->id == $lektion->date_id) {

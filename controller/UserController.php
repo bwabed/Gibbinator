@@ -190,6 +190,7 @@ class UserController
         $buildModel = new GebaeudeModel();
 
         if ($_SESSION['userType']['id'] == 2) {
+
             $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
             $fachIds = array();
             foreach ($faecher as $fach) {
@@ -205,7 +206,9 @@ class UserController
             $dates = $dateModel->get_dates_with_ids($dateIds);
             $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
             $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
+
         } elseif ($_SESSION['userType']['id'] == 3) {
+
             $userModel = new UserModel();
             $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
             $klassenIds = array();
@@ -227,8 +230,6 @@ class UserController
             }
             $dates = $dateModel->get_dates_with_ids($dateIds);
             $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
-            $date = date('Y-m-d');
-            $view->next_ten_dates = $dateModel->get_next_10_dates_with_ids($dateIds, $date);
             $view->profs = $userModel->readAllProfs();
         }
 
@@ -258,7 +259,7 @@ class UserController
             $lektion = null;
             $view = new View('user_edit_message');
 
-            $nachricht =  $nachrichtenModel->readById($_POST['nachrichten_id']);
+            $nachricht = $nachrichtenModel->readById($_POST['nachrichten_id']);
             $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
             $fachIds = array();
             foreach ($faecher as $fach) {
@@ -303,40 +304,6 @@ class UserController
         $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
 
         $view->display();
-    }
-
-    public function create_message()
-    {
-        if (!empty($_POST['new_title']) && !empty($_POST['new_message_text'])) {
-            $nachrichtenModel = new NachrichtenModel();
-            $klasse = null;
-            $lektion = null;
-            $fach = null;
-            $date = date('y-m-d');
-
-            if (isset($_POST['klassen_select']) && !empty($_POST['klassen_select'])) {
-                $klasse = $_POST['klassen_select'];
-            }
-            if (isset($_POST['fach_select']) && !empty($_POST['fach_select'])) {
-                $fach = $_POST['fach_select'];
-            }
-            if (!empty($_POST['lektion_id'])) {
-                $lektion = $_POST['lektion_id'];
-            }
-
-            $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
-
-            $this->messages();
-        }
-    }
-
-    public function delete_selected_message() {
-        $nachrichtenModel = new NachrichtenModel();
-        if (isset($_POST['messages']) && !empty($_POST['messages']) && $_SESSION['userType']['id'] == 2) {
-            foreach ($_POST['messages'] as $message) {
-                $nachrichtenModel->deleteById($message);
-            }
-        }
     }
 
     public function messages()
@@ -419,37 +386,41 @@ class UserController
     }
 
     public function lesion_detail()
-{
-    $view = new View('user_lesion_detail');
-    $lesionModel = new LektionenModel();
-    $nachrichtenModel = new NachrichtenModel();
-    $dateModel = new DatesModel();
-    $userModel = new UserModel();
-    $buildModel = new GebaeudeModel();
-    $fachModel = new FachModel();
+    {
+        if ($_SESSION['userType']['id'] == 2) {
+            $view = new View('user_edit_lesion');
+        } else {
+            $view = new View('user_lesion_detail');
+        }
+        $lesionModel = new LektionenModel();
+        $nachrichtenModel = new NachrichtenModel();
+        $dateModel = new DatesModel();
+        $userModel = new UserModel();
+        $buildModel = new GebaeudeModel();
+        $fachModel = new FachModel();
 
-    if (isset($_GET['lesion_id']) && !empty($_GET['lesion_id'])) {
-        $lesion = $lesionModel->readById($_GET['lesion_id']);
-        $date = $dateModel->readById($lesion->date_id);
-        $nachrichten = $nachrichtenModel->get_message_for_lesion_sorted($_GET['lesion_id']);
-        $fach = $fachModel->readById($lesion->fach_id);
-        $user = $userModel->readById($fach->lehrer_id);
-        $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
-        $connection = $buildModel->get_connection_by_room_id($zimmer->id);
-        $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
-        $build = $buildModel->readById($stockwerk->gebaeude_id);
+        if (isset($_GET['lesion_id']) && !empty($_GET['lesion_id'])) {
+            $lesion = $lesionModel->readById($_GET['lesion_id']);
+            $date = $dateModel->readById($lesion->date_id);
+            $nachrichten = $nachrichtenModel->get_message_for_lesion_sorted($_GET['lesion_id']);
+            $fach = $fachModel->readById($lesion->fach_id);
+            $user = $userModel->readById($fach->lehrer_id);
+            $zimmer = $buildModel->get_room_by_id($lesion->zimmer);
+            $connection = $buildModel->get_connection_by_room_id($zimmer->id);
+            $stockwerk = $buildModel->get_floor_by_id($connection->stockwerk_id);
+            $build = $buildModel->readById($stockwerk->gebaeude_id);
+        }
+
+        $view->fach = $fach;
+        $view->zimmer = $zimmer;
+        $view->stockwerk = $stockwerk;
+        $view->build = $build;
+        $view->user = $user;
+        $view->date = $date;
+        $view->nachrichten = $nachrichten;
+        $view->lesion = $lesion;
+        $view->display();
     }
-
-    $view->fach = $fach;
-    $view->zimmer = $zimmer;
-    $view->stockwerk = $stockwerk;
-    $view->build = $build;
-    $view->user = $user;
-    $view->date = $date;
-    $view->nachrichten = $nachrichten;
-    $view->lesion = $lesion;
-    $view->display();
-}
 
     public function edit_lesion()
     {
@@ -484,19 +455,37 @@ class UserController
         $view->display();
     }
 
-    public function klassen() {
+    public function update_lesion()
+    {
+        $lesionModel = new LektionenModel();
+        if (isset($_POST['delete_button']) && !empty($_POST['lektion_id'])) {
+            $lesionModel->deleteById($_POST['lektion_id']);
+            header('Location: /user/lesions');
+        } elseif (isset($_POST['speichern_button']) && !empty($_POST['lektion_id'])) {
+
+            $row = $lesionModel->update(htmlspecialchars($_POST['edit_prog_them']), htmlspecialchars($_POST['edit_term_aufg']), $_POST['lektion_id']);
+            if ($row == 1) {
+                header('Location: /user/lesions');
+            } else {
+                header('Location: /user/edit_lesion?lesion_id=' . $_POST['lektion_id']);
+            }
+        }
+    }
+
+    public function klassen()
+    {
         $view = new View('user_klassen');
 
         $klassenModel = new KlassenModel();
         $fachModel = new FachModel();
 
         if ($_SESSION['userType']['id'] == 2) {
-               $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
-               $klassenIds = array();
-               foreach ($klassen as $klasse) {
-                   $klassenIds[] = $klasse->id;
-               }
-               $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+            $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $klassenIds = array();
+            foreach ($klassen as $klasse) {
+                $klassenIds[] = $klasse->id;
+            }
+            $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
         }
 
         $view->klassen = $klassen;
@@ -571,9 +560,57 @@ class UserController
         $view->display();
     }
 
-    /** Functions */
-    public function check_changePassword()
+    public function lehrer()
     {
+        $view = new View('user_lehrer');
+        $userModel = new UserModel();
+        $fachModel = new FachModel();
+        $klassenModel = new KlassenModel();
+
+        $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+        $klassenIds = array();
+        foreach ($user_klassen as $user_klasse) {
+            $klassenIds[] = $user_klasse->klassen_id;
+        }
+
+        $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+        $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+
+        $view->klassen = $klassen;
+        $view->faecher = $faecher;
+        $view->users = $userModel->readAllProfs();
+
+        $view->display();
+    }
+
+    public function stud_klassen() {
+        $view = new View('user_stud_klassen');
+
+        $klassenModel = new KlassenModel();
+        $userModel = new UserModel();
+
+        $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
+        $klassenIds = array();
+        foreach ($user_klassen as $user_klasse) {
+            $klassenIds[] = $user_klasse->klassen_id;
+        }
+        $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+        $klassen_users = $klassenModel->get_user_ids_of_multiple_klasse($klassenIds);
+        $userIds = array();
+        foreach ($klassen_users as $klassen_user) {
+            $userIds[] = $klassen_user->user_id;
+        }
+        $user = $userModel->get_multiple_user_by_id($userIds);
+
+        $view->profs = $userModel->readAllProfs();
+        $view->users = $user;
+        $view->klassenUser = $klassen_users;
+        $view->klassen = $klassen;
+        $view->display();
+    }
+
+    /** Functions */
+    public function check_changePassword() {
         if (isset($_POST["old_password"]) && !empty($_POST["old_password"]) && isset($_POST["new_password"]) && !empty($_POST["new_password"])) {
             $old_password = htmlspecialchars($_POST["old_password"]);
             $new_password = htmlspecialchars($_POST["new_password"]);
@@ -618,6 +655,39 @@ class UserController
             }
         } else {
             $this->edit_profile();
+        }
+    }
+
+    public function create_message() {
+        if (!empty($_POST['new_title']) && !empty($_POST['new_message_text'])) {
+            $nachrichtenModel = new NachrichtenModel();
+            $klasse = null;
+            $lektion = null;
+            $fach = null;
+            $date = date('y-m-d');
+
+            if (isset($_POST['klassen_select']) && !empty($_POST['klassen_select'])) {
+                $klasse = $_POST['klassen_select'];
+            }
+            if (isset($_POST['fach_select']) && !empty($_POST['fach_select'])) {
+                $fach = $_POST['fach_select'];
+            }
+            if (!empty($_POST['lektion_id'])) {
+                $lektion = $_POST['lektion_id'];
+            }
+
+            $nachrichtenModel->create(htmlspecialchars($_POST['new_title']), htmlspecialchars($_POST['new_message_text']), $date, $_SESSION['user']['id'], $klasse, $lektion, $fach);
+
+            $this->messages();
+        }
+    }
+
+    public function delete_selected_message() {
+        $nachrichtenModel = new NachrichtenModel();
+        if (isset($_POST['messages']) && !empty($_POST['messages']) && $_SESSION['userType']['id'] == 2) {
+            foreach ($_POST['messages'] as $message) {
+                $nachrichtenModel->deleteById($message);
+            }
         }
     }
 

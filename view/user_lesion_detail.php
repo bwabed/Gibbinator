@@ -25,11 +25,11 @@ $endTime = strtotime($date->end_time);
             <?php
                 if ($lesion->programm_themen != null) {
                     echo '<h5>Programm und Themen</h5>';
-                    echo $lesion->programm_themen;
+                    echo nl2br($lesion->programm_themen);
                 }
                 if ($lesion->termine_aufgaben != null) {
                     echo '<h5>Termine und Aufgaben</h5>';
-                    echo $lesion->termine_aufgaben;
+                    echo nl2br($lesion->termine_aufgaben);
                 }
                 ?>
                 <h5>Gebäude</h5>
