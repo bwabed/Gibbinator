@@ -56,6 +56,10 @@ a.addUserButton {
     text-decoration: none;
 }
 
+.mdl-card--border {
+    margin-top: 10px;
+}
+
 .picture {
     display: inline-block;
     max-width: 15px;

@@ -29,9 +29,15 @@
                     }
                     ?>
                 ],
+                <?php
+                if ($_SESSION['userType']['id'] == 3) {
+                    echo 'defaultView: "agendaWeek",';
+                }
+                ?>
                 eventClick: function (eventObj) {
                     window.open('/user/lesion_detail?lesion_id=' + eventObj.id, '_self');
                 },
+                nowIndicator: true,
                 selectable: true,
                 locale: 'de',
                 weekNumbers: true,

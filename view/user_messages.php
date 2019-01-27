@@ -127,7 +127,7 @@
                 ?>
             </div>
         <?php } ?>
-        <div class="mdl-card__actions mdl-grid">
+        <div class="mdl-card__actions mdl-card--border mdl-grid">
             <?php
             if ($_SESSION['userType']['id'] == 2) {
                 echo '

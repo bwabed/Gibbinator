@@ -834,6 +834,7 @@ class UserController
 
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                 $row = 0;
+                $fachId = $fachModel->create_new_fach(htmlspecialchars($_POST['fach_title']), $_POST['klassen_select'], $_SESSION['user']['id']);
                 if (($handle = fopen($uploadFile, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                         if ($row > 0) {
@@ -844,7 +845,6 @@ class UserController
 
                             $dateID = $lektionModel->create_new_date($date, $date, $startZeit, $endZeit, 0);
                             if (!empty($dateID)) {
-                                $fachId = $fachModel->create_new_fach(htmlspecialchars($_POST['fach_title']), $_POST['klassen_select'], $_SESSION['user']['id']);
                                 $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $fachId);
                             }
                         }

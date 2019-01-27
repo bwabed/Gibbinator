@@ -117,6 +117,7 @@
                 <h2 class="mdl-card__title-text mdl-color-text--white">Nächste Lektionen</h2>
                 </div>
                 </div>';
+        $counter = 0;
         foreach ($dates as $date) {
             foreach ($lektionen as $lektion) {
                 if ($lektion->date_id == $date->id) {
@@ -144,6 +145,9 @@
             $endTime = strtotime($date->end_time);
             if (date('Y-m-d') > $date->start_date) {
                 continue;
+            }
+            if ($counter == 6) {
+                break;
             }
             ?>
 
@@ -185,6 +189,7 @@
                 </div>
             </div>
             <?php
+            $counter++;
         }
         ?>
         <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">

@@ -85,8 +85,8 @@ class NachrichtenModel extends Model
         } else {
             $fachPart = '';
         }
-        
-        $query = "SELECT * FROM $this->tableName WHERE ($klassenPart$lektionPart$fachPart) OR (fach_id = NULL AND klassen_id = NULL AND lektion_id = NULL) ORDER BY DATE(erstellt_am) DESC LIMIT 0, $max";
+
+        $query = "SELECT * FROM $this->tableName WHERE ($klassenPart$lektionPart$fachPart) OR (fach_id IS NULL AND klassen_id IS NULL AND lektion_id IS NULL) ORDER BY DATE(erstellt_am) DESC LIMIT 0, $max";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement = $this->DynamicBindVariables($statement, $klassenIDs, $lektionIDs, $fachIds);
         $statement->execute();
