@@ -65,7 +65,7 @@
                 </div>
                 <h6>Datei auswählen*</h6>
                 <input type="hidden" name="MAX_FILE_SIZE" value="30000">
-                <input type="file" name="userfile">
+                <input type="file" name="userfile" id="userfile">
             </div>
             <div class="mdl-card__supporting-text" style="font-style: italic">
                 * Mussfelder
