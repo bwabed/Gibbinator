@@ -116,6 +116,9 @@ class AdminController
                 $this->message = $message;
                 $this->infra();
             }
+        } else {
+            $this->message = ['Bitte alle Felder ausfüllen'];
+            $this->infra();
         }
     }
 
