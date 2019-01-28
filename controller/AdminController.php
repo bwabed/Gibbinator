@@ -176,7 +176,7 @@ class AdminController
                 }
                 $buildingModel->deleteById($build);
             }
-            $this->message = ['Geb$ude gelöscht'];
+            $this->message = ['Gebaeude gelöscht'];
             $this->infra();
         }
     }

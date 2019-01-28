@@ -7,7 +7,7 @@
  */
 ?>
 <div class="mdl-layout__content mdl-grid">
-    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col-desktop mdl-cell--4-offset-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet">
+    <div class="mdl-card mdl-shadow--2dp mdl-cell mdl-cell--6-col-desktop mdl-cell--3-offset-desktop mdl-cell--12-col-phone mdl-cell--12-col-tablet">
         <div class="mdl-card__title mdl-color--indigo-500">
             <h2 class="mdl-card__title-text mdl-color-text--white">Semesterplan als .csv hochladen</h2>
         </div>

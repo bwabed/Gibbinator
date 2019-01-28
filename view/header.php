@@ -98,7 +98,7 @@
             switch ($_SESSION['userType']['id']) {
                 case 1:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--grey-700">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/admin/index"><i style="margin-right: 5px"
                                 class="mdl-color-text--white material-icons"
                                 role="presentation">group</i>Benutzer bearbeiten</a>
@@ -111,7 +111,7 @@
                     break;
                 case 2:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--grey-700">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
                                     class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
@@ -126,7 +126,7 @@
                     break;
                 case 3:
                     echo '
-                    <nav class="demo-navigation mdl-navigation mdl-color--grey-700">
+                    <nav class="demo-navigation mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
                                     class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
@@ -143,7 +143,7 @@
                     break;
                 default:
                     echo '
-                    <nav class="mdl-navigation mdl-color--grey-700">
+                    <nav class="mdl-navigation mdl-color--grey-800">
                         <a class="mdl-navigation__link" href="/user/index"><i style="margin-right: 5px"
                                     class="mdl-color-text--white material-icons"
                                     role="presentation">home</i>Home</a>
@@ -154,7 +154,7 @@
             <header class="mdl-drawer-header mdl-color--indigo-500" id="loggedout">
                 <img style="width: 200px" src="/view/images/gibb_logo.svg.png" alt="Bild konnte nicht geladen werden.."/>
             </header>
-            <nav class="mdl-navigation mdl-color--grey-700">
+            <nav class="mdl-navigation mdl-color--grey-800">
                 <a class="mdl-navigation__link" href="/"><i style="margin-right: 5px"
                             class="mdl-color-text--white material-icons"
                             role="presentation">perm_identity</i>Login</a>
