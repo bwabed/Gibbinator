@@ -183,7 +183,7 @@ class GebaeudeModel extends Model
 
     public function readAllRooms($max = 100)
     {
-        $query = "SELECT * FROM {$this->roomTable} LIMIT 0, $max";
+        $query = "SELECT * FROM $this->roomTable LIMIT 0, $max";
 
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement->execute();

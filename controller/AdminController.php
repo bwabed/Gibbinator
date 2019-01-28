@@ -97,7 +97,7 @@ class AdminController
 
     public function edit_room()
     {
-        if (!empty($_POST['floor_select']) && !empty($_POST['room_name']) && !empty($_POST['gebaeude_id'])) {
+        if (!empty($_POST['floor_select']) && !empty($_POST['room_name'])) {
 
             if (!empty($_POST['room_opt'])) {
                 $optText = htmlspecialchars($_POST['room_opt']);
@@ -126,7 +126,7 @@ class AdminController
     {
         if (!empty($_POST['room_name']) && !empty($_POST['room_gebaeude_select'])) {
 
-            $roomData = ['name' => htmlspecialchars($_POST['room_name']), 'gebaueude_id' => $_POST['room_gebaeude_select']];
+            $roomData = ['name' => htmlspecialchars($_POST['room_name']), 'gebaueude_id' => urldecode($_POST['room_gebaeude_select'])];
 
             $gebaeudeModel = new GebaeudeModel();
 
