@@ -153,6 +153,7 @@
                 // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
                 $(document).ready(function () {
                     $('#add_button').click(function (e) {
+                        e.preventDefault();
 
                         var selectedUsers = [];
 
@@ -182,4 +183,3 @@
         </div>
     </div>
 </div>
-/
