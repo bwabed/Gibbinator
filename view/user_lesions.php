@@ -196,7 +196,7 @@
             <div class="mdl-card__title mdl-color--indigo-500">
                 <h2 class="mdl-card__title-text mdl-color-text--white">Alle Lektionen</h2>
             </div>
-            <table class="mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-shadow--2dp"
+            <table class="customTable mdl-data-table mdl-cell--12-col mdl-js-data-table mdl-shadow--2dp"
                    id="lesion_table">
                 <thead>
                 <tr>
