@@ -672,9 +672,7 @@ class UserController
                 if (!empty($dateIds)) {
                     $daten = $lesionModel->get_date_by_lektionen($dateIds);
                 }
-                if (!empty($klassenIds) && !empty($lektionIds) && !empty($fachIds)) {
-                    $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds, $fachIds, 6);
-                }
+                $nachrichten = $messageModel->get_message_for_student_sorted($klassenIds, $lektionIds, $fachIds, 6);
                 break;
             default:
                 $nachrichten = array();

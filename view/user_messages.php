@@ -122,7 +122,9 @@
                         echo 'Von: ' . $creator . ' -> ' . $fachName;
                     }
                     echo '</h6>
-</div><div class="mdl-card__supporting-text"> ' . nl2br($nachricht->text) . '</div></div>';
+</div><div class="mdl-card__supporting-text"> ' . nl2br($nachricht->text) . '</div><div class="mdl-card__supporting-text" style="font-style: italic">
+                    ' . date('d.m.Y', strtotime($nachricht->erstellt_am)) . '
+                </div></div>';
                 }
                 ?>
             </div>
