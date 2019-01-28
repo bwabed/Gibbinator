@@ -842,6 +842,10 @@ class UserController
                     $message[] = 'Der Plan wurde angenommen und verarbeitet.';
                     $this->message = $message;
                     $this->index();
+                } else {
+                    $message[] = 'Die Datei konnte nicht gelesen werden.';
+                    $this->message = $message;
+                    $this->upload_plan();
                 }
             } else {
                 $message[] = 'Der Plan konnte nicht hochgeladen werden.';
