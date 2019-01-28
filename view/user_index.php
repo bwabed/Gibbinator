@@ -40,6 +40,7 @@
                 nowIndicator: true,
                 selectable: true,
                 locale: 'de',
+                eventLimit: true,
                 weekNumbers: true,
                 header: {
                     left: 'prev,next today',
