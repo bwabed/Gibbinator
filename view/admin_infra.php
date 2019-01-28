@@ -146,6 +146,8 @@
                 $(document).ready(function () {
                     $('#delete_build_button').click(function (e) {
 
+                        e.preventDefault();
+
                         var selectedBuilds = [];
 
                         $('table#build_table tbody tr td:first-child input').each(function (index, value) {
@@ -231,6 +233,8 @@
                 $(document).ready(function () {
                     $('#delete_room_button').click(function (e) {
 
+                        e.preventDefault();
+
                         var selectedRooms = [];
 
                         $('table#room_table tbody tr td:first-child input').each(function (index, value) {
@@ -304,6 +308,8 @@
                 // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
                 $(document).ready(function () {
                     $('#delete_floor_button').click(function (e) {
+
+                        e.preventDefault();
 
                         var selectedFloors = [];
 
