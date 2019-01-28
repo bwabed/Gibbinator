@@ -26,9 +26,9 @@
                                pattern="(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
                                oninput="check_password()">
                         <label class="mdl-textfield__label" for="new_password">Neues Passwort</label>
-                        <span class="mdl-textfield__error">Include <span id="uppercase">UpperCase,</span> <span
-                                    id="lowercase">LowerCase,</span> <span id="number">Nummer</span> und <span
-                                    id="length">min 8 Zeichen,</span> bitte!</span>
+                        <span class="mdl-textfield__error">Muss <span id="uppercase">Grossbuchstaben,</span> <span
+                                    id="lowercase">Kleinbuchstaben,</span> <span id="number">Nummer</span> und <span
+                                    id="length">min 8 Zeichen</span> beinhalten!</span>
                         <script>
                             function check_password() {
                                 var uppercasePattern = new RegExp('[A-Z]');
