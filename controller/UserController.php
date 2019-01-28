@@ -823,8 +823,8 @@ class UserController
     }
 
     public function check_upload() {
-        if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['fach_title'])) && $_POST['zimmer_select']) {
-            $uploadDir = 'data/uploads/';
+        if (isset($_POST['upload']) && !empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['fach_title'])) && !empty($_POST['zimmer_select'])) {
+            $uploadDir = '/data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
             $fachModel = new FachModel();
