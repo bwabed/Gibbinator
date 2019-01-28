@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="79a58de1-f51a-449a-bf95-aef5943f2767" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/header.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/header.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,7 +25,17 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/view/header.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -120,13 +130,13 @@
         <option value="$PROJECT_DIR$/model/GebaeudeModel.php" />
         <option value="$PROJECT_DIR$/controller/AdminController.php" />
         <option value="$PROJECT_DIR$/view/admin_infra.php" />
-        <option value="$PROJECT_DIR$/view/header.php" />
         <option value="$PROJECT_DIR$/view/user_upload.php" />
         <option value="$PROJECT_DIR$/controller/UserController.php" />
         <option value="$PROJECT_DIR$/data/uploads/readme.txt" />
         <option value="$PROJECT_DIR$/view/user_edit_klasse.php" />
         <option value="$PROJECT_DIR$/controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/view/header.php" />
       </list>
     </option>
   </component>
@@ -236,15 +246,16 @@
       <workItem from="1548498108040" duration="68176000" />
       <workItem from="1548625413733" duration="2401000" />
       <workItem from="1548670769929" duration="440000" />
-      <workItem from="1548671253725" duration="8487000" />
+      <workItem from="1548671253725" duration="8592000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="249522000" />
+    <option name="totallyTimeSpent" value="249627000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.18317358" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -537,13 +548,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="828">
-          <caret line="155" column="21" lean-forward="true" selection-start-line="155" selection-start-column="21" selection-end-line="155" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/FachModel.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="368">
@@ -617,6 +621,13 @@
           <folding>
             <element signature="e#7#334#0#PHP" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="52" selection-start-line="18" selection-start-column="52" selection-end-line="18" selection-end-column="52" />
         </state>
       </provider>
     </entry>

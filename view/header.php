@@ -10,13 +10,13 @@
 
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="192x192" href="view/images/android-desktop.png">
+    <link rel="icon" sizes="192x192" href="/view/images/android-desktop.png">
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="Gibbinator">
-    <link rel="apple-touch-icon-precomposed" href="view/images/ios-desktop.png">
+    <link rel="apple-touch-icon-precomposed" href="/view/images/ios-desktop.png">
 
     <!-- Shortcut Icon -->
     <link rel="shortcut icon" href="/view/images/gibb_logo.svg.png">
