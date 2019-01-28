@@ -3,7 +3,6 @@
         <div class="mdl-card__title mdl-color--indigo-500">
             <h2 class="mdl-card__title-text mdl-color-text--white">Neues Gebäude</h2>
         </div>
-
         <form action="/admin/add_building" method="post">
             <div class="mdl-card__supporting-text">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">

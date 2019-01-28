@@ -110,8 +110,7 @@ class AdminController
             try {
                 $gebaeudeModel->addRoom(htmlspecialchars($_POST['room_name']), $_POST['floor_select'], $optText);
 
-                $this->message = ['Zimmer erstellt'];
-                $this->infra();
+                header('Location: /admin/infra');
             } catch (Exception $e) {
                 $message[] = "Zimmer wurde nicht erstellt.";
                 $this->message = $message;
