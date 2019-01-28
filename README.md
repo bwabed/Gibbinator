@@ -1,19 +1,19 @@
 # Gibbinator
 IDPA-Projekt - Gibbinator by Dimitri, Petar und David
 
-# Produkt
+## Produkt
 Es handelt sich um eine Managementwebsite für Schulen.
 
-# Funktionen
-## Admin
+## Funktionen
+### Admin
 * Man kann Benutzer, Infrastruktur und Klassen pflegen.
-## Lehrperson
+### Lehrperson
 * Auf der Startsicht wird ein Kalender in der Monatsansicht ausgegeben und darin sind alle Lektionen eingetragen, die diese Lehrperson hat.
 * Es können Nachrichten erstellt werden, die entweder einer Klasse, einem Fach, einer Lektion oder allen angezeigt werden.
 * Der Semesterplan kann als Vorlage heruntergeladen werden.
 * Der Semesterplan kann als .csv Datei mit ';' als Trennzeichen hochgeladen werden und wird automatisch verarbeitet und zu Lektionen umgestellt.
 * Lehrpersonen können Klassen verwalten und neue erstellen bzw. Benutzer hinzufügen oder wieder löschen.
-## Lernende
+### Lernende
 * In der Startansicht erhält der Benutzer einen Kalender in der Wochenansicht.
 * Es wird angezeigt welcher Tag und welche Uhrzeit gerade ist (Now-Indicator).
 * Dem Benutzer werden alle Nachrichten, die ihn betreffen angezeigt. Auf der Startseite nur die ersten 6.
