@@ -15,7 +15,7 @@
                            oninput="check_password()">
                     <label class="mdl-textfield__label" for="new_password">Neues Passwort</label>
                     <span class="mdl-textfield__error">Muss <span id="uppercase">Grossbuchstaben,</span> <span
-                                id="lowercase">Kleinbuchstaben,</span> <span id="number">Number</span> und <span
+                                id="lowercase">Kleinbuchstaben,</span> <span id="number">Nummer</span> und <span
                                 id="length">min 8 Zeichen</span> beinhalten.</span>
                     <script>
                         function check_password() {
