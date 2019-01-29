@@ -861,7 +861,7 @@ class UserController
             $klassenModel = new KlassenModel();
             $gebaeudeModel = new GebaeudeModel();
 
-            $view->klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $view->klassen = $klassenModel->readALL();
             $view->zimmerList = $gebaeudeModel->readAllRooms();
             $view->stockwerke = $gebaeudeModel->readAllFloors();
             $view->buildings = $gebaeudeModel->readAll();
