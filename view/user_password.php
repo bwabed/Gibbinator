@@ -7,16 +7,16 @@
             <form action="/user/check_changePassword/" method="post">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
                     <input class="mdl-textfield__input" type="password" id="old_password" name="old_password">
-                    <label class="mdl-textfield__label" for="old_password">Old Password</label>
+                    <label class="mdl-textfield__label" for="old_password">Altes Passwort</label>
                 </div>
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
                     <input class="mdl-textfield__input" type="password" id="new_password" name="new_password"
                            pattern="(?=^.{8,}$)^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$"
                            oninput="check_password()">
-                    <label class="mdl-textfield__label" for="new_password">New Password</label>
-                    <span class="mdl-textfield__error">Include <span id="uppercase">UpperCase,</span> <span
-                                id="lowercase">LowerCase,</span> <span id="number">Number</span> and <span
-                                id="length">min 8 Characters,</span> please!</span>
+                    <label class="mdl-textfield__label" for="new_password">Neues Passwort</label>
+                    <span class="mdl-textfield__error">Muss <span id="uppercase">Grossbuchstaben,</span> <span
+                                id="lowercase">Kleinbuchstaben,</span> <span id="number">Number</span> und <span
+                                id="length">min 8 Zeichen</span> beinhalten.</span>
                     <script>
                         function check_password() {
                             var uppercasePattern = new RegExp('[A-Z]');
@@ -54,7 +54,7 @@
                 <div class="mdl-card__actions send-button">
                     <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button"
                             id="send">
-                        Submit
+                        Speichern
                     </button>
                 </div>
             </form>
