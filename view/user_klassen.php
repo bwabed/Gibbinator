@@ -3,8 +3,8 @@
         <div class="mdl-card__title mdl-color--indigo-500">
             <h1 class="mdl-card__title-text mdl-color-text--white">Neue Klasse</h1>
         </div>
-        <div class="mdl-card__supporting-text">
-            <form action="/user/create_klasse" method="post">
+        <form action="/user/create_klasse" method="post">
+            <div class="mdl-card__supporting-text">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="new_klassenname" name="new_klassenname"
                            value="<?= isset($_POST['new_klassenname']) ? htmlspecialchars(strip_tags($_POST['new_klassenname'])) : ''; ?>">
@@ -27,21 +27,21 @@
                 <div class="mdl-card__supporting-text" style="font-style: italic">
                     * Mussfelder
                 </div>
-        </div>
-        <div class="mdl-card__actions mdl-card--border send-button">
-            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
-                    id="create">
-                Klasse erstellen
-            </button>
-        </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border send-button">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                        id="create">
+                    Klasse erstellen
+                </button>
+            </div>
         </form>
     </div>
     <div class="mdl-card mdl-cell mdl-cell--6-col mdl-grid--no-spacing mdl-card-form mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--indigo-500">
             <h1 class="mdl-card__title-text mdl-color-text--white">Neues Fach</h1>
         </div>
-        <div class="mdl-card__supporting-text">
-            <form action="/user/create_fach" method="post">
+        <form action="/user/create_fach" method="post">
+            <div class="mdl-card__supporting-text">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
                     <input class="mdl-textfield__input" type="text" id="new_fachtitle" name="new_fachtitle"
                            value="<?= isset($_POST['new_fachtitle']) ? htmlspecialchars(strip_tags($_POST['new_fachtitle'])) : ''; ?>">
@@ -78,13 +78,13 @@
                 <div class="mdl-card__supporting-text" style="font-style: italic">
                     * Mussfelder
                 </div>
-        </div>
-        <div class="mdl-card__actions mdl-card--border send-button">
-            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
-                    id="create">
-                Fach erstellen
-            </button>
-        </div>
+            </div>
+            <div class="mdl-card__actions mdl-card--border send-button">
+                <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                        id="create">
+                    Fach erstellen
+                </button>
+            </div>
         </form>
     </div>
     <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
@@ -143,7 +143,8 @@
             </tbody>
         </table>
         <div class=" mdl-card__actions mdl-card--border">
-            <button style="margin-bottom: 5px" class=" mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+            <button style="margin-bottom: 5px"
+                    class=" mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
                     id="delete_button">
                 Klassen Löschen
             </button>
@@ -237,7 +238,8 @@
                 </tbody>
             </table>
             <div class=" mdl-card__actions mdl-card--border">
-                <button style="margin-bottom: 5px" class=" mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
+                <button style="margin-bottom: 5px"
+                        class=" mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button add_to_button mdl-color--red"
                         id="delete_button">
                     Klassen Löschen
                 </button>
@@ -275,4 +277,4 @@
                     });
                 </script>
             </div>
-    </div>
+        </div>
