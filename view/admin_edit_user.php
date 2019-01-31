@@ -18,9 +18,9 @@
                 </div>
                 <label for="edit_pw_checkbox" class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect">
                     <?php if ($userData->initial_pw == 0) { ?>
-                        <input type="checkbox" id="edit_pw_checkbox" value="1" class="mdl-checkbox__input">
+                        <input type="checkbox" id="edit_pw_checkbox" name="edit_pw_checkbox" value="1" class="mdl-checkbox__input">
                     <?php } else { ?>
-                        <input type="checkbox" id="edit_pw_checkbox" value="1" class="mdl-checkbox__input" checked>
+                        <input type="checkbox" id="edit_pw_checkbox" name="edit_pw_checkbox" value="1" class="mdl-checkbox__input" checked>
                     <?php } ?>
                     <span class="mdl-checkbox__label">Initial Passwort</span>
                 </label>
