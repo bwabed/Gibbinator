@@ -288,9 +288,6 @@
                 ?>
                 </tbody>
             </table>
-            <div class="mdl-card__actions mdl-card--border">
-
-            </div>
         </div>
     <?php } ?>
 </div>
