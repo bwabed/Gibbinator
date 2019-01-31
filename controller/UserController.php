@@ -779,7 +779,7 @@ class UserController
         $fachModel = new FachModel();
         if (!empty($_POST['new_fachtitle']) && !empty($_POST['new_fach_lp_select']) && !empty($_POST['klassen_select'])) {
             try {
-                $fachModel->create_new_fach(htmlspecialchars($_POST['new_fachtitle']), $_POST['new_fach_lp_select'], $_POST['klassen_select']);
+                $fachModel->create_new_fach(htmlspecialchars($_POST['new_fachtitle']), $_POST['klassen_select'], $_POST['new_fach_lp_select']);
                 $this->message ['Fach erstellt'];
                 $this->klassen();
             } catch (Exception $e) {
