@@ -26,7 +26,7 @@
             foreach ($users as $row) {
                 $fachNumber = 0;
                 $klasseNumber = 0;
-                $meineFaecher = '';
+                $meineFaecher = 'Keine';
                 foreach ($klassen as $klasse) {
                     if ($klasse->klassen_lp == $row->id) {
                         $klasseNumber++;

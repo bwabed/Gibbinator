@@ -1,4 +1,92 @@
 <div class="mdl-layout__content mdl-grid">
+    <div class="mdl-card mdl-cell mdl-cell--6-col mdl-grid--no-spacing mdl-card-form mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h1 class="mdl-card__title-text mdl-color-text--white">Neue Klasse</h1>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <form action="/user/create_klasse" method="post">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="new_klassenname" name="new_klassenname"
+                           value="<?= isset($_POST['new_klassenname']) ? htmlspecialchars(strip_tags($_POST['new_klassenname'])) : ''; ?>">
+                    <label class="mdl-textfield__label" for="new_klassenname">Klassenname*</label>
+                </div>
+                <select class="mdl-cell--12-col klassen_lp_select"
+                        name="klassen_lp_select"
+                        id="klassen_lp_select">
+                    <?php
+                    echo '<option value="">Klassenlehrperson wählen..*</option>';
+                    foreach ($lehrer as $row) {
+                        if (!empty($_POST['klassen_lp_select']) && rawurldecode($_POST['klassen_lp_select']) == $row->id) {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->vorname . ' ' . $row->nachname . '</option>';
+                        } else {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->vorname . ' ' . $row->nachname . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <div class="mdl-card__supporting-text" style="font-style: italic">
+                    * Mussfelder
+                </div>
+        </div>
+        <div class="mdl-card__actions mdl-card--border send-button">
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                    id="create">
+                Klasse erstellen
+            </button>
+        </div>
+        </form>
+    </div>
+    <div class="mdl-card mdl-cell mdl-cell--6-col mdl-grid--no-spacing mdl-card-form mdl-shadow--2dp">
+        <div class="mdl-card__title mdl-color--indigo-500">
+            <h1 class="mdl-card__title-text mdl-color-text--white">Neues Fach</h1>
+        </div>
+        <div class="mdl-card__supporting-text">
+            <form action="/user/create_fach" method="post">
+                <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="text" id="new_fachtitle" name="new_fachtitle"
+                           value="<?= isset($_POST['new_fachtitle']) ? htmlspecialchars(strip_tags($_POST['new_fachtitle'])) : ''; ?>">
+                    <label class="mdl-textfield__label" for="new_fachtitle">Titel*</label>
+                </div>
+                <select class="mdl-cell--12-col new_fach_lp_select"
+                        name="new_fach_lp_select"
+                        id="new_fach_lp_select">
+                    <?php
+                    echo '<option value="">Lehrperson wählen..*</option>';
+                    foreach ($lehrer as $row) {
+                        if (!empty($_POST['new_fach_lp_select']) && rawurldecode($_POST['new_fach_lp_select']) == $row->id) {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->vorname . ' ' . $row->nachname . '</option>';
+                        } else {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->vorname . ' ' . $row->nachname . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <select class="mdl-cell--12-col klassen_select"
+                        name="klassen_select"
+                        id="klassen_select">
+                    <?php
+                    echo '<option value="">Klasse wählen..*</option>';
+                    foreach ($allKlassen as $row) {
+                        if (!empty($_POST['klassen_select']) && rawurldecode($_POST['klassen_select']) == $row->id) {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->name . '</option>';
+                        } else {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->name . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <div class="mdl-card__supporting-text" style="font-style: italic">
+                    * Mussfelder
+                </div>
+        </div>
+        <div class="mdl-card__actions mdl-card--border send-button">
+            <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
+                    id="create">
+                Fach erstellen
+            </button>
+        </div>
+        </form>
+    </div>
     <div class="mdl-card mdl-grid--no-spacing mdl-cell mdl-cell--12-col mdl-shadow--2dp">
         <div class="mdl-card__title mdl-cell--12-col mdl-color--indigo-500">
             <h2 class="mdl-card__title-text mdl-color-text--white">Klassen übersicht</h2>
@@ -59,13 +147,6 @@
                     id="delete_button">
                 Klassen Löschen
             </button>
-            <form action="/user/new_klasse" method="post">
-                <input type="hidden" name="user_id" id="user_id" value="<?= $_SESSION['user']['id'] ?>">
-            <button class="addUserButton mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--colored mdl-button--raised form_button add_to_button"
-               id="add_button">
-                Neue Klasse
-            </button>
-            </form>
             <script type="text/javascript">
                 // Diese Funktion wird erst ausgeführt, sobald auf denn "add to cart" button geklickt wurde.
                 // Sie schaut nach, welche Karten ausgewehlt wurden und speichert deren ID (weiter oben mit PHP verteilt) in einem Array.

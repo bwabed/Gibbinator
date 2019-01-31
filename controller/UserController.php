@@ -722,12 +722,13 @@ class UserController
         }
     }
 
-    public function klassen()
-    {
-        $view = new View('user_klassen');
+    public function klassen() {
 
         $klassenModel = new KlassenModel();
         $fachModel = new FachModel();
+        $userModel = new UserModel();
+        $view = new View('user_klassen');
+
         $faecher = array();
 
         if ($_SESSION['userType']['id'] == 2) {
@@ -743,40 +744,41 @@ class UserController
             $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
         }
 
+        $view->allKlassen = $klassenModel->readAll();
+        $view->lehrer = $userModel->readAllProfs();
         $view->klassen = $klassen;
         $view->faecher = $faecher;
         $view->display();
     }
 
-    public function create_klasse()
-    {
+    public function create_klasse() {
+        $klassenModel = new KlassenModel();
         if (!empty($_POST['new_klassenname'])) {
-            $klassenModel = new KlassenModel();
-
             try {
-                $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), $_SESSION['user']['id']);
+                $klassenModel->createKlasse(htmlspecialchars($_POST['new_klassenname']), $_POST['klassen_lp_select']);
                 $this->message ['Klasse erstellt'];
                 $this->klassen();
             } catch (Exception $e) {
                 $message[] = "Die Klasse konnte nicht erstellt werden!";
                 $this->message = $message;
-                $this->new_klasse();
+                $this->klassen();
             }
-        } else {
-            $message[] = "Bitte alle Felder ausfüllen!";
-            $this->message = $message;
-            $this->new_klasse();
         }
     }
 
-    public function new_klasse()
-    {
-        $view = new View('user_new_klasse');
-
-        $userModel = new UserModel();
-
-        $view->lehrer = $userModel->readById($_SESSION['user']['id']);
-        $view->display();
+    public function create_fach() {
+        $fachModel = new FachModel();
+        if (!empty($_POST['new_fachtitle']) && !empty($_POST['new_fach_lp_select']) && !empty($_POST['klassen_select'])) {
+            try {
+                $fachModel->create_new_fach(htmlspecialchars($_POST['new_fachtitle']), $_POST['new_fach_lp_select'], $_POST['klassen_select']);
+                $this->message ['Fach erstellt'];
+                $this->klassen();
+            } catch (Exception $e) {
+                $message[] = "Das Fach konnte nicht erstellt werden!";
+                $this->message = $message;
+                $this->klassen();
+            }
+        }
     }
 
     public function create_message()
