@@ -75,6 +75,8 @@ class UserController
                 } else {
                     if ($password == $row->password) {
                         $_SESSION ['user'] ['name'] = $row->email;
+                        $_SESSION ['user'] ['vorname'] = $row->vorname;
+                        $_SESSION ['user'] ['nachname'] = $row->nachname;
                         $_SESSION ['user'] ['id'] = $row->id;
                         $_SESSION ['loggedin'] = true;
                         $_SESSION ['userType'] ['id'] = $row->user_type;
