@@ -733,6 +733,7 @@ class UserController
         $view = new View('user_klassen');
 
         $faecher = array();
+        $klassen = array();
 
         if ($_SESSION['userType']['id'] == 2) {
             $klassenLp = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
