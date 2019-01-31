@@ -228,7 +228,7 @@
                 foreach ($lektionen as $lektion) {
                     foreach ($klassen as $klasse) {
                         if ($klasse->id == $lektion->klassen_id) {
-                            $klasenName = $klasse->name;
+                            $klassenName = $klasse->name;
                         }
                     }
                     echo '
@@ -260,8 +260,8 @@
                         }
                     }
                     echo '</td>
+          <td>' . $klassenName . '</td>
           <td>' . $profName . '</td>
-          <td>' . $klasenName . '</td>
           <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
           <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';

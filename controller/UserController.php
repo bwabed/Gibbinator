@@ -376,6 +376,7 @@ class UserController
         $lektionen = array();
         $dates = array();
         $zimmer = array();
+        $klassenIds = array();
 
         if ($_SESSION['userType']['id'] == 2) {
 
@@ -383,10 +384,16 @@ class UserController
             $fachIds = array();
             foreach ($faecher as $fach) {
                 $fachIds[] = $fach->id;
+                $klassenIds[] = $fach->klassen_id;
+            }
+            $klassenLP = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            foreach ($klassenLP as $lp) {
+                $klassenIds[] = $lp->id;
             }
             if (!empty($fachIds)) {
                 $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
             }
+            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
             $dateIds = array();
             $zimmerIds = array();
             foreach ($lektionen as $lektion) {
@@ -396,7 +403,6 @@ class UserController
             if (!empty($dateIds)) {
                 $dates = $dateModel->get_dates_with_ids($dateIds);
             }
-            $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
             if (!empty($zimmerIds)) {
                 $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
             }
@@ -405,7 +411,6 @@ class UserController
 
             $userModel = new UserModel();
             $user_klassen = $klassenModel->get_klassenID_by_student($_SESSION['user']['id']);
-            $klassenIds = array();
             foreach ($user_klassen as $user_klasse) {
                 $klassenIds[] = $user_klasse->klassen_id;
             }
