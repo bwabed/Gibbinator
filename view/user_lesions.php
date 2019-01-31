@@ -22,11 +22,6 @@
                 <tbody>
                 <?php
                 foreach ($lektionen as $lektion) {
-                    foreach ($klassen as $klasse) {
-                        if ($lektion->klassen_id == $klasse->id) {
-                            $klasenName = $klasse->name;
-                        }
-                    }
                     echo '
           <tr data-id="' . $lektion->id . '">
           <td>
@@ -47,6 +42,11 @@
           <td>';
                     foreach ($faecher as $fach) {
                         if ($fach->id == $lektion->fach_id) {
+                            foreach ($klassen as $klasse) {
+                                if ($fach->klassen_id == $klasse->id) {
+                                    $klasenName = $klasse->name;
+                                }
+                            }
                             echo $fach->titel;
                         }
                     }
@@ -143,13 +143,13 @@
                                 $profEmail = $prof->email;
                             }
                         }
+                        foreach ($klassen as $klasse) {
+                            if ($klasse->id == $fach->klassen_id) {
+                                $klasenName = $klasse->name;
+                            }
+                        }
                     }
 
-                }
-                foreach ($klassen as $klasse) {
-                    if ($klasse->id == $lektion->klassen_id) {
-                        $klasenName = $klasse->name;
-                    }
                 }
             }
             $dateString = strtotime($date->start_date);
@@ -226,11 +226,6 @@
                 <tbody>
                 <?php
                 foreach ($lektionen as $lektion) {
-                    foreach ($klassen as $klasse) {
-                        if ($klasse->id == $lektion->klassen_id) {
-                            $klassenName = $klasse->name;
-                        }
-                    }
                     echo '
           <tr data-id="' . $lektion->id . '">
           <td>
@@ -254,6 +249,11 @@
                             foreach ($profs as $prof) {
                                 if ($fach->lehrer_id == $prof->id) {
                                     $profName = $prof->vorname . ' ' . $prof->nachname;
+                                }
+                            }
+                            foreach ($klassen as $klasse) {
+                                if ($klasse->id == $fach->klassen_id) {
+                                    $klassenName = $klasse->name;
                                 }
                             }
                             echo $fach->titel;
