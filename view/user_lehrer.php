@@ -24,19 +24,25 @@
             <tbody>
             <?php
             foreach ($users as $row) {
-                $number = 0;
+                $fachNumber = 0;
+                $klasseNumber = 0;
                 $meineFaecher = '';
+                foreach ($klassen as $klasse) {
+                    if ($klasse->klassen_lp == $row->id) {
+                        $klasseNumber++;
+                    }
+                }
                 foreach ($faecher as $fach) {
                     if ($fach->lehrer_id == $row->id) {
-                        if ($number == 0) {
+                        if ($fachNumber == 0) {
                             $meineFaecher = $fach->titel;
                         } else {
                             $meineFaecher .= ', ' . $fach->titel;
                         }
-                        $number++;
+                        $fachNumber++;
                     }
                 }
-                if ($number == 0) {
+                if ($fachNumber == 0 && $klasseNumber == 0) {
                     continue;
                 }
                 echo '
