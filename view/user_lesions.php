@@ -11,6 +11,7 @@
                 <tr>
                     <th class="lesion_table">Bearbeiten</th>
                     <th class="lesion_table">Fach</th>
+                    <th class="lesion_table">Klasse</th>
                     <th style="text-align: left" class="lesion_table">Programm und Themen</th>
                     <th style="text-align: left" class="lesion_table">Termine und Aufgaben</th>
                     <th class="lesion_table">Datum</th>
@@ -21,6 +22,11 @@
                 <tbody>
                 <?php
                 foreach ($lektionen as $lektion) {
+                    foreach ($klassen as $klasse) {
+                        if ($lektion->klassen_id == $klasse->id) {
+                            $klasenName = $klasse->name;
+                        }
+                    }
                     echo '
           <tr data-id="' . $lektion->id . '">
           <td>
@@ -45,6 +51,7 @@
                         }
                     }
                     echo '</td>
+          <td>' . $klasenName . '</td>
           <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
           <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';
@@ -139,6 +146,11 @@
                     }
 
                 }
+                foreach ($klassen as $klasse) {
+                    if ($klasse->id == $lektion->klassen_id) {
+                        $klasenName = $klasse->name;
+                    }
+                }
             }
             $dateString = strtotime($date->start_date);
             $startTime = strtotime($date->start_time);
@@ -157,10 +169,10 @@
                         Lektion <?= $fach->titel . ', ' . date('d.m.Y', $dateString) . ', ' . date('H:i', $startTime) . ' - ' . date('H:i', $endTime) ?>
                         <?php
                         if ($_SESSION['userType']['id'] == 3) {
-                            echo '
-                <br/>Lehrperson: ' . $profEmail . '</h6>';
+                            echo '<br/>Lehrperson: ' . $profEmail . '</h6></br>';
                         }
                         ?>
+                        <h5 class="mdl-card__subtitle-text"><?= $klasenName ?></h5>
                 </div>
                 <div class="mdl-card__supporting-text">
                     <?php
@@ -202,6 +214,7 @@
                 <tr>
                     <th class="lesion_table">Details</th>
                     <th class="lesion_table">Fach</th>
+                    <th class="lesion_table">Klasse</th>
                     <th class="lesion_table">Lehrperson</th>
                     <th style="text-align: left" class="lesion_table">Programm und Themen</th>
                     <th style="text-align: left" class="lesion_table">Termine und Aufgaben</th>
@@ -213,6 +226,11 @@
                 <tbody>
                 <?php
                 foreach ($lektionen as $lektion) {
+                    foreach ($klassen as $klasse) {
+                        if ($klasse->id == $lektion->klassen_id) {
+                            $klasenName = $klasse->name;
+                        }
+                    }
                     echo '
           <tr data-id="' . $lektion->id . '">
           <td>
@@ -243,6 +261,7 @@
                     }
                     echo '</td>
           <td>' . $profName . '</td>
+          <td>' . $klasenName . '</td>
           <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
           <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';
