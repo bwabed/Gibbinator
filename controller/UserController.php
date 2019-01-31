@@ -731,14 +731,16 @@ class UserController
         $faecher = array();
 
         if ($_SESSION['userType']['id'] == 2) {
-            $klassen = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $klassenLp = $klassenModel->getKlassenByLehrerID($_SESSION['user']['id']);
+            $faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
             $klassenIds = array();
-            foreach ($klassen as $klasse) {
+            foreach ($klassenLp as $klasse) {
                 $klassenIds[] = $klasse->id;
             }
-            if (!empty($klassenIds)) {
-                $faecher = $fachModel->get_faecher_by_klassen($klassenIds);
+            foreach ($faecher as $fach) {
+                $klassenIds[] = $fach->klassen_id;
             }
+            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
         }
 
         $view->klassen = $klassen;
