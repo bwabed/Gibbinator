@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="79a58de1-f51a-449a-bf95-aef5943f2767" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/controller/UserController.php" beforeDir="false" afterPath="$PROJECT_DIR$/controller/UserController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/view/user_klassen.php" beforeDir="false" afterPath="$PROJECT_DIR$/view/user_klassen.php" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="735" column="27" selection-start-line="735" selection-start-column="27" selection-end-line="735" selection-end-column="27" />
+            <state relative-caret-position="597">
+              <caret line="756" column="50" selection-start-line="756" selection-start-column="50" selection-end-line="756" selection-end-column="50" />
             </state>
           </provider>
         </entry>
@@ -80,11 +81,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/view/user_klassen.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="2" selection-start-column="2" selection-end-column="2" />
+            <state relative-caret-position="1852">
+              <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
             </state>
           </provider>
         </entry>
@@ -214,11 +215,11 @@
         <option value="$PROJECT_DIR$/view/user_lesions.php" />
         <option value="$PROJECT_DIR$/view/css/style.css" />
         <option value="$PROJECT_DIR$/view/user_lehrer.php" />
-        <option value="$PROJECT_DIR$/view/user_klassen.php" />
         <option value="$PROJECT_DIR$/view/user_password.php" />
         <option value="$PROJECT_DIR$/view/admin_edit_klasse.php" />
         <option value="$PROJECT_DIR$/view/user_edit_klasse.php" />
         <option value="$PROJECT_DIR$/controller/UserController.php" />
+        <option value="$PROJECT_DIR$/view/user_klassen.php" />
       </list>
     </option>
   </component>
@@ -320,12 +321,12 @@
       <workItem from="1548670769929" duration="440000" />
       <workItem from="1548671253725" duration="8592000" />
       <workItem from="1548713421943" duration="1047000" />
-      <workItem from="1548946106575" duration="7769000" />
+      <workItem from="1548946106575" duration="8190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="258690000" />
+    <option name="totallyTimeSpent" value="259111000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
@@ -670,13 +671,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/user_klassen.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="2" selection-start-column="2" selection-end-column="2" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/admin_infra.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2805">
@@ -700,8 +694,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="735" column="27" selection-start-line="735" selection-start-column="27" selection-end-line="735" selection-end-column="27" />
+        <state relative-caret-position="597">
+          <caret line="756" column="50" selection-start-line="756" selection-start-column="50" selection-end-line="756" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/user_klassen.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1852">
+          <caret line="193" column="52" selection-start-line="193" selection-start-column="52" selection-end-line="193" selection-end-column="52" />
         </state>
       </provider>
     </entry>

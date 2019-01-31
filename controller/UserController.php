@@ -754,6 +754,7 @@ class UserController
         $view->lehrer = $userModel->readAllProfs();
         $view->klassen = $klassen;
         $view->faecher = $faecher;
+        $view->allFaecher = $fachModel->readAll();
         $view->display();
     }
 
