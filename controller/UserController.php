@@ -722,7 +722,8 @@ class UserController
         }
     }
 
-    public function klassen() {
+    public function klassen()
+    {
 
         $klassenModel = new KlassenModel();
         $fachModel = new FachModel();
@@ -741,7 +742,9 @@ class UserController
             foreach ($faecher as $fach) {
                 $klassenIds[] = $fach->klassen_id;
             }
-            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            if (!empty($klassenIds)) {
+                $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            }
         }
 
         $view->allKlassen = $klassenModel->readAll();
@@ -751,7 +754,8 @@ class UserController
         $view->display();
     }
 
-    public function create_klasse() {
+    public function create_klasse()
+    {
         $klassenModel = new KlassenModel();
         if (!empty($_POST['new_klassenname'])) {
             try {
@@ -766,7 +770,8 @@ class UserController
         }
     }
 
-    public function create_fach() {
+    public function create_fach()
+    {
         $fachModel = new FachModel();
         if (!empty($_POST['new_fachtitle']) && !empty($_POST['new_fach_lp_select']) && !empty($_POST['klassen_select'])) {
             try {
