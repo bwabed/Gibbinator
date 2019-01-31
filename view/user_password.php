@@ -1,7 +1,7 @@
 <div class="mdl-grid">
     <div class="mdl-card mdl-cell mdl-cell--4-offset mdl-cell--4-col mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--indigo-500">
-            <h2 class="mdl-card__title-text mdl-color-text--white">Change Password</h2>
+            <h2 class="mdl-card__title-text mdl-color-text--white">Passwort ändern</h2>
         </div>
         <div class="mdl-card__supporting-text mdl-grid">
             <form action="/user/check_changePassword/" method="post">
@@ -51,7 +51,7 @@
                         }
                     </script>
                 </div>
-                <div class="mdl-card__actions send-button">
+                <div class="mdl-card__actions mdl-card--border send-button">
                     <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored form_button"
                             id="send">
                         Speichern
