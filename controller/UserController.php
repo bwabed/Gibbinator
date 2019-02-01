@@ -521,6 +521,18 @@ class UserController
         $view->display();
     }
 
+    public function update_fach() {
+        $fachModel = new FachModel();
+        if (!empty($_POST['edit_fachtitle']) && !empty($_POST['edit_fach_lp_select']) && !empty($_POST['klassen_select'])) {
+            $fachModel->updateFach(htmlspecialchars($_POST['edit_fachtitle']), $_POST['edit_fach_lp_select'], $_POST['klassen_select'], $_POST['fach_id']);
+            $this->message = ['Fach gespeichert'];
+            $this->klassen();
+        } else {
+            $this->message = ['Bitte alle Felder füllen'];
+            $this->klassen();
+        }
+    }
+
     public function lehrer()
     {
         $view = new View('user_lehrer');

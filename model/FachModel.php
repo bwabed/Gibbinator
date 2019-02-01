@@ -64,6 +64,16 @@ class FachModel extends Model
         return $rows;
     }
 
+    public function updateFach($fachTitel, $klassenId, $lehrerId, $fachId)
+    {
+        $query = "UPDATE $this->tableName SET titel = ?, klassen_id = ?, lehrer_id = ? where id = ?";
+        $connection = ConnectionHandler::getConnection();
+        $statement = $connection->prepare($query);
+        $statement->bind_param('siii', $fachTitel, $klassenId, $lehrerId, $fachId);
+        $statement->execute();
+        return $connection->affected_rows;
+    }
+
     public function read_with_ids($ids) {
         $inIds = rtrim(str_repeat('?,', count($ids)), ',');
         $query = "SELECT * FROM $this->tableName WHERE id IN ($inIds)";

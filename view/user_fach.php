@@ -14,17 +14,17 @@
         <form action="/user/update_fach" method="post">
             <div class="mdl-card__supporting-text">
                 <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-                    <input class="mdl-textfield__input" type="text" id="new_fachtitle" name="new_fachtitle"
+                    <input class="mdl-textfield__input" type="text" id="edit_fachtitle" name="edit_fachtitle"
                            value="<?= isset($_POST['edit_fachtitle']) ? htmlspecialchars(strip_tags($_POST['edit_fachtitle'])) : $fach->titel; ?>">
-                    <label class="mdl-textfield__label" for="new_fachtitle">Titel*</label>
+                    <label class="mdl-textfield__label" for="edit_fachtitle">Titel*</label>
                 </div>
-                <select class="mdl-cell--12-col new_fach_lp_select"
-                        name="new_fach_lp_select"
-                        id="new_fach_lp_select">
+                <select class="mdl-cell--12-col edit_fach_lp_select"
+                        name="edit_fach_lp_select"
+                        id="edit_fach_lp_select">
                     <?php
                     echo '<option value="">Lehrperson wählen..*</option>';
                     foreach ($lehrer as $row) {
-                        if (!empty($_POST['new_fach_lp_select']) && rawurldecode($_POST['new_fach_lp_select']) == $row->id) {
+                        if (!empty($_POST['edit_fach_lp_select']) && rawurldecode($_POST['edit_fach_lp_select']) == $row->id) {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->vorname . ' ' . $row->nachname . '</option>';
                         } else {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->vorname . ' ' . $row->nachname . '</option>';
@@ -46,6 +46,7 @@
                     }
                     ?>
                 </select>
+                <input type="hidden" id="fach_id" name="fach_id" value="<?= $fach->id ?>">
                 <div class="mdl-card__supporting-text" style="font-style: italic">
                     * Mussfelder
                 </div>
