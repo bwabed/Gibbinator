@@ -505,6 +505,22 @@ class UserController
         }
     }
 
+    public function edit_fach() {
+        $view = new View('user_fach');
+
+        $fachModel = new FachModel();
+        $userModel = new UserModel();
+        $klassenModel = new KlassenModel();
+
+        if (!empty($_POST['fach_id'])) {
+            $view->fach = $fachModel->readById($_POST['fach_id']);
+            $view->lehrer = $userModel->readAllProfs();
+            $view->klassen = $klassenModel->readAll();
+        }
+
+        $view->display();
+    }
+
     public function lehrer()
     {
         $view = new View('user_lehrer');
