@@ -13,20 +13,6 @@
         </div>
         <form action="/user/check_upload" method="post" enctype="multipart/form-data">
             <div class="mdl-card__supporting-text mdl-grid--no-spacing">
-                <select class="mdl-cell--12-col klassen_select"
-                        name="klassen_select"
-                        id="klassen_select">
-                    <?php
-                    echo '<option value="">Klasse wählen..*</option>';
-                    foreach ($klassen as $klasse) {
-                        if (!empty($_POST['klassen_select']) && rawurldecode($_POST['klassen_select']) == $klasse->id) {
-                            echo '<option class="mdl-menu__item" value="' . rawurlencode($klasse->id) . '" selected="selected">' . $klasse->name . '</option>';
-                        } else {
-                            echo '<option value="' . rawurlencode($klasse->id) . '">' . $klasse->name . '</option>';
-                        }
-                    }
-                    ?>
-                </select>
                 <select class="mdl-cell--12-col fach_select"
                         name="fach_select"
                         id="fach_select">
@@ -41,6 +27,7 @@
                     }
                     ?>
                 </select>
+                <a href="/user/klassen" target="_self" style="font-style: normal; text-decoration-color: black; color: black">Neues Fach erstellen</a>
                 <select class="mdl-cell--12-col zimmer_select"
                         name="zimmer_select"
                         id="zimmer_select">

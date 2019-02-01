@@ -874,6 +874,9 @@ class UserController
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
+            $fachModel = new FachModel();
+
+            $fach = $fachModel->readById($_POST['fach_select']);
 
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                 $row = 0;
@@ -886,8 +889,8 @@ class UserController
                             $endZeit = htmlspecialchars($_POST['end_time']) . ':00';
 
                             $dateID = $lektionModel->create_new_date($date, $date, $startZeit, $endZeit, 0);
-                            if (!empty($dateID)) {
-                                $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $_POST['fach_select']);
+                            if (!empty($dateID) && !empty($fach)) {
+                                $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $fach->id);
                             }
                         }
                         $row++;
@@ -914,11 +917,9 @@ class UserController
         $view = new View('user_upload');
 
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
-            $klassenModel = new KlassenModel();
             $gebaeudeModel = new GebaeudeModel();
             $fachModel = new FachModel();
 
-            $view->klassen = $klassenModel->readALL();
             $view->zimmerList = $gebaeudeModel->readAllRooms();
             $view->stockwerke = $gebaeudeModel->readAllFloors();
             $view->buildings = $gebaeudeModel->readAll();
