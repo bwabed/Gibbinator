@@ -830,15 +830,13 @@ class UserController
 
     public function check_upload()
     {
-        if (!empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty(htmlspecialchars($_POST['fach_title'])) && !empty($_POST['zimmer_select'])) {
+        if (!empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty($_POST['zimmer_select']) && !empty($_POST['fach_select'])) {
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
-            $fachModel = new FachModel();
 
             if (move_uploaded_file($_FILES['userfile']['tmp_name'], $uploadFile)) {
                 $row = 0;
-                $fachId = $fachModel->create_new_fach(htmlspecialchars($_POST['fach_title']), $_POST['klassen_select'], $_SESSION['user']['id']);
                 if (($handle = fopen($uploadFile, "r")) !== FALSE) {
                     while (($data = fgetcsv($handle, 1000, ";")) !== FALSE) {
                         if ($row > 0) {
@@ -849,7 +847,7 @@ class UserController
 
                             $dateID = $lektionModel->create_new_date($date, $date, $startZeit, $endZeit, 0);
                             if (!empty($dateID)) {
-                                $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $fachId);
+                                $lektionModel->create_new_lesion($data[2], $data[3], $dateID, $_POST['zimmer_select'], $_POST['fach_select']);
                             }
                         }
                         $row++;
@@ -878,11 +876,13 @@ class UserController
         if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true && $_SESSION['userType']['id'] == 2) {
             $klassenModel = new KlassenModel();
             $gebaeudeModel = new GebaeudeModel();
+            $fachModel = new FachModel();
 
             $view->klassen = $klassenModel->readALL();
             $view->zimmerList = $gebaeudeModel->readAllRooms();
             $view->stockwerke = $gebaeudeModel->readAllFloors();
             $view->buildings = $gebaeudeModel->readAll();
+            $view->faecher = $fachModel->get_faecher_by_lehrer_id($_SESSION['user']['id']);
         } else {
             header('Location: /user/login');
         }

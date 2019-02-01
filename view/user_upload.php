@@ -13,10 +13,6 @@
         </div>
         <form action="/user/check_upload" method="post" enctype="multipart/form-data">
             <div class="mdl-card__supporting-text mdl-grid--no-spacing">
-                <div class="mdl-cell--12-col mdl-textfield mdl-js-textfield mdl-textfield--floating-label userform">
-                    <input class="mdl-textfield__input" type="text" id="fach_title" name="fach_title">
-                    <label class="mdl-textfield__label" for="fach_title">Name des Fachs*</label>
-                </div>
                 <select class="mdl-cell--12-col klassen_select"
                         name="klassen_select"
                         id="klassen_select">
@@ -27,6 +23,20 @@
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($klasse->id) . '" selected="selected">' . $klasse->name . '</option>';
                         } else {
                             echo '<option value="' . rawurlencode($klasse->id) . '">' . $klasse->name . '</option>';
+                        }
+                    }
+                    ?>
+                </select>
+                <select class="mdl-cell--12-col fach_select"
+                        name="fach_select"
+                        id="fach_select">
+                    <?php
+                    echo '<option value="">Fach wählen..*</option>';
+                    foreach ($faecher as $fach) {
+                        if (!empty($_POST['fach_select']) && rawurldecode($_POST['fach_select']) == $fach->id) {
+                            echo '<option class="mdl-menu__item" value="' . rawurlencode($fach->id) . '" selected="selected">' . $fach->titel . '</option>';
+                        } else {
+                            echo '<option value="' . rawurlencode($fach->id) . '">' . $fach->titel . '</option>';
                         }
                     }
                     ?>
