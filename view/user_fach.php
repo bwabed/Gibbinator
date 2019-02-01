@@ -54,7 +54,7 @@
             <div class="mdl-card__actions mdl-card--border send-button">
                 <button class="mdl-button mdl-js-ripple-effect mdl-js-button mdl-button--raised mdl-button--colored"
                         id="create">
-                    Fach erstellen
+                    Fach speichern
                 </button>
             </div>
         </form>
