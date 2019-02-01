@@ -253,13 +253,13 @@
 
                         var selectedFaecher = [];
 
-                        $('table#klassen_table tbody tr td:first-child input').each(function (index, value) {
+                        $('table#faecher_table tbody tr td:first-child input').each(function (index, value) {
                             if (value.checked) {
                                 selectedFaecher.push($(value).parent().parent().parent().data('id'));
                             }
                         });
 
-                        if (selectedUsers.length != 0) {
+                        if (selectedFaecher.length != 0) {
                             $.post("/user/delete_selected_faecher", {faecher: selectedFaecher})
                                 .done(function (data) {
                                     'use strict';
