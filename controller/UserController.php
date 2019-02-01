@@ -790,6 +790,18 @@ class UserController
         }
     }
 
+    public function delete_selected_faecher()
+    {
+        $fachModel = new FachModel();
+        if (isset($_POST['faecher']) && !empty($_POST['faecher']) && $_SESSION['userType']['id'] == 2) {
+            foreach ($_POST['faecher'] as $fach) {
+                $fachModel->deleteById($fach);
+            }
+        }
+        $this->message = ['Fächer gelöscht'];
+        $this->klassen();
+    }
+
     public function create_message()
     {
         if (!empty($_POST['new_title']) && !empty($_POST['new_message_text'])) {
