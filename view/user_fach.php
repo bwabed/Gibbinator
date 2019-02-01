@@ -7,7 +7,7 @@
  */
 ?>
 <div class="mdl-layout__content mdl-grid">
-    <div class="mdl-card mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--8-col-desktop mdl-cell--4-offset-desktop mdl-shadow--2dp">
+    <div class="mdl-card mdl-cell mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--indigo-500">
             <h2 class="mdl-card__title-text mdl-color-text--white">Fach bearbeiten</h2>
         </div>
