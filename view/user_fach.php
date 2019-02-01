@@ -24,7 +24,7 @@
                     <?php
                     echo '<option value="">Lehrperson wählen..*</option>';
                     foreach ($lehrer as $row) {
-                        if (!empty($_POST['edit_fach_lp_select']) && rawurldecode($_POST['edit_fach_lp_select']) == $row->id) {
+                        if ((!empty($_POST['edit_fach_lp_select']) && rawurldecode($_POST['edit_fach_lp_select']) == $row->id) or $fach->lehrer_id == $row->id) {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '" selected="selected">' . $row->vorname . ' ' . $row->nachname . '</option>';
                         } else {
                             echo '<option class="mdl-menu__item" value="' . rawurlencode($row->id) . '">' . $row->vorname . ' ' . $row->nachname . '</option>';
