@@ -27,7 +27,7 @@
                     }
                     ?>
                 </select>
-                <a href="/user/klassen" target="_self" style="font-style: normal; text-decoration-color: black; color: black">Neues Fach erstellen</a>
+                <a href="/user/klassen" target="_self" style="font-style: normal; text-decoration-color: black; color: black; margin-bottom: 5px; margin-top: 5px">Neues Fach erstellen</a>
                 <select class="mdl-cell--12-col zimmer_select"
                         name="zimmer_select"
                         id="zimmer_select">
