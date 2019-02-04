@@ -2,7 +2,7 @@
 IDPA-Projekt - Gibbinator by Dimitri, Petar und David
 
 ## Produkt
-Es handelt sich um eine Managementwebsite für Schulen.
+Es handelt sich um eine Managementwebsite für Schulen. Es soll die Kommunikation zwischen Lehrpersonen und Lernenden erleichtert werden. Zudem soll die Verteilung des Semesterplans digital über diese Plattform laufen
 
 ## Funktionen
 ### Admin
