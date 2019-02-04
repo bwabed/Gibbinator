@@ -58,7 +58,7 @@ $endTime = strtotime($date->end_time);
                 } elseif (!empty($klasse->name) && empty($fach->titel)) {
                     echo 'Von: ' . $user->email . ' -> ' . $klasse->name;
                 } elseif (empty($klasse->name) && !empty($fach->titel)) {
-                    echo 'Von: ' . $user->email . ' -> ' . 'Alle';
+                    echo 'Von: ' . $user->email . ' -> ' . $fach->titel;
                 }
                 echo '</h6>
 </div><div class="mdl-card__supporting-text">';
