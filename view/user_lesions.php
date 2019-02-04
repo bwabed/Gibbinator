@@ -130,27 +130,27 @@
             foreach ($lektionen as $lektion) {
                 if ($lektion->date_id == $date->id) {
                     $lesion = $lektion;
-                }
-                foreach ($zimmer as $room) {
-                    if ($room->id == $lektion->zimmer) {
-                        $inZimmer = $room;
-                    }
-                }
-                foreach ($faecher as $fachRow) {
-                    if ($lektion->fach_id == $fachRow->id) {
-                        $fach = $fachRow;
-                        foreach ($profs as $prof) {
-                            if ($prof->id == $fach->lehrer_id) {
-                                $profEmail = $prof->email;
-                            }
-                        }
-                        foreach ($klassen as $klasse) {
-                            if ($klasse->id == $fach->klassen_id) {
-                                $klasenName = $klasse->name;
-                            }
+                    foreach ($zimmer as $room) {
+                        if ($room->id == $lektion->zimmer) {
+                            $inZimmer = $room;
                         }
                     }
+                    foreach ($faecher as $fachRow) {
+                        if ($lektion->fach_id == $fachRow->id) {
+                            $fach = $fachRow;
+                            foreach ($profs as $prof) {
+                                if ($prof->id == $fach->lehrer_id) {
+                                    $profEmail = $prof->email;
+                                }
+                            }
+                            foreach ($klassen as $klasse) {
+                                if ($klasse->id == $fach->klassen_id) {
+                                    $klasenName = $klasse->name;
+                                }
+                            }
+                        }
 
+                    }
                 }
             }
             $dateString = strtotime($date->start_date);
