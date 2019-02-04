@@ -31,8 +31,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/controller/UserController.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="833">
-                  <caret line="840" column="52" lean-forward="true" selection-start-line="840" selection-start-column="52" selection-end-line="840" selection-end-column="52" />
+                <state relative-caret-position="339">
+                  <caret line="399" column="82" selection-start-line="399" selection-start-column="82" selection-end-line="399" selection-end-column="82" />
                   <folding>
                     <element signature="e#287#339#0#PHP" />
                     <element signature="n#__construct#0;n#UserController#0;n#!!top" />
@@ -88,21 +88,6 @@
                     <element signature="e#10607#10675#0#PHP" />
                     <element signature="n#edit_lesion#0;n#UserController#0;n#!!top" />
                     <element signature="n#update_lesion#0;n#UserController#0;n#!!top" />
-                    <element signature="n#lesions#0;n#UserController#0;n#!!top" />
-                    <element signature="e#14403#16882#0#PHP" />
-                    <element signature="e#14574#14708#0#PHP" />
-                    <element signature="e#14808#14892#0#PHP" />
-                    <element signature="e#14905#15024#0#PHP" />
-                    <element signature="e#15182#15327#0#PHP" />
-                    <element signature="e#15340#15444#0#PHP" />
-                    <element signature="e#15457#15565#0#PHP" />
-                    <element signature="e#15770#15883#0#PHP" />
-                    <element signature="e#15896#16095#0#PHP" />
-                    <element signature="e#16140#16223#0#PHP" />
-                    <element signature="e#16236#16355#0#PHP" />
-                    <element signature="e#16434#16579#0#PHP" />
-                    <element signature="e#16592#16696#0#PHP" />
-                    <element signature="e#16709#16817#0#PHP" />
                     <element signature="n#edit_klasse#0;n#UserController#0;n#!!top" />
                     <element signature="e#17138#18962#0#PHP" />
                     <element signature="e#17309#17508#0#PHP" />
@@ -209,7 +194,7 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/view/user_lesions.php">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="678">
+                <state relative-caret-position="1530">
                   <caret line="102" column="69" selection-start-line="102" selection-start-column="69" selection-end-line="102" selection-end-column="69" />
                 </state>
               </provider>
@@ -450,7 +435,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="266739000" />
+    <option name="totallyTimeSpent" value="267091000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
@@ -812,7 +797,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/view/user_lesions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="678">
+        <state relative-caret-position="1530">
           <caret line="102" column="69" selection-start-line="102" selection-start-column="69" selection-end-line="102" selection-end-column="69" />
         </state>
       </provider>
@@ -826,8 +811,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="840" column="52" lean-forward="true" selection-start-line="840" selection-start-column="52" selection-end-line="840" selection-end-column="52" />
+        <state relative-caret-position="339">
+          <caret line="399" column="82" selection-start-line="399" selection-start-column="82" selection-end-line="399" selection-end-column="82" />
           <folding>
             <element signature="e#287#339#0#PHP" />
             <element signature="n#__construct#0;n#UserController#0;n#!!top" />
@@ -883,21 +868,6 @@
             <element signature="e#10607#10675#0#PHP" />
             <element signature="n#edit_lesion#0;n#UserController#0;n#!!top" />
             <element signature="n#update_lesion#0;n#UserController#0;n#!!top" />
-            <element signature="n#lesions#0;n#UserController#0;n#!!top" />
-            <element signature="e#14403#16882#0#PHP" />
-            <element signature="e#14574#14708#0#PHP" />
-            <element signature="e#14808#14892#0#PHP" />
-            <element signature="e#14905#15024#0#PHP" />
-            <element signature="e#15182#15327#0#PHP" />
-            <element signature="e#15340#15444#0#PHP" />
-            <element signature="e#15457#15565#0#PHP" />
-            <element signature="e#15770#15883#0#PHP" />
-            <element signature="e#15896#16095#0#PHP" />
-            <element signature="e#16140#16223#0#PHP" />
-            <element signature="e#16236#16355#0#PHP" />
-            <element signature="e#16434#16579#0#PHP" />
-            <element signature="e#16592#16696#0#PHP" />
-            <element signature="e#16709#16817#0#PHP" />
             <element signature="n#edit_klasse#0;n#UserController#0;n#!!top" />
             <element signature="e#17138#18962#0#PHP" />
             <element signature="e#17309#17508#0#PHP" />

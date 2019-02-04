@@ -379,6 +379,7 @@ class UserController
         $dates = array();
         $zimmer = array();
         $klassenIds = array();
+        $klassen = array();
 
         if ($_SESSION['userType']['id'] == 2) {
 
@@ -395,7 +396,9 @@ class UserController
             if (!empty($fachIds)) {
                 $lektionen = $lektionenModel->get_lektionen_by_faecher($fachIds);
             }
-            $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            if (!empty($klassenIds)) {
+                $klassen = $klassenModel->get_multiple_klassen_by_id($klassenIds);
+            }
             $dateIds = array();
             $zimmerIds = array();
             foreach ($lektionen as $lektion) {
@@ -505,7 +508,8 @@ class UserController
         }
     }
 
-    public function edit_fach() {
+    public function edit_fach()
+    {
         $view = new View('user_fach');
 
         $fachModel = new FachModel();
@@ -521,7 +525,8 @@ class UserController
         $view->display();
     }
 
-    public function update_fach() {
+    public function update_fach()
+    {
         $fachModel = new FachModel();
         if (!empty($_POST['edit_fachtitle']) && !empty($_POST['edit_fach_lp_select']) && !empty($_POST['klassen_select'])) {
             $fachModel->updateFach(htmlspecialchars($_POST['edit_fachtitle']), $_POST['klassen_select'], $_POST['edit_fach_lp_select'], $_POST['fach_id']);
@@ -818,7 +823,8 @@ class UserController
         }
     }
 
-    public function delete_selected_faecher() {
+    public function delete_selected_faecher()
+    {
         $fachModel = new FachModel();
         if (isset($_POST['faecher']) && !empty($_POST['faecher']) && $_SESSION['userType']['id'] == 2) {
             foreach ($_POST['faecher'] as $fach) {
@@ -829,7 +835,8 @@ class UserController
         $this->klassen();
     }
 
-    public function delete_selected_lesions() {
+    public function delete_selected_lesions()
+    {
 
         $lektionModel = new LektionenModel();
         $dateModel = new DatesModel();
