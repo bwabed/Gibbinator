@@ -830,7 +830,7 @@ class UserController
     }
 
     public function delete_selected_lesions() {
-        $lektionModel = new FachModel();
+        $lektionModel = new LektionenModel();
         if (isset($_POST['lesions']) && !empty($_POST['lesions']) && $_SESSION['userType']['id'] == 2) {
             foreach ($_POST['lesions'] as $lektion) {
                 $lektionModel->deleteById($lektion);
