@@ -8,7 +8,7 @@
 ?>
 <div class="mdl-cell mdl-card mdl-card-form mdl-shadow--2dp mdl-cell--12-col">
     <div class="mdl-card__title mdl-color--indigo-500">
-        <h1 class="mdl-card__title-text mdl-color-text--white">Edit Profile</h1>
+        <h1 class="mdl-card__title-text mdl-color-text--white">Profil bearbeiten</h1>
     </div>
     <div class="mdl-grid">
         <div class="mdl-card mdl-cell mdl-cell--1-offset mdl-cell--5-col mdl-cell--4-col-tablet mdl-cell--4-col-phone mdl-card-form mdl-shadow--2dp">
