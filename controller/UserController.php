@@ -839,10 +839,13 @@ class UserController
     {
 
         $lektionModel = new LektionenModel();
+        $dateModel = new DatesModel();
 
         if (isset($_POST['lesions']) && !empty($_POST['lesions']) && $_SESSION['userType']['id'] == 2) {
             foreach ($_POST['lesions'] as $lektion) {
+                $lesion = $lektionModel->readById($lektion);
                 $lektionModel->deleteById($lektion);
+                $dateModel->deleteById($lesion->date_id);
             }
         }
         $this->message = ['Lektionen gelöscht'];
