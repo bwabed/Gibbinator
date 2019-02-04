@@ -437,7 +437,7 @@ class UserController
                 $zimmerIds[] = $lektion->zimmer;
             }
             if (!empty($dateIds)) {
-                $dates = $dateModel->get_dates_with_ids($dateIds);
+                $dates = $dateModel->get_dates_with_ids_asc($dateIds);
             }
             if (!empty($zimmerIds)) {
                 $zimmer = $buildModel->get_rooms_by_ids($zimmerIds);
