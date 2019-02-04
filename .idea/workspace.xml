@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="79a58de1-f51a-449a-bf95-aef5943f2767" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="79a58de1-f51a-449a-bf95-aef5943f2767" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +27,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/UserController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="361">
-              <caret line="439" column="37" selection-start-line="439" selection-start-column="37" selection-end-line="439" selection-end-column="37" />
+            <state relative-caret-position="821">
+              <caret line="368" column="29" selection-start-line="368" selection-start-column="29" selection-end-line="368" selection-end-column="29" />
               <folding>
                 <element signature="e#287#339#0#PHP" />
                 <element signature="n#__construct#0;n#UserController#0;n#!!top" />
@@ -81,104 +79,25 @@
                 <element signature="e#9700#9819#0#PHP" />
                 <element signature="e#9864#9955#0#PHP" />
                 <element signature="e#9968#10091#0#PHP" />
-                <element signature="n#lesion_detail#0;n#UserController#0;n#!!top" />
-                <element signature="e#10507#10675#0#PHP" />
-                <element signature="e#10607#10675#0#PHP" />
                 <element signature="n#edit_lesion#0;n#UserController#0;n#!!top" />
                 <element signature="n#update_lesion#0;n#UserController#0;n#!!top" />
+                <element signature="n#lesions#0;n#UserController#0;n#!!top" />
                 <element signature="n#edit_klasse#0;n#UserController#0;n#!!top" />
-                <element signature="e#17138#18962#0#PHP" />
-                <element signature="e#17309#17508#0#PHP" />
-                <element signature="e#17363#17494#0#PHP" />
-                <element signature="e#17522#17770#0#PHP" />
-                <element signature="e#17624#17756#0#PHP" />
-                <element signature="e#18066#18172#0#PHP" />
-                <element signature="e#18185#18292#0#PHP" />
-                <element signature="e#18344#18437#0#PHP" />
-                <element signature="e#18450#18657#0#PHP" />
-                <element signature="e#18577#18657#0#PHP" />
                 <element signature="n#edit_fach#0;n#UserController#0;n#!!top" />
-                <element signature="e#19173#19393#0#PHP" />
                 <element signature="n#update_fach#0;n#UserController#0;n#!!top" />
-                <element signature="e#19510#19979#0#PHP" />
-                <element signature="e#19874#19979#0#PHP" />
                 <element signature="n#lehrer#0;n#UserController#0;n#!!top" />
-                <element signature="e#20370#20475#0#PHP" />
-                <element signature="e#20485#20672#0#PHP" />
                 <element signature="n#stud_klassen#0;n#UserController#0;n#!!top" />
-                <element signature="e#21218#21323#0#PHP" />
-                <element signature="e#21332#21537#0#PHP" />
-                <element signature="e#21574#21676#0#PHP" />
-                <element signature="e#21685#21785#0#PHP" />
                 <element signature="n#check_changePassword#0;n#UserController#0;n#!!top" />
-                <element signature="e#22059#24083#0#PHP" />
-                <element signature="e#22440#23956#0#PHP" />
-                <element signature="e#22622#22913#0#PHP" />
-                <element signature="e#22773#22913#0#PHP" />
-                <element signature="e#22931#23767#0#PHP" />
-                <element signature="e#23079#23566#0#PHP" />
-                <element signature="e#23142#23245#0#PHP" />
-                <element signature="e#23270#23356#0#PHP" />
-                <element signature="e#23381#23467#0#PHP" />
-                <element signature="e#23492#23544#0#PHP" />
-                <element signature="e#23585#23767#0#PHP" />
-                <element signature="e#23782#23956#0#PHP" />
-                <element signature="e#23967#24083#0#PHP" />
                 <element signature="n#index#0;n#UserController#0;n#!!top" />
-                <element signature="e#24620#26888#0#PHP" />
-                <element signature="e#24671#25483#0#PHP" />
-                <element signature="e#24874#24965#0#PHP" />
-                <element signature="e#24982#25104#0#PHP" />
-                <element signature="e#25121#25221#0#PHP" />
-                <element signature="e#25238#25355#0#PHP" />
-                <element signature="e#25496#26711#0#PHP" />
-                <element signature="e#25617#25735#0#PHP" />
-                <element signature="e#25752#25876#0#PHP" />
-                <element signature="e#25893#25984#0#PHP" />
-                <element signature="e#26001#26123#0#PHP" />
-                <element signature="e#26140#26289#0#PHP" />
-                <element signature="e#26306#26437#0#PHP" />
-                <element signature="e#26454#26571#0#PHP" />
-                <element signature="e#26724#26878#0#PHP" />
                 <element signature="n#edit_profile#0;n#UserController#0;n#!!top" />
-                <element signature="e#27204#27494#0#PHP" />
-                <element signature="e#27359#27494#0#PHP" />
                 <element signature="n#delete_selected_klassen#0;n#UserController#0;n#!!top" />
-                <element signature="e#27562#27887#0#PHP" />
-                <element signature="e#27656#27762#0#PHP" />
                 <element signature="n#klassen#0;n#UserController#0;n#!!top" />
-                <element signature="e#28160#28765#0#PHP" />
-                <element signature="e#28420#28512#0#PHP" />
-                <element signature="e#28525#28619#0#PHP" />
-                <element signature="e#28632#28755#0#PHP" />
                 <element signature="n#create_klasse#0;n#UserController#0;n#!!top" />
-                <element signature="e#29121#29595#0#PHP" />
-                <element signature="e#29174#29585#0#PHP" />
-                <element signature="e#29399#29585#0#PHP" />
                 <element signature="n#create_fach#0;n#UserController#0;n#!!top" />
-                <element signature="e#29689#30258#0#PHP" />
-                <element signature="e#29816#30248#0#PHP" />
-                <element signature="e#30064#30248#0#PHP" />
                 <element signature="n#create_message#0;n#UserController#0;n#!!top" />
-                <element signature="e#30713#31644#0#PHP" />
-                <element signature="e#30973#31113#0#PHP" />
-                <element signature="e#31126#31255#0#PHP" />
-                <element signature="e#31268#31366#0#PHP" />
                 <element signature="n#delete_selected_message#0;n#UserController#0;n#!!top" />
-                <element signature="e#31764#31998#0#PHP" />
-                <element signature="e#31875#31988#0#PHP" />
                 <element signature="n#check_upload#0;n#UserController#0;n#!!top" />
-                <element signature="e#32131#34154#0#PHP" />
-                <element signature="e#32556#34144#0#PHP" />
-                <element signature="e#32670#33954#0#PHP" />
-                <element signature="e#32743#33548#0#PHP" />
-                <element signature="e#32825#33494#0#PHP" />
-                <element signature="e#33268#33468#0#PHP" />
-                <element signature="e#33766#33954#0#PHP" />
-                <element signature="e#33969#34144#0#PHP" />
                 <element signature="n#upload_plan#0;n#UserController#0;n#!!top" />
-                <element signature="e#34252#34800#0#PHP" />
-                <element signature="e#34739#34800#0#PHP" />
                 <element signature="n#__destruct#0;n#UserController#0;n#!!top" />
               </folding>
             </state>
@@ -186,19 +105,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/view/user_lesions.php">
+        <entry file="file://$PROJECT_DIR$/view/user_lesion_detail.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="792">
-              <caret line="176" column="30" lean-forward="true" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/DatesModel.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="541">
-              <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+            <state relative-caret-position="720">
+              <caret line="60" column="71" selection-start-line="60" selection-start-column="71" selection-end-line="60" selection-end-column="71" />
+              <folding>
+                <element signature="n#style#0;n#h6#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -289,7 +202,6 @@
         <option value="$PROJECT_DIR$/controller/DefaultController.php" />
         <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/view/user_messages.php" />
-        <option value="$PROJECT_DIR$/view/user_lesion_detail.php" />
         <option value="$PROJECT_DIR$/view/user_index.php" />
         <option value="$PROJECT_DIR$/model/NachrichtenModel.php" />
         <option value="$PROJECT_DIR$/view/admin_edit_user.php" />
@@ -307,6 +219,7 @@
         <option value="$PROJECT_DIR$/controller/UserController.php" />
         <option value="$PROJECT_DIR$/model/DatesModel.php" />
         <option value="$PROJECT_DIR$/view/user_lesions.php" />
+        <option value="$PROJECT_DIR$/view/user_lesion_detail.php" />
       </list>
     </option>
   </component>
@@ -323,7 +236,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -368,6 +280,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -432,17 +345,18 @@
       <workItem from="1548671253725" duration="8592000" />
       <workItem from="1548713421943" duration="1047000" />
       <workItem from="1548946106575" duration="13037000" />
+      <workItem from="1549308576000" duration="312000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="268967000" />
+    <option name="totallyTimeSpent" value="269279000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1200" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11341853" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11448349" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -641,13 +555,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/view/user_lesion_detail.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1020">
-          <caret line="68" lean-forward="true" selection-start-line="68" selection-end-line="68" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/view/user_messages.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1830">
@@ -795,10 +702,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/DatesModel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/view/user_lesions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="176" column="30" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/controller/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="361">
-          <caret line="439" column="37" selection-start-line="439" selection-start-column="37" selection-end-line="439" selection-end-column="37" />
+        <state relative-caret-position="821">
+          <caret line="368" column="29" selection-start-line="368" selection-start-column="29" selection-end-line="368" selection-end-column="29" />
           <folding>
             <element signature="e#287#339#0#PHP" />
             <element signature="n#__construct#0;n#UserController#0;n#!!top" />
@@ -849,120 +770,37 @@
             <element signature="e#9700#9819#0#PHP" />
             <element signature="e#9864#9955#0#PHP" />
             <element signature="e#9968#10091#0#PHP" />
-            <element signature="n#lesion_detail#0;n#UserController#0;n#!!top" />
-            <element signature="e#10507#10675#0#PHP" />
-            <element signature="e#10607#10675#0#PHP" />
             <element signature="n#edit_lesion#0;n#UserController#0;n#!!top" />
             <element signature="n#update_lesion#0;n#UserController#0;n#!!top" />
+            <element signature="n#lesions#0;n#UserController#0;n#!!top" />
             <element signature="n#edit_klasse#0;n#UserController#0;n#!!top" />
-            <element signature="e#17138#18962#0#PHP" />
-            <element signature="e#17309#17508#0#PHP" />
-            <element signature="e#17363#17494#0#PHP" />
-            <element signature="e#17522#17770#0#PHP" />
-            <element signature="e#17624#17756#0#PHP" />
-            <element signature="e#18066#18172#0#PHP" />
-            <element signature="e#18185#18292#0#PHP" />
-            <element signature="e#18344#18437#0#PHP" />
-            <element signature="e#18450#18657#0#PHP" />
-            <element signature="e#18577#18657#0#PHP" />
             <element signature="n#edit_fach#0;n#UserController#0;n#!!top" />
-            <element signature="e#19173#19393#0#PHP" />
             <element signature="n#update_fach#0;n#UserController#0;n#!!top" />
-            <element signature="e#19510#19979#0#PHP" />
-            <element signature="e#19874#19979#0#PHP" />
             <element signature="n#lehrer#0;n#UserController#0;n#!!top" />
-            <element signature="e#20370#20475#0#PHP" />
-            <element signature="e#20485#20672#0#PHP" />
             <element signature="n#stud_klassen#0;n#UserController#0;n#!!top" />
-            <element signature="e#21218#21323#0#PHP" />
-            <element signature="e#21332#21537#0#PHP" />
-            <element signature="e#21574#21676#0#PHP" />
-            <element signature="e#21685#21785#0#PHP" />
             <element signature="n#check_changePassword#0;n#UserController#0;n#!!top" />
-            <element signature="e#22059#24083#0#PHP" />
-            <element signature="e#22440#23956#0#PHP" />
-            <element signature="e#22622#22913#0#PHP" />
-            <element signature="e#22773#22913#0#PHP" />
-            <element signature="e#22931#23767#0#PHP" />
-            <element signature="e#23079#23566#0#PHP" />
-            <element signature="e#23142#23245#0#PHP" />
-            <element signature="e#23270#23356#0#PHP" />
-            <element signature="e#23381#23467#0#PHP" />
-            <element signature="e#23492#23544#0#PHP" />
-            <element signature="e#23585#23767#0#PHP" />
-            <element signature="e#23782#23956#0#PHP" />
-            <element signature="e#23967#24083#0#PHP" />
             <element signature="n#index#0;n#UserController#0;n#!!top" />
-            <element signature="e#24620#26888#0#PHP" />
-            <element signature="e#24671#25483#0#PHP" />
-            <element signature="e#24874#24965#0#PHP" />
-            <element signature="e#24982#25104#0#PHP" />
-            <element signature="e#25121#25221#0#PHP" />
-            <element signature="e#25238#25355#0#PHP" />
-            <element signature="e#25496#26711#0#PHP" />
-            <element signature="e#25617#25735#0#PHP" />
-            <element signature="e#25752#25876#0#PHP" />
-            <element signature="e#25893#25984#0#PHP" />
-            <element signature="e#26001#26123#0#PHP" />
-            <element signature="e#26140#26289#0#PHP" />
-            <element signature="e#26306#26437#0#PHP" />
-            <element signature="e#26454#26571#0#PHP" />
-            <element signature="e#26724#26878#0#PHP" />
             <element signature="n#edit_profile#0;n#UserController#0;n#!!top" />
-            <element signature="e#27204#27494#0#PHP" />
-            <element signature="e#27359#27494#0#PHP" />
             <element signature="n#delete_selected_klassen#0;n#UserController#0;n#!!top" />
-            <element signature="e#27562#27887#0#PHP" />
-            <element signature="e#27656#27762#0#PHP" />
             <element signature="n#klassen#0;n#UserController#0;n#!!top" />
-            <element signature="e#28160#28765#0#PHP" />
-            <element signature="e#28420#28512#0#PHP" />
-            <element signature="e#28525#28619#0#PHP" />
-            <element signature="e#28632#28755#0#PHP" />
             <element signature="n#create_klasse#0;n#UserController#0;n#!!top" />
-            <element signature="e#29121#29595#0#PHP" />
-            <element signature="e#29174#29585#0#PHP" />
-            <element signature="e#29399#29585#0#PHP" />
             <element signature="n#create_fach#0;n#UserController#0;n#!!top" />
-            <element signature="e#29689#30258#0#PHP" />
-            <element signature="e#29816#30248#0#PHP" />
-            <element signature="e#30064#30248#0#PHP" />
             <element signature="n#create_message#0;n#UserController#0;n#!!top" />
-            <element signature="e#30713#31644#0#PHP" />
-            <element signature="e#30973#31113#0#PHP" />
-            <element signature="e#31126#31255#0#PHP" />
-            <element signature="e#31268#31366#0#PHP" />
             <element signature="n#delete_selected_message#0;n#UserController#0;n#!!top" />
-            <element signature="e#31764#31998#0#PHP" />
-            <element signature="e#31875#31988#0#PHP" />
             <element signature="n#check_upload#0;n#UserController#0;n#!!top" />
-            <element signature="e#32131#34154#0#PHP" />
-            <element signature="e#32556#34144#0#PHP" />
-            <element signature="e#32670#33954#0#PHP" />
-            <element signature="e#32743#33548#0#PHP" />
-            <element signature="e#32825#33494#0#PHP" />
-            <element signature="e#33268#33468#0#PHP" />
-            <element signature="e#33766#33954#0#PHP" />
-            <element signature="e#33969#34144#0#PHP" />
             <element signature="n#upload_plan#0;n#UserController#0;n#!!top" />
-            <element signature="e#34252#34800#0#PHP" />
-            <element signature="e#34739#34800#0#PHP" />
             <element signature="n#__destruct#0;n#UserController#0;n#!!top" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/DatesModel.php">
+    <entry file="file://$PROJECT_DIR$/view/user_lesion_detail.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="541">
-          <caret line="47" column="24" lean-forward="true" selection-start-line="47" selection-start-column="24" selection-end-line="47" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/view/user_lesions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="792">
-          <caret line="176" column="30" lean-forward="true" selection-start-line="176" selection-start-column="30" selection-end-line="176" selection-end-column="30" />
+        <state relative-caret-position="720">
+          <caret line="60" column="71" selection-start-line="60" selection-start-column="71" selection-end-line="60" selection-end-column="71" />
+          <folding>
+            <element signature="n#style#0;n#h6#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
