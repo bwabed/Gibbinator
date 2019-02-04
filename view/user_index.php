@@ -68,6 +68,7 @@
         <div id="messages">
             <?php
             foreach ($nachrichten as $nachricht) {
+                unset($fachName);
                 echo '<div style="border: grey; border-style: solid; border-radius: 5px; border-width: thin"><div class="mdl-card__title mdl-color--indigo-400">
                             <h6 class="mdl-card__title-text mdl-color-text--white" style="font-size: 10pt">';
                 foreach ($profs as $prof) {
