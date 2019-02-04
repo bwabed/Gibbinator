@@ -870,7 +870,7 @@ class UserController
 
     public function check_upload()
     {
-        if (!empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['klassen_select']) && !empty($_POST['zimmer_select']) && !empty($_POST['fach_select'])) {
+        if (!empty($_POST['start_time']) && !empty($_POST['end_time']) && !empty($_POST['zimmer_select']) && !empty($_POST['fach_select'])) {
             $uploadDir = 'data/uploads/';
             $uploadFile = $uploadDir . basename($_FILES['userfile']['name']);
             $lektionModel = new LektionenModel();
