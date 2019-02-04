@@ -62,6 +62,7 @@ $endTime = strtotime($date->end_time);
                 }
                 echo '</h6>
 </div><div class="mdl-card__supporting-text">';
+                echo '<h6>' . $nachricht->titel . '</h6>';
                 echo nl2br($nachricht->text);
                 echo '</div><div class="mdl-card__supporting-text" style="font-style: italic">
                     ' . date('d.m.Y', strtotime($nachricht->erstellt_am)) . '
