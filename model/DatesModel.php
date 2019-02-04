@@ -35,7 +35,7 @@ class DatesModel extends Model
 
     public function get_dates_with_ids_asc($dateIDs) {
         $inDates = rtrim(str_repeat('?,', count($dateIDs)), ',');
-        $query = "SELECT * FROM $this->tableName WHERE id IN ($inDates) ORDER BY (start_date) ASC";
+        $query = "SELECT * FROM $this->tableName WHERE id IN ($inDates) ORDER BY (start_date) ASC, (start_time) ASC";
         $statement = ConnectionHandler::getConnection()->prepare($query);
         $statement = $this->DynamicBindVariables($statement, $dateIDs);
         $statement->execute();
