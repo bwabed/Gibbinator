@@ -74,11 +74,13 @@
     </header>
     <div class="mdl-layout__drawer mdl-color--grey-700 mdl-color-text--white">
         <?php if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+            $email = $_SESSION['user']['name'];
+            $charPos = strpos($email, '@');
             echo '<header class="mdl-drawer-header mdl-color--indigo-500" id="loggedin">
                 <img src="/view/images/gibb_logo.svg.png" alt="Profile Image couldn\'t load..."
                      class="gibbinator-avatar">
                 <div class="gibbinator-avatar-dropdown">
-                    <span>Willkommen ' . $_SESSION['user']['name'] . '</span>
+                    <span>Willkommen ' . substr($email, 0, $charPos) . '</span>
                     <div class="mdl-layout-spacer"></div>
                     <button id="accbtn" class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon">
                         <i class="material-icons" role="presentation">arrow_drop_down</i>
