@@ -1,7 +1,7 @@
 <div class="mdl-layout__content mdl-grid">
     <div class="mdl-card mdl-cell mdl-cell--8-col-desktop mdl-cell--2-offset-desktop mdl-cell--12-col-tablet mdl-cell--12-col-phone mdl-shadow--2dp">
         <div class="mdl-card__title mdl-color--indigo-500">
-            <h2 class="mdl-card__title-text mdl-color-text--white">Lektion bearbeiten</h2>
+            <h2 class="mdl-card__title-text mdl-color-text--white">Lektion vom <?= date('d.m.Y', $date->start_date) ?> bearbeiten</h2>
         </div>
         <form method="post" action="/user/update_lesion">
             <div class="mdl-card__supporting-text">
