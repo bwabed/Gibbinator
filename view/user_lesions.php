@@ -89,6 +89,7 @@
                     // Falls dieser Array nicht leer ist schickt sie den Array an die Funktion add_cards_to_cart im UserController. Sonst gibt sie eine Fehlermeldung zurück.
                     $(document).ready(function () {
                         $('#delete_button').click(function (e) {
+                            e.preventDefault();
 
                             var selectedLesions = [];
 
@@ -99,16 +100,16 @@
                             });
 
                             if (selectedLesions.length != 0) {
-                                $.post("/user/delete_selected_lesion", {lesions: selectedLesions})
+                                $.post("/user/delete_selected_lesions", {lesions: selectedLesions})
                                     .done(function (data) {
                                         'use strict';
                                         var snackbarContainer = document.querySelector('#snackbar');
-                                        var data = {message: 'Benutzer erfolgreich gelöscht.'};
+                                        var data = {message: 'Lektionen erfolgreich gelöscht.'};
                                         snackbarContainer.MaterialSnackbar.showSnackbar(data);
                                     });
                             } else {
                                 var snackbarContainer = document.querySelector('#snackbar');
-                                var data = {message: 'Bitte mindestens ein Benutzer wählen!'};
+                                var data = {message: 'Bitte mindestens eine Lektion wählen!'};
                                 snackbarContainer.MaterialSnackbar.showSnackbar(data);
                             }
 

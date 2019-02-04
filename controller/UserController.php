@@ -818,8 +818,7 @@ class UserController
         }
     }
 
-    public function delete_selected_faecher()
-    {
+    public function delete_selected_faecher() {
         $fachModel = new FachModel();
         if (isset($_POST['faecher']) && !empty($_POST['faecher']) && $_SESSION['userType']['id'] == 2) {
             foreach ($_POST['faecher'] as $fach) {
@@ -828,6 +827,17 @@ class UserController
         }
         $this->message = ['Fächer gelöscht'];
         $this->klassen();
+    }
+
+    public function delete_selected_lesions() {
+        $lektionModel = new FachModel();
+        if (isset($_POST['lesions']) && !empty($_POST['lesions']) && $_SESSION['userType']['id'] == 2) {
+            foreach ($_POST['lesion'] as $lektion) {
+                $lektionModel->deleteById($lektion);
+            }
+        }
+        $this->message = ['Lektionen gelöscht'];
+        $this->lesions();
     }
 
     public function create_message()
