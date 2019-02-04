@@ -44,14 +44,14 @@
                         if ($fach->id == $lektion->fach_id) {
                             foreach ($klassen as $klasse) {
                                 if ($fach->klassen_id == $klasse->id) {
-                                    $klasenName = $klasse->name;
+                                    $klassenName = $klasse->name;
                                 }
                             }
                             echo $fach->titel;
                         }
                     }
                     echo '</td>
-          <td>' . $klasenName . '</td>
+          <td>' . $klassenName . '</td>
           <td style="text-align: left">' . nl2br($lektion->programm_themen) . '</td>
           <td style="text-align: left">' . nl2br($lektion->termine_aufgaben) . '</td>
           <td>';
@@ -141,11 +141,12 @@
                             foreach ($profs as $prof) {
                                 if ($prof->id == $fach->lehrer_id) {
                                     $profEmail = $prof->email;
+                                    $profName = $prof->vorname . ' ' . $prof->nachname;
                                 }
                             }
                             foreach ($klassen as $klasse) {
                                 if ($klasse->id == $fach->klassen_id) {
-                                    $klasenName = $klasse->name;
+                                    $klassenName = $klasse->name;
                                 }
                             }
                         }
@@ -170,12 +171,13 @@
                         Lektion <?= $fach->titel . ', ' . date('d.m.Y', $dateString) . ', ' . date('H:i', $startTime) . ' - ' . date('H:i', $endTime) ?>
                         <?php
                         if ($_SESSION['userType']['id'] == 3) {
-                            echo '<br/>Lehrperson: ' . $profEmail . '</h6></br>';
+                            echo '<br/>Lehrperson: ' . $profName;
                         }
                         ?>
-                        <h5 class="mdl-card__subtitle-text"><?= $klasenName ?></h5>
+                    </h6></br>
                 </div>
                 <div class="mdl-card__supporting-text">
+                    <h5 class="mdl-card__subtitle-text"><?= $klassenName ?></h5>
                     <?php
                     if ($lesion->programm_themen != null) {
                         echo '<h5>Programm und Themen</h5>';
