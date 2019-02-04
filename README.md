@@ -18,6 +18,6 @@ Es handelt sich um eine Managementwebsite für Schulen. Es soll die Kommunikatio
 * In der Startansicht erhält der Benutzer einen Kalender in der Wochenansicht.
 * Es wird angezeigt welcher Tag und welche Uhrzeit gerade ist (Now-Indicator).
 * Auf der Startseite werden die ersten 6 Nachrichten, nach Datum absteigent sortiert angezeigt.
-* In der Nachrichten Ansicht hat der Benutzer alle Nachrichten, die ihn betreffen aufgelistet.
+* In der Nachrichtenansicht hat der Benutzer alle Nachrichten, die ihn betreffen aufgelistet.
 * Der Benutzer hat eine Übersicht mit allen Lektionen in einer Tabelle und den nächsten 6 in Detailansicht.
 * Der Benutzer kann auf eine Klassen- und eine Lehrerliste zugreiffen. In der Klassenliste sieht er seine Klassen und die Mitglieder dieser Klassen. In der Lehrerliste erhält er einen üUberblick auf alle Lehrpersonen, mit denen er Fächer oder Lektionen hat und deren Kontaktdaten.
