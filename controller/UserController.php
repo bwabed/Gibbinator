@@ -184,7 +184,7 @@ class UserController
 
     public function update_message()
     {
-        if (!empty($_POST['edit_title']) && !empty($_POST['edit_message_text']) && !empty($_POST['edit_nachricht_id'])) {
+        if (!empty($_POST['edit_title']) && !empty($_POST['edit_message_text']) && !empty($_POST['nachricht_id'])) {
             $nachrichtenModel = new NachrichtenModel();
             $klasse = null;
             $lektion = null;
