@@ -1,0 +1,115 @@
+#calendar {
+    width: 98%;
+    display: block;
+    margin: 10px auto;
+}
+
+#view-source {
+    position: fixed;
+    display: block;
+    right: 0;
+    bottom: 0;
+    margin-right: 40px;
+    margin-bottom: 40px;
+    z-index: 900;
+}
+
+.mdl-drawer-header {
+    box-sizing: border-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-justify-content: flex-end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    padding: 16px;
+    height: 151px;
+}
+
+.mdl-layout__drawer {
+    border: none;
+}
+
+.gibbinator-avatar {
+    width: 100px;
+    height: 48px;
+    border-radius: 2px;
+    margin-bottom: 10px;
+}
+
+#loggedin {
+    height: 117px;
+}
+
+#users_table {
+    margin-top: 10px;
+}
+
+a.addUserButton {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+}
+
+.mdl-card--border {
+    margin-top: 10px;
+}
+
+.picture {
+    display: inline-block;
+    max-width: 15px;
+    max-height: 10px;
+}
+
+.copyright_link {
+    color: white;
+    margin-bottom: 16px;
+    margin-left: 10px;
+}
+
+footer {
+    height: 20px;
+}
+
+.gibbinator-avatar-dropdown {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    position: relative;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: 100%;
+}
+
+html, body {
+    height: 100%;
+}
+
+.mdl-mini-footer {
+    margin-left: 240px;
+}
+
+@media screen and (max-width: 1024px) {
+    .mdl-mini-footer {
+        margin-left: 0;
+    }
+}
+@media screen and (max-width: 1200px) {
+    .customTable {
+        overflow-x: scroll;
+        display: block;
+    }
+}
