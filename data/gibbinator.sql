@@ -192,7 +192,7 @@ CREATE TABLE IF NOT EXISTS `usertype` (
 --
 
 INSERT INTO `usertype` (`id`, `bezeichnung`) VALUES
-(1, 'Admi'),
+(1, 'Admin'),
 (2, 'Lehrperson'),
 (3, 'Student');
 
