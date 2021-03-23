@@ -26,18 +26,6 @@ Es handelt sich um eine Managementwebsite für Schulen. Es soll die Kommunikatio
 
 Willkommen beim MVC des Bbc. In diesem Repository findest du den Code sowie eine Anleitung dazu.
 
-## Aufbau
-
-Über verschiedene Branches wird das MVC Framework Schritt für Schritt aufgebaut und auf der letzten Branch findest du dann das vollständige Framework mit ein Paar Beispielseiten. Hier ein kleiner Überblick.
-
-| Reihenfolge | Branch      | Inhalt                                                          |
-|-------------|-------------|-----------------------------------------------------------------|
-|             | master      | Einleitung                                                      |
-| 1           | controller  | Grundsetup. Dispatcher und Controller                           |
-| 2           | view        | Alles zum Thema HTML                                            |
-| 3           | model       | Dann noch die Werkzeuge für den Datenbankzugriff                |
-| 4           | formbuilder | Für alle die noch nicht genug haben, noch ein Formulargenerator |
-
 ## Installation unter Windows
 
 ### Vorbereitung
